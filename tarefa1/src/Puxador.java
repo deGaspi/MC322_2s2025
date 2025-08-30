@@ -1,17 +1,17 @@
 import java.util.Random;
 
-public class Músico extends Herói{
+public class Puxador extends Herói{
     private int swing;
 
      Random random = new Random();
 
-    public Músico(String name, int LP, int strength, int level, int xp, int shakeness){
+    public Puxador(String name, int LP, int strength, int level, int xp, int shakeness){
         super(name, LP, strength, level, xp);
         this.swing = shakeness;
     }
 
     public String getClassName(){
-        return "Músico";
+        return "Puxador";
     }
 
     public int atacar(Personagem alvo){
