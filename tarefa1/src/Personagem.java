@@ -3,10 +3,22 @@ public abstract class Personagem {
     private Integer pontosDeVida;
     private Integer forca;
 
-    public Personagem(String name, Integer LP, Integer strength) {
-        this.nome = name;
-        this.pontosDeVida = LP;
-        this.forca = strength;
+    public Personagem(String nome, Integer pontosDeVida, Integer forca) {
+        this.nome = nome;
+        this.pontosDeVida = pontosDeVida;
+        this.forca = forca;
+    }
+
+    public String getNome() {
+        return this.nome;
+    }
+
+    public Integer getPontosDeVida() {
+        return this.pontosDeVida;
+    }
+
+    public Integer getForca() {
+        return this.forca;
     }
 
     public void receberDano(Integer dano) {
