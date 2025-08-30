@@ -1,24 +1,24 @@
 import java.util.Random;
 
-public class Dançarino extends Herói{
+public class Passista extends Herói{
     private int requebrado;
 
      Random random = new Random();
 
-    public Dançarino(String name, int LP, int strength, int level, int xp, int shakeness){
+    public Passista(String name, int LP, int strength, int level, int xp, int shakeness){
         super(name, LP, strength, level, xp);
         this.requebrado = shakeness;
     }
 
       public String getClassName(){
-        return "Dançarino";
+        return "Passista";
     }
 
     public int atacar(Personagem alvo){
         float dano = this.forca * (random.nextInt(3) + (random.nextInt(101) / 100));
         int n = alvo.receberDano(Math.round(dano));
         this.requebrado++;
-        System.out.println("Conselho dado " + n + " de dano");
+        System.out.println("Conselho dado, " + n + " de dano");
 
         return 1;
     }

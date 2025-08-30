@@ -14,7 +14,7 @@ public class Imperialista extends Monstro{
     public int atacar(Personagem alvo){
         float dano = this.forca * (random.nextInt(3) + (random.nextInt(101) / 100));
         int n = alvo.receberDano(Math.round(dano));
-        System.out.println("Imperialista ataca a produção nacional causando " + n + " de dano");
+        System.out.println("Imperialista avança o lobby para privatizar o carnaval " + n + " de dano");
 
         return 1;
     }
