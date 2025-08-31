@@ -11,11 +11,10 @@ public class Puxador extends Herói{
     }
 
     public int atacar(Personagem alvo){
-        float dano = this.forca * (random.nextInt(3) + (random.nextInt(101) / 100));
-        int n = alvo.receberDano(Math.round(dano));
+        System.out.println("Bumbum, Paticumbum, Prugurundum");
+        float dano = this.getForca() * (random.nextInt(3) + (random.nextInt(101) / 100));
+        alvo.receberDano(Math.round(dano));
         this.swing++;
-        System.out.println("Bumbum, Paticumbum, Prugurundum " + n + " de dano");
-
         return 1;
     }
 
@@ -24,13 +23,10 @@ public class Puxador extends Herói{
             System.out.println("Swing zerado");
             return 0;
         }
-        float resultado = Math.round((float) (Math.pow(1.2, this.swing) - Math.pow(1.15, this.swing) + 1));
-
-        this.forca += resultado / 2;
-        this.pontosDeVida += resultado;
-
-        System.out.println("Esperança reconquistada: " + this.forca + this.pontosDeVida);
-
+        int resultado = Math.round((float) (Math.pow(1.2, this.swing) - Math.pow(1.15, this.swing) + 1));
+        System.out.println("Esperança reconquistada");
+        this.receberForca(resultado / 2);
+        this.receberCura(resultado);
         return 1;
     }
 

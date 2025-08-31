@@ -12,10 +12,10 @@ public class Passista extends Herói{
 
 
     public int atacar(Personagem alvo){
-        float dano = this.forca * (random.nextInt(3) + (random.nextInt(101) / 100));
-        int n = alvo.receberDano(Math.round(dano));
+        System.out.println("Conselho dado");
+        float dano = this.getForca() * (random.nextInt(3) + (random.nextInt(101) / 100));
+        alvo.receberDano(Math.round(dano));
         this.requebrado++;
-        System.out.println("Conselho dado, " + n + " de dano");
         return 1;
     }
     

@@ -8,8 +8,8 @@ public abstract class Personagem {
     }
 
     private String nome;
-    public int pontosDeVida;
-    public int forca;
+    private int pontosDeVida;
+    private int forca;
     private Classe classe;
 
     public Personagem(String name, int LP, int strength, Classe classe) {
@@ -31,6 +31,11 @@ public abstract class Personagem {
         System.out.println(this.classe.name() + " recebeu " + cura + "de cura");
     }
 
+    public void receberForca(int forca) {
+        this.forca += forca;
+        System.out.println(this.classe.name() + " ganha " + forca + " pontos de força");
+    }
+
     public void exibirStatus() {
         System.out.println("Nome: " + this.nome);
         System.out.println("Vida: " + this.pontosDeVida);
@@ -43,6 +48,10 @@ public abstract class Personagem {
 
     public int getPontosDeVida() {
         return this.pontosDeVida;
+    }
+
+    public int getForca() {
+        return this.forca;
     }
 
     public abstract int atacar(Personagem alvo);
