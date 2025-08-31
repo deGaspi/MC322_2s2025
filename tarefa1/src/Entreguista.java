@@ -6,20 +6,15 @@ public class Entreguista extends Monstro{  // Ele vai roubar vida do Herói ou d
     Random random = new Random();
 
     public Entreguista(String name, int LP, int strength, int xp, Imperialista imp){
-        super(name, LP, strength, xp);
+        super(name, LP, strength, xp, Classe.Entreguista);
         this.i = imp;
     }
 
-    public String getClassName(){
-        return "Entreguista";
-    }
-
     public int atacar(Personagem alvo){
-        float dano = this.forca * (random.nextInt(2) + (random.nextInt(101) / 100)) + 0.2f;
+        System.out.println("Entreguista privatiza vida de " + alvo.getClasse().name());
+        float dano = this.getForca() * (random.nextInt(2) + (random.nextInt(101) / 100)) + 0.2f;
         int n = alvo.receberDano(Math.round(dano));
-        i.pontosDeVida += n;
-        System.out.println("Entreguista privatiza " + n + " pontos de vida");
-
+        i.receberCura(n);
         return 1;
     }
 }

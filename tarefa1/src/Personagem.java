@@ -1,24 +1,39 @@
 public abstract class Personagem {
-    private String nome;
-    public int pontosDeVida;
-    public int forca;
+    public static enum Classe {
+        Passista,
+        Entreguista,
+        FalsoPatriota,
+        Puxador,
+        Imperialista,
+    }
 
-    public Personagem(String name, int LP, int strength) {
+    private String nome;
+    private int pontosDeVida;
+    private int forca;
+    private Classe classe;
+
+    public Personagem(String name, int LP, int strength, Classe classe) {
         this.nome = name;
         this.pontosDeVida = LP;
         this.forca = strength;
+        this.classe = classe;
     }
 
     public int receberDano(int dano) {
-        if(this.pontosDeVida - dano < 0){
-            int temp = this.pontosDeVida;
-            this.pontosDeVida = 0;
-            return temp;
-        }else{
-            this.pontosDeVida -= dano;
-            return dano;
-        }
-        
+        dano = Math.min(dano, this.pontosDeVida);
+        this.pontosDeVida -= dano;
+        System.out.println(this.classe.name() + " tomou " + dano + " de dano");
+        return dano;
+    }
+
+    public void receberCura(int cura) {
+        this.pontosDeVida += cura;
+        System.out.println(this.classe.name() + " recebeu " + cura + "de cura");
+    }
+
+    public void receberForca(int forca) {
+        this.forca += forca;
+        System.out.println(this.classe.name() + " ganha " + forca + " pontos de força");
     }
 
     public void exibirStatus() {
@@ -27,8 +42,17 @@ public abstract class Personagem {
         System.out.println("Força: " + this.forca);
     }
 
-    public abstract String getClassName();
-    public abstract int atacar(Personagem alvo);
+    public Classe getClasse() {
+        return this.classe;
+    }
 
-    //Toda função de ação retorna 0 ou 1 para contabilizar a passagem, ou não, do turno
+    public int getPontosDeVida() {
+        return this.pontosDeVida;
+    }
+
+    public int getForca() {
+        return this.forca;
+    }
+
+    public abstract int atacar(Personagem alvo);
 }
