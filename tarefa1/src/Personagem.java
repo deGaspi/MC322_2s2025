@@ -10,15 +10,9 @@ public abstract class Personagem {
     }
 
     public int receberDano(int dano) {
-        if(this.pontosDeVida - dano < 0){
-            int temp = this.pontosDeVida;
-            this.pontosDeVida = 0;
-            return temp;
-        }else{
-            this.pontosDeVida -= dano;
-            return dano;
-        }
-        
+        dano = Math.min(dano, this.pontosDeVida);
+        this.pontosDeVida -= dano;
+        return dano;
     }
 
     public void exibirStatus() {
