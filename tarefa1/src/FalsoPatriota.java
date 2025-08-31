@@ -10,9 +10,8 @@ public class FalsoPatriota extends Monstro{
 
     public int atacar(Personagem alvo){
         float dano = this.forca * (random.nextInt(2) + (random.nextInt(101) / 100));
-        int n = alvo.receberDano(Math.round(dano));
-        System.out.println("Falso Patriota atacou com música gringa causando " + n + " de dano");
-
+        System.out.println("Falso Patriota atacou com música gringa");
+        alvo.receberDano(Math.round(dano));
         return 1;
     }
 }

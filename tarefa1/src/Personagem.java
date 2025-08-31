@@ -22,7 +22,13 @@ public abstract class Personagem {
     public int receberDano(int dano) {
         dano = Math.min(dano, this.pontosDeVida);
         this.pontosDeVida -= dano;
+        System.out.println(this.classe.name() + " tomou " + dano + " de dano");
         return dano;
+    }
+
+    public void receberCura(int cura) {
+        this.pontosDeVida += cura;
+        System.out.println(this.classe.name() + " recebeu " + cura + "de cura");
     }
 
     public void exibirStatus() {
@@ -33,6 +39,10 @@ public abstract class Personagem {
 
     public Classe getClasse() {
         return this.classe;
+    }
+
+    public int getPontosDeVida() {
+        return this.pontosDeVida;
     }
 
     public abstract int atacar(Personagem alvo);

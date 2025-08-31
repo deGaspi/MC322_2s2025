@@ -11,11 +11,10 @@ public class Entreguista extends Monstro{  // Ele vai roubar vida do Herói ou d
     }
 
     public int atacar(Personagem alvo){
+        System.out.println("Entreguista privatiza vida de " + alvo.getClasse().name());
         float dano = this.forca * (random.nextInt(2) + (random.nextInt(101) / 100)) + 0.2f;
         int n = alvo.receberDano(Math.round(dano));
-        i.pontosDeVida += n;
-        System.out.println("Entreguista privatiza " + n + " pontos de vida");
-
+        i.receberCura(n);
         return 1;
     }
 }

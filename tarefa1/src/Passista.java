@@ -28,16 +28,14 @@ public class Passista extends Herói{
 
         switch (alvo.getClasse()) {
             case Classe.FalsoPatriota:
-                alvo.pontosDeVida = 0;
+                alvo.receberDano(alvo.getPontosDeVida());
                 System.out.println("Explodiu o coração do falso patriota");
                 break;
             case Classe.Entreguista:
                 alvo.receberDano(20);
-                System.out.println("Entreguista tomou 20 de dano");
                 break;
             case Classe.Imperialista:
                 alvo.receberDano(30);
-                System.out.println("Imperialista tomou 30 de dano");
                 break;
             default:
                 break;
