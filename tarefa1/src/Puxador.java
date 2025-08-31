@@ -1,9 +1,5 @@
-import java.util.Random;
-
 public class Puxador extends Herói{
     private int swing;
-
-     Random random = new Random();
 
     public Puxador(String name, int LP, int strength, int level, int xp, int shakeness){
         super(name, LP, strength, level, xp, Classe.Puxador);
@@ -12,9 +8,8 @@ public class Puxador extends Herói{
 
     public int atacar(Personagem alvo){
         System.out.println("Bumbum, Paticumbum, Prugurundum");
-        float dano = this.getForca() * (random.nextInt(3) + (random.nextInt(101) / 100));
-        alvo.receberDano(Math.round(dano));
         this.swing++;
+        super.atacar(alvo);
         return 1;
     }
 

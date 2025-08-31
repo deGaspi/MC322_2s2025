@@ -1,9 +1,5 @@
-import java.util.Random;
-
 public class Passista extends Herói{
     private int requebrado;
-
-     Random random = new Random();
 
     public Passista(String name, int LP, int strength, int level, int xp, int shakeness){
         super(name, LP, strength, level, xp, Classe.Passista);
@@ -13,9 +9,8 @@ public class Passista extends Herói{
 
     public int atacar(Personagem alvo){
         System.out.println("Conselho dado");
-        float dano = this.getForca() * (random.nextInt(3) + (random.nextInt(101) / 100));
-        alvo.receberDano(Math.round(dano));
         this.requebrado++;
+        super.atacar(alvo);
         return 1;
     }
     
