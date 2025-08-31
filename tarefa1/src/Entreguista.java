@@ -6,12 +6,8 @@ public class Entreguista extends Monstro{  // Ele vai roubar vida do Herói ou d
     Random random = new Random();
 
     public Entreguista(String name, int LP, int strength, int xp, Imperialista imp){
-        super(name, LP, strength, xp);
+        super(name, LP, strength, xp, Classe.Entreguista);
         this.i = imp;
-    }
-
-    public String getClassName(){
-        return "Entreguista";
     }
 
     public int atacar(Personagem alvo){

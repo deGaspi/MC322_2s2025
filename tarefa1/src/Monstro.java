@@ -1,8 +1,8 @@
 public abstract class Monstro extends Personagem{
     private int xpConcedido;
 
-    public Monstro(String name, int LP, int strength, int xp){
-        super(name, LP, strength);
+    public Monstro(String name, int LP, int strength, int xp, Classe classe){
+        super(name, LP, strength, classe);
         this.xpConcedido = xp;
     }
 

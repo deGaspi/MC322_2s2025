@@ -2,8 +2,8 @@ public abstract class Herói extends Personagem{
     private int nivel;
     private int experiencia;
     
-    public Herói (String name, int LP, int strength, int level, int xp){
-        super(name, LP, strength);
+    public Herói (String name, int LP, int strength, int level, int xp, Classe classe){
+        super(name, LP, strength, classe);
         this.nivel = level;
         this.experiencia = xp;
     }

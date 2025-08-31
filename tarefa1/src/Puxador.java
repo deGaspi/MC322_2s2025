@@ -6,12 +6,8 @@ public class Puxador extends Herói{
      Random random = new Random();
 
     public Puxador(String name, int LP, int strength, int level, int xp, int shakeness){
-        super(name, LP, strength, level, xp);
+        super(name, LP, strength, level, xp, Classe.Puxador);
         this.swing = shakeness;
-    }
-
-    public String getClassName(){
-        return "Puxador";
     }
 
     public int atacar(Personagem alvo){

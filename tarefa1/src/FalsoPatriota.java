@@ -5,11 +5,7 @@ public class FalsoPatriota extends Monstro{
     Random random = new Random();
 
     public FalsoPatriota(String name, int LP, int strength, int xp){
-        super(name, LP, strength, xp);
-    }
-
-    public String getClassName(){
-        return "FalsoPatriota";
+        super(name, LP, strength, xp, Classe.FalsoPatriota);
     }
 
     public int atacar(Personagem alvo){

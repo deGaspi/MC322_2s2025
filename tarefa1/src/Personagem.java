@@ -1,12 +1,22 @@
 public abstract class Personagem {
+    public static enum Classe {
+        Passista,
+        Entreguista,
+        FalsoPatriota,
+        Puxador,
+        Imperialista,
+    }
+
     private String nome;
     public int pontosDeVida;
     public int forca;
+    private Classe classe;
 
-    public Personagem(String name, int LP, int strength) {
+    public Personagem(String name, int LP, int strength, Classe classe) {
         this.nome = name;
         this.pontosDeVida = LP;
         this.forca = strength;
+        this.classe = classe;
     }
 
     public int receberDano(int dano) {
@@ -21,8 +31,9 @@ public abstract class Personagem {
         System.out.println("Força: " + this.forca);
     }
 
-    public abstract String getClassName();
-    public abstract int atacar(Personagem alvo);
+    public Classe getClasse() {
+        return this.classe;
+    }
 
-    //Toda função de ação retorna 0 ou 1 para contabilizar a passagem, ou não, do turno
+    public abstract int atacar(Personagem alvo);
 }
