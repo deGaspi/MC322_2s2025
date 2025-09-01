@@ -37,6 +37,6 @@ public abstract class Herói extends Personagem{
         return danoAplicado;
     }
 
-    public abstract int usarHabilidadeEspecial(Personagem alvo);
+    public abstract boolean usarHabilidadeEspecial(Personagem alvo);
 
 }

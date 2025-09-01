@@ -13,16 +13,16 @@ public class Puxador extends Herói{
         return 1;
     }
 
-    public int usarHabilidadeEspecial(Personagem alvo){
+    public boolean usarHabilidadeEspecial(Personagem alvo){
         if(this.swing <= 0){
             System.out.println("Swing zerado");
-            return 0;
+            return false;
         }
         int resultado = Math.round((float) (Math.pow(1.2, this.swing) - Math.pow(1.15, this.swing) + 1));
         System.out.println("Esperança reconquistada");
         this.receberForca(resultado / 2);
         this.receberCura(resultado);
-        return 1;
+        return true;
     }
 
     
