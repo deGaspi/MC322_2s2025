@@ -14,10 +14,10 @@ public class Passista extends Herói{
         return 1;
     }
     
-    public int usarHabilidadeEspecial(Personagem alvo){
+    public boolean usarHabilidadeEspecial(Personagem alvo){
         if (this.requebrado < 7){
             System.out.println("Requebrdo insuficiente");
-            return 0;
+            return false;
         }
         this.requebrado -= 7;
 
@@ -35,6 +35,6 @@ public class Passista extends Herói{
             default:
                 break;
         }
-        return 1;
+        return true;
     }
 }
