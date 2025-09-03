@@ -19,15 +19,17 @@ public abstract class Herói extends Personagem{
         if (this.experiencia >= 20) {
             this.nivel += this.experiencia / 20;
             this.experiencia %= 20;
-            System.out.println(this.getClasse().name() + "subiu para nível " + this.nivel);
+            System.out.println(this.getClasse().name() + " subiu para nível " + this.nivel);
         }
+        System.out.println();
     }
 
     @Override
     public void exibirStatus() {
         super.exibirStatus();
         System.out.println("Nível: " + nivel);
-        System.out.println("Nível: " + experiencia);
+        System.out.println("Experiência: " + experiencia);
+        System.out.println();
     }
 
     public int atacar(Personagem alvo) {

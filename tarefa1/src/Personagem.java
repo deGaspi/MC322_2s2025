@@ -28,7 +28,7 @@ public abstract class Personagem {
 
     public void receberCura(int cura) {
         this.pontosDeVida += cura;
-        System.out.println(this.classe.name() + " recebeu " + cura + "de cura");
+        System.out.println(this.classe.name() + " recebeu " + cura + " de cura");
     }
 
     public void receberForca(int forca) {
@@ -53,6 +53,11 @@ public abstract class Personagem {
     public int getForca() {
         return this.forca;
     }
+
+    public String getNome(){
+        return this.nome;
+    }
+
 
     public abstract int atacar(Personagem alvo);
 }
