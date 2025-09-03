@@ -7,7 +7,7 @@ public abstract class Monstro extends Personagem{
     }
 
     public int getXpConcedido() {
-        return this.xpConcedido;
+        return this.xpConcedido; 
     }
     
 }
