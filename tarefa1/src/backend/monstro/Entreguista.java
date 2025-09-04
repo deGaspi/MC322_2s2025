@@ -1,8 +1,8 @@
-package personagens.monstro;
+package backend.monstro;
 import java.util.Random;
 
-import io.Batalha;
-import personagens.Personagem;
+import backend.Batalha;
+import backend.Personagem;
 
 public class Entreguista extends Monstro{  // Ele vai roubar vida do Herói ou do Falso Patriota para entregar para o Imperialista
     private Imperialista imperialista;

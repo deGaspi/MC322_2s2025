@@ -1,12 +1,12 @@
-package personagens.heroi;
+package backend.heroi;
 
 import java.util.List;
 import java.util.Random;
 
-import io.Batalha;
-import io.Utils.enumDescription;
-import personagens.Personagem;
-import personagens.monstro.Monstro;
+import backend.Batalha;
+import backend.Personagem;
+import backend.monstro.Monstro;
+import frontend.Utils.enumDescription;
 
 public abstract class Herói extends Personagem {
     private int nivel;

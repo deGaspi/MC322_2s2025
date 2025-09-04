@@ -1,8 +1,8 @@
-package io.telas;
+package frontend.telas;
 
 import java.util.Scanner;
 
-import io.BoxedString;
+import frontend.BoxedString;
 
 // ╭───────────────────────────────────────────────────────────────────────────────────────────────────────╮
 // │                                                                                                       │

@@ -1,4 +1,4 @@
-package io;
+package frontend;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -7,6 +7,7 @@ public class Utils {
         String getDescription();
     }
 
+    // Gera uma tabela com os valores de um Enum.
     public static <T extends Enum<T> & enumDescription> List<String> enumToStrings(T[] options) {
         List<String> lista = new ArrayList<>();
         for (T option : options) {

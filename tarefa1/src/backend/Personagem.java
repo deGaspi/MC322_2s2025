@@ -1,9 +1,7 @@
-package personagens;
+package backend;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import io.Batalha;
 
 public abstract class Personagem {
     private String nome;

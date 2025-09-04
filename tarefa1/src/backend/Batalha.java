@@ -1,14 +1,14 @@
-package io;
+package backend;
 
 import java.util.Random;
 
-import io.telas.InspectionScreen;
-import io.telas.MsgScreen;
-import io.telas.RoundScreen;
-import personagens.heroi.Herói;
-import personagens.monstro.Entreguista;
-import personagens.monstro.Monstro;
-import io.telas.RoundScreen.Action;
+import backend.heroi.Herói;
+import backend.monstro.Entreguista;
+import backend.monstro.Monstro;
+import frontend.telas.InspectionScreen;
+import frontend.telas.MsgScreen;
+import frontend.telas.RoundScreen;
+import frontend.telas.RoundScreen.Action;
 
 public class Batalha {
     private Herói heroi;

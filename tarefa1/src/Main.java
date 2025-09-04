@@ -1,10 +1,10 @@
-import io.Batalha;
-import io.telas.ChooseHero;
-import io.telas.MsgScreen;
-import personagens.monstro.Entreguista;
-import personagens.monstro.FalsoPatriota;
-import personagens.monstro.Imperialista;
-import personagens.monstro.Monstro;
+import backend.Batalha;
+import backend.monstro.Entreguista;
+import backend.monstro.FalsoPatriota;
+import backend.monstro.Imperialista;
+import backend.monstro.Monstro;
+import frontend.telas.ChooseHero;
+import frontend.telas.MsgScreen;
 
 
 

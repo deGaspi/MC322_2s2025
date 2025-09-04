@@ -1,9 +1,9 @@
-package personagens.heroi;
+package backend.heroi;
 
 import java.util.List;
 
-import io.Batalha;
-import personagens.Personagem;
+import backend.Batalha;
+import backend.Personagem;
 
 public class Puxador extends Herói {
     private int swing;

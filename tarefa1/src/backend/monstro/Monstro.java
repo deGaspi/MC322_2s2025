@@ -1,8 +1,8 @@
-package personagens.monstro;
+package backend.monstro;
 
 import java.util.List;
 
-import personagens.Personagem;
+import backend.Personagem;
 
 public abstract class Monstro extends Personagem {
     private int xpConcedido;

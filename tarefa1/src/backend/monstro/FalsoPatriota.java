@@ -1,9 +1,9 @@
-package personagens.monstro;
+package backend.monstro;
 
 import java.util.Random;
 
-import io.Batalha;
-import personagens.Personagem;
+import backend.Batalha;
+import backend.Personagem;
 
 public class FalsoPatriota extends Monstro {
     private Random random = new Random();
