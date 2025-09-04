@@ -1,44 +1,65 @@
 package personagens.heroi;
 
-import personagens.Personagem;
+import java.util.List;
 
-public class Passista extends Herói{
+import io.Batalha;
+import personagens.Personagem;
+import personagens.monstro.Monstro;
+
+public class Passista extends Herói {
     private int requebrado;
 
-    public Passista(String name, int LP, int strength, int level, int xp, int shakeness){
-        super(name, LP, strength, level, xp, Classe.Passista);
+    public Passista(String name, int LP, int strength, int level, int xp, int shakeness) {
+        super(name, LP, strength, level, xp);
         this.requebrado = shakeness;
     }
 
-
-    public int atacar(Personagem alvo){
-        System.out.println("Conselho dado");
+    @Override
+    public boolean atacar(Personagem alvo) {
+        Batalha.addPostRoundMessage("Conselho dado.");
         this.requebrado++;
         super.atacar(alvo);
-        return 1;
-    }
-    
-    public boolean usarHabilidadeEspecial(Personagem alvo){
-        if (this.requebrado < 7){
-            System.out.println("Requebrdo insuficiente");
-            return false;
-        }
-        this.requebrado -= 7;
-
-        switch (alvo.getClasse()) {
-            case Classe.FalsoPatriota:
-                alvo.receberDano(alvo.getPontosDeVida());
-                System.out.println("Explodiu o coração do falso patriota");
-                break;
-            case Classe.Entreguista:
-                alvo.receberDano(20);
-                break;
-            case Classe.Imperialista:
-                alvo.receberDano(30);
-                break;
-            default:
-                break;
-        }
         return true;
     }
+
+    @Override
+    public boolean usarHabilidadeEspecial(Personagem alvo) {
+        if (alvo instanceof Monstro monstro) {
+            if (this.requebrado < 7) {
+                Batalha.addPostRoundMessage("Requebrdo insuficiente. Precisa ser maior que 7.");
+                return false;
+            }
+            this.requebrado -= 7;
+
+            switch (monstro.getTipo()) {
+                case FALSO_PATRIOTA:
+                    Batalha.addPostRoundMessage("Explodiu o coração do falso patriota");
+                    alvo.receberDano(alvo.getPontosDeVida());
+                    break;
+                case ENTREGUISTA:
+                    alvo.receberDano(20);
+                    break;
+                case IMPERIALISTA:
+                    alvo.receberDano(30);
+                    break;
+                default:
+                    break;
+            }
+            return true;
+        }
+        throw new RuntimeException(); // Classe abstrata permite usar habilidade em Heroi. Mas isso não faz sentido.
+    }
+
+    @Override
+    public heroEnum getTipo() {
+        return heroEnum.PASSISTA;
+    }
+
+    @Override
+    public List<String> getStatusList() {
+        var statusList = super.getStatusList();
+        statusList.add("Requebrado: " + requebrado);
+        return statusList;
+    }
+
 }

@@ -1,31 +1,44 @@
 package personagens.heroi;
+
+import java.util.List;
 import java.util.Random;
 
+import io.Batalha;
+import io.Utils.enumDescription;
 import personagens.Personagem;
 import personagens.monstro.Monstro;
 
-public abstract class Herói extends Personagem{
+public abstract class Herói extends Personagem {
     private int nivel;
     private int experiencia;
-    Random random = new Random();
-    
-    public Herói (String name, int LP, int strength, int level, int xp, Classe classe){
-        super(name, LP, strength, classe);
+    private Random random = new Random();
+
+    public Herói(String name, int LP, int strength, int level, int xp) {
+        super(name, LP, strength);
         this.nivel = level;
         this.experiencia = xp;
     }
 
-    public void ganharExperiencia(int x){
+    public abstract boolean usarHabilidadeEspecial(Personagem alvo); // retorna true se ataque faz turno acabar.
+
+    public void ganharExperiencia(int x) {
         float y = x * random.nextFloat() * 2;
         int z = Math.round(y);
-        System.out.println(this.getClasse().name() + " recebeu " + z + " pontos de experiência");
+        Batalha.addPostRoundMessage(this.getNome() + " recebeu " + z + " pontos de experiência.");
         this.experiencia += z;
         if (this.experiencia >= 20) {
             this.nivel += this.experiencia / 20;
             this.experiencia %= 20;
-            System.out.println(this.getClasse().name() + " subiu para nível " + this.nivel);
+            Batalha.addPostRoundMessage(this.getNome() + " subiu para nível " + this.nivel + ".");
         }
-        System.out.println();
+    }
+
+    @Override
+    public List<String> getStatusList() {
+        var statusList = super.getStatusList();
+        statusList.add("Nível: " + nivel);
+        statusList.add("Nível: " + experiencia);
+        return statusList;
     }
 
     @Override
@@ -33,18 +46,47 @@ public abstract class Herói extends Personagem{
         super.exibirStatus();
         System.out.println("Nível: " + nivel);
         System.out.println("Experiência: " + experiencia);
-        System.out.println();
     }
 
-    public int atacar(Personagem alvo) {
+    @Override
+    public boolean atacar(Personagem alvo) {
         float dano = (this.getForca() * random.nextFloat() * 2) + (this.nivel * 10);
-        int danoAplicado = alvo.receberDano(Math.round(dano));
+        alvo.receberDano(Math.round(dano));
         if (alvo instanceof Monstro monstro && monstro.getPontosDeVida() == 0) {
             this.ganharExperiencia(monstro.getXpConcedido());
         }
-        return danoAplicado;
+        return true;
     }
 
-    public abstract boolean usarHabilidadeEspecial(Personagem alvo);
+    public static enum heroEnum implements enumDescription {
+        // Enum para facilitar implementação futura de novos heróis. Basta alterar
+        // aqui, e não vários arquivos.
+        PASSISTA("Passista"),
+        PUXADOR("Puxador");
+
+        private final String description;
+
+        heroEnum(String description) {
+            this.description = description;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public Herói getDefaultInstance() {
+            switch (this) {
+                case PASSISTA:
+                    return new Passista("Valéria Valenssa", 25, 4, 0, 0, 0);
+                case PUXADOR:
+                    return new Puxador("Jamelão", 20, 4, 0, 0, 0);
+                default:
+                    throw new RuntimeException();
+            }
+        }
+    }
+
+    public abstract heroEnum getTipo(); // Para que lembrem de alterar o enum quando adicionarem outro heroi.
+
 
 }

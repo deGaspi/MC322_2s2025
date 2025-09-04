@@ -1,50 +1,38 @@
 package personagens;
-public abstract class Personagem {
-    public static enum Classe {
-        Passista,
-        Entreguista,
-        FalsoPatriota,
-        Puxador,
-        Imperialista,
-    }
 
+import java.util.ArrayList;
+import java.util.List;
+
+import io.Batalha;
+
+public abstract class Personagem {
     private String nome;
     private int pontosDeVida;
     private int forca;
-    private Classe classe;
 
-    public Personagem(String name, int LP, int strength, Classe classe) {
+    public Personagem(String name, int LP, int strength) {
         this.nome = name;
         this.pontosDeVida = LP;
         this.forca = strength;
-        this.classe = classe;
     }
+
+    public abstract boolean atacar(Personagem alvo); // retorna true se o ataque faz o turno acabar.
 
     public int receberDano(int dano) {
         dano = Math.min(dano, this.pontosDeVida);
         this.pontosDeVida -= dano;
-        System.out.println(this.classe.name() + " tomou " + dano + " de dano");
+        Batalha.addPostRoundMessage(this.nome + " recebeu " + dano + " pontos de dano.");
         return dano;
     }
 
     public void receberCura(int cura) {
         this.pontosDeVida += cura;
-        System.out.println(this.classe.name() + " recebeu " + cura + " de cura");
+        Batalha.addPostRoundMessage(this.nome + " recebeu " + cura + " pontos de vida.");
     }
 
     public void receberForca(int forca) {
         this.forca += forca;
-        System.out.println(this.classe.name() + " ganha " + forca + " pontos de força");
-    }
-
-    public void exibirStatus() {
-        System.out.println("Nome: " + this.nome);
-        System.out.println("Vida: " + this.pontosDeVida);
-        System.out.println("Força: " + this.forca);
-    }
-
-    public Classe getClasse() {
-        return this.classe;
+        Batalha.addPostRoundMessage(this.nome + " recebeu " + forca + " pontos de força.");
     }
 
     public int getPontosDeVida() {
@@ -59,6 +47,19 @@ public abstract class Personagem {
         return this.nome;
     }
 
+    // Usado no lugar de exibirStatus().
+    public List<String> getStatusList() { 
+        List<String> statusList = new ArrayList<>();
+        statusList.add("Nome: " + this.nome);
+        statusList.add("Vida: " + this.pontosDeVida);
+        statusList.add("Força: " + this.forca);
+        return statusList;
+    }
 
-    public abstract int atacar(Personagem alvo);
+    // Está aqui para satisfazer as exigências da atividade. Não é utilizado.
+    public void exibirStatus() {
+        System.out.println("Nome: " + this.nome);
+        System.out.println("Vida: " + this.pontosDeVida);
+        System.out.println("Força: " + this.forca);
+    }
 }
