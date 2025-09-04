@@ -1,3 +1,7 @@
+package personagens.heroi;
+
+import personagens.Personagem;
+
 public class Passista extends Herói{
     private int requebrado;
 

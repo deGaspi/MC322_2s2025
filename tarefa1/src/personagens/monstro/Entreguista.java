@@ -1,4 +1,7 @@
+package personagens.monstro;
 import java.util.Random;
+
+import personagens.Personagem;
 
 public class Entreguista extends Monstro{  // Ele vai roubar vida do Herói ou do Falso Patriota para entregar para o Imperialista
     public Imperialista i;

@@ -1,4 +1,8 @@
+package personagens.heroi;
 import java.util.Random;
+
+import personagens.Personagem;
+import personagens.monstro.Monstro;
 
 public abstract class Herói extends Personagem{
     private int nivel;

@@ -1,4 +1,7 @@
+package personagens.monstro;
 import java.util.Random;
+
+import personagens.Personagem;
 
 public class Imperialista extends Monstro{
     Random random = new Random();

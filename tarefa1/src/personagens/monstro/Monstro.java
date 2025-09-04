@@ -1,3 +1,8 @@
+package personagens.monstro;
+
+import personagens.Personagem;
+
+
 public abstract class Monstro extends Personagem{
     private int xpConcedido;
 

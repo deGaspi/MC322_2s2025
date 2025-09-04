@@ -1,3 +1,7 @@
+package personagens.heroi;
+
+import personagens.Personagem;
+
 public class Puxador extends Herói{
     private int swing;
 

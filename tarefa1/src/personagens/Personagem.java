@@ -1,3 +1,4 @@
+package personagens;
 public abstract class Personagem {
     public static enum Classe {
         Passista,

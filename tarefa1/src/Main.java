@@ -2,6 +2,14 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.Random;
 
+import personagens.heroi.Herói;
+import personagens.heroi.Passista;
+import personagens.heroi.Puxador;
+import personagens.monstro.Entreguista;
+import personagens.monstro.FalsoPatriota;
+import personagens.monstro.Imperialista;
+import personagens.monstro.Monstro;
+
 public class Main {
     private static Herói heróiEscolhido = null;
     private static Scanner scanner = new Scanner(System.in);
