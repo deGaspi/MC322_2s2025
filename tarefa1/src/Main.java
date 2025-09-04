@@ -28,8 +28,8 @@ public class Main {
 
         // Inicialização dos inimigos
         Monstro lacaio;
-        var boss = new Imperialista("Imperialista", 1, 3, 0);
-        var covarde = new Entreguista("b", 1, 3, 0, boss);
+        var boss = new Imperialista("Imperialista", 1, 5, 0);
+        var covarde = new Entreguista("b", 1, 5, 0, boss);
 
         for (int lacaiosDerrotados=0; lacaiosDerrotados<nLacaios; lacaiosDerrotados++) { // Loop de lacaios
             // Tela de introdução de um inimigo.
@@ -40,7 +40,7 @@ public class Main {
             newEnemyScreen.print();
 
             // Criação do inimigo e batalha.
-            lacaio = new FalsoPatriota("Lacaio " + (lacaiosDerrotados+1) + "/" + nLacaios, 10, 1, 50);
+            lacaio = new FalsoPatriota("Lacaio " + (lacaiosDerrotados+1) + "/" + nLacaios, 10, 2, 50);
             var ganhou = Batalha.iniciar(heroi, lacaio, covarde);
 
             // Tela de derrota.

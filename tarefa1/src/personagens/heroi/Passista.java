@@ -25,11 +25,11 @@ public class Passista extends Herói {
     @Override
     public boolean usarHabilidadeEspecial(Personagem alvo) {
         if (alvo instanceof Monstro monstro) {
-            if (this.requebrado < 7) {
+            if (this.requebrado < 4) {
                 Batalha.addPostRoundMessage("Requebrdo insuficiente. Precisa ser maior que 7.");
                 return false;
             }
-            this.requebrado -= 7;
+            this.requebrado -= 4;
 
             switch (monstro.getTipo()) {
                 case FALSO_PATRIOTA:
@@ -37,10 +37,10 @@ public class Passista extends Herói {
                     alvo.receberDano(alvo.getPontosDeVida());
                     break;
                 case ENTREGUISTA:
-                    alvo.receberDano(20);
+                    alvo.receberDano(10);
                     break;
                 case IMPERIALISTA:
-                    alvo.receberDano(30);
+                    alvo.receberDano(10);
                     break;
                 default:
                     break;

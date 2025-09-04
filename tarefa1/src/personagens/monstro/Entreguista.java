@@ -15,7 +15,7 @@ public class Entreguista extends Monstro{  // Ele vai roubar vida do Herói ou d
 
     public boolean atacar(Personagem alvo){
         System.out.println("Entreguista privatiza vida de " + alvo.getNome());
-        float dano = (this.getForca() * random.nextFloat() * 2) + 1;
+        float dano = (this.getForca() * random.nextFloat() * 2) + 2;
         int n = alvo.receberDano(Math.round(dano));
         imperialista.receberCura(n);
         Batalha.addPostRoundMessage("Entreguista privatiza vida de " + alvo.getNome());

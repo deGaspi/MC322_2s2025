@@ -28,7 +28,7 @@ public class Puxador extends Herói {
             return false;
         }
         Batalha.addPostRoundMessage("Esperança Conquistada!!");
-        int resultado = Math.round((float) (Math.pow(1.2, this.swing) - Math.pow(1.15, this.swing) + 1));
+        int resultado = Math.round((float) (Math.pow(1.4, this.swing)));
         System.out.println("Esperança reconquistada");
         this.receberCura(resultado);
         return true;

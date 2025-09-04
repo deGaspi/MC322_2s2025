@@ -50,7 +50,7 @@ public abstract class Herói extends Personagem {
 
     @Override
     public boolean atacar(Personagem alvo) {
-        float dano = (this.getForca() * random.nextFloat() * 2) + (this.nivel * 10);
+        float dano = (this.getForca() * random.nextFloat() * 2) + (this.nivel * 0.5f);
         alvo.receberDano(Math.round(dano));
         if (alvo instanceof Monstro monstro && monstro.getPontosDeVida() == 0) {
             this.ganharExperiencia(monstro.getXpConcedido());
@@ -77,9 +77,9 @@ public abstract class Herói extends Personagem {
         public Herói getDefaultInstance() {
             switch (this) {
                 case PASSISTA:
-                    return new Passista("Valéria Valenssa", 25, 4, 0, 0, 0);
+                    return new Passista("Valéria Valenssa", 23, 4, 0, 0, 0);
                 case PUXADOR:
-                    return new Puxador("Jamelão", 20, 4, 0, 0, 0);
+                    return new Puxador("Jamelão", 23, 4, 0, 0, 0);
                 default:
                     throw new RuntimeException();
             }

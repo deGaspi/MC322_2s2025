@@ -36,6 +36,7 @@ public class Batalha {
     private boolean executarTurnos() {
         while (true) {
             // Verifica se a batalha acabou
+            this.round++;
             if (monstro.getPontosDeVida() == 0)
                 return true;
             if (heroi.getPontosDeVida() == 0)
@@ -48,7 +49,6 @@ public class Batalha {
             if (heroi.getPontosDeVida() == 0)
                 return false;
             monsterRound();
-            round++;
         }
     }
 
@@ -84,7 +84,7 @@ public class Batalha {
             monstro.atacar(heroi); // Os métodos de Personagem também adicionam mensagens na tela.
 
             // Entreguista se metendo no meio da batalha.
-            if (entreguista != null && round%4==0) {
+            if (entreguista != null && round%2==0) {
                 var random = new Random();
                 boolean chance = random.nextBoolean();
                 if (chance) {
