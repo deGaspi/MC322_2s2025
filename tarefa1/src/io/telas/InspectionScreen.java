@@ -5,6 +5,17 @@ import java.util.Scanner;
 import io.BoxedString;
 import personagens.monstro.Monstro;
 
+// ╭───────────────────────────────────────────────────────────────────────────────────────────────────────╮
+// │                                                                                                       │
+// │  Status do inimigo:                                                                                   │
+// │                                                                                                       │
+// │  Nome: Lacaio 1/6                                   Vida: 10                                          │
+// │  Força: 1                                           XP: 50                                            │
+// │                                                                                                       │
+// ╰───────────────────────────────────────────────────────────────────────────────────────────────────────╯
+// Status do inimigo:
+
+// Produz uma tela como o exemplo acima e espera por confirmação.
 public final class InspectionScreen {
     private InspectionScreen() {
     }
@@ -17,7 +28,7 @@ public final class InspectionScreen {
         blockOfText.insertLine("Status do inimigo:");
         blockOfText.addPadding(1, 1, 2, 2);
         blockOfText.addBox();
-        blockOfText.appendLine("Status do inimigo:");
+        blockOfText.appendLine("Enter para continuar: ");
         blockOfText.print();
 
         var scanner = new Scanner(System.in);

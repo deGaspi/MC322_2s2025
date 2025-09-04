@@ -7,6 +7,19 @@ import io.BoxedString.HorizontalAlign;
 import personagens.heroi.Herói;
 import io.BoxedString;
 
+// ╭───────────────────────────────────────────────────────────────────────────────────────────────────────╮
+// │                                                                                                       │
+// │  Seus status:                                                                                         │
+// │                   Nome: Jamelão         Vida: 20              Força: 4                                │
+// │                   Nível: 0              Nível: 0              Swing: 0                                │
+// │                                                                                                       │
+// │  (0) Ataque Simples                                 (1) Ataque Especial                               │
+// │  (2) Inspecionar inimigo                                                                              │
+// │                                                                                                       │
+// ╰───────────────────────────────────────────────────────────────────────────────────────────────────────╯
+// Escolha uma ação (digite o número):
+
+// Produz uma tela como o exemplo acima, e scaneia resposta.
 public final class RoundScreen {
     private RoundScreen() {
     }
@@ -18,7 +31,7 @@ public final class RoundScreen {
         bottomBlockOfText.appendLines(Utils.enumToStrings(actionArray));
         bottomBlockOfText.tabulate(2, "   ");
 
-        var blockOfText = new BoxedString(20);
+        var blockOfText = new BoxedString(25);
         blockOfText.appendLines(hero.getStatusList());
         blockOfText.tabulate(3, "  ");
         blockOfText.appendLine("");

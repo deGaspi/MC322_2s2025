@@ -6,6 +6,14 @@ import io.BoxedString;
 import io.Utils;
 import personagens.heroi.Herói.heroEnum;
 
+// ╭───────────────────────────────────────────────────────────────────────────────────────────────────────╮
+// │                                                                                                       │
+// │  (0) Passista                                       (1) Puxador                                       │
+// │                                                                                                       │
+// ╰───────────────────────────────────────────────────────────────────────────────────────────────────────╯
+// Escolha um herói (Digite o número): 
+
+// Produz uma tela como o exemplo acima e scaneia resposta.
 public final class ChooseHero {
     private ChooseHero() {
     }
@@ -22,9 +30,9 @@ public final class ChooseHero {
         var scanner = new Scanner(System.in);
         while (true) {
             blockOfText.print();
-            if (scanner.hasNextInt()){ 
+            if (scanner.hasNextInt()) {
                 input = scanner.nextInt();
-                scanner.nextLine(); 
+                scanner.nextLine();
                 if (input >= 0 && input < heroArray.length)
                     break;
             } else {

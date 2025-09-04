@@ -241,7 +241,7 @@ public class BoxedString {
         StringBuilder line = deque.removeFirst();
         out.append(line);
         deque.addLast(line);
-        return out.toString();
+        return out.toString().stripTrailing();
     }
 
     public void clear() {

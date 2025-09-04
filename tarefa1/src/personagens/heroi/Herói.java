@@ -37,7 +37,7 @@ public abstract class Herói extends Personagem {
     public List<String> getStatusList() {
         var statusList = super.getStatusList();
         statusList.add("Nível: " + nivel);
-        statusList.add("Nível: " + experiencia);
+        statusList.add("XP: " + experiencia);
         return statusList;
     }
 
