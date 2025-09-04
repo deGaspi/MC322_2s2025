@@ -14,7 +14,6 @@ public class FalsoPatriota extends Monstro {
 
     public boolean atacar(Personagem alvo) {
         float dano = (this.getForca() * random.nextFloat());
-        System.out.println("Falso Patriota atacou com música gringa");
         alvo.receberDano(Math.round(dano));
         Batalha.addPostRoundMessage("Falso Patriota atacou com música gringa");
         return true;

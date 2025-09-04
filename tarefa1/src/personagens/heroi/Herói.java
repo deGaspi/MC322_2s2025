@@ -38,6 +38,7 @@ public abstract class Herói extends Personagem {
         var statusList = super.getStatusList();
         statusList.add("Nível: " + nivel);
         statusList.add("XP: " + experiencia);
+        statusList.add("Classe: " + this.getTipo().getDescription());
         return statusList;
     }
 
@@ -65,7 +66,7 @@ public abstract class Herói extends Personagem {
                 "Passista",
                 "Após requebrar muito, o passita manda seu passinho mais brasileiro, mortal para falsos patriotas e \nmuito efetivo contra imperialistas."),
         PUXADOR(
-            "Puxador",
+            "Puxador de Samba",
             "O puxador de samba reconquista a esperança da nação, convertendo seu swing para curar-se.");
 
         private final String description;
