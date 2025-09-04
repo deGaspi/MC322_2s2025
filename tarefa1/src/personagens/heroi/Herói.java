@@ -61,17 +61,27 @@ public abstract class Herói extends Personagem {
     public static enum heroEnum implements enumDescription {
         // Enum para facilitar implementação futura de novos heróis. Basta alterar
         // aqui, e não vários arquivos.
-        PASSISTA("Passista"),
-        PUXADOR("Puxador");
+        PASSISTA(
+                "Passista",
+                "Após requebrar muito, o passita manda seu passinho mais brasileiro, mortal para falsos patriotas e \nmuito efetivo contra imperialistas."),
+        PUXADOR(
+            "Puxador",
+            "O puxador de samba reconquista a esperança da nação, convertendo seu swing para curar-se.");
 
         private final String description;
+        private final String habilityInfo;
 
-        heroEnum(String description) {
+        heroEnum(String description, String habilityInfo) {
             this.description = description;
+            this.habilityInfo = habilityInfo;
         }
 
         public String getDescription() {
             return description;
+        }
+
+        public String getHabilityInfo() {
+            return habilityInfo;
         }
 
         public Herói getDefaultInstance() {
@@ -87,6 +97,5 @@ public abstract class Herói extends Personagem {
     }
 
     public abstract heroEnum getTipo(); // Para que lembrem de alterar o enum quando adicionarem outro heroi.
-
 
 }
