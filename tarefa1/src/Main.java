@@ -23,7 +23,7 @@ public class Main {
 
         // Explicar habilidade do heroi escolhido.
         var habilityInfoScreen = new MsgScreen();
-        habilityInfoScreen.addMsg("Informações do heró: ");
+        habilityInfoScreen.addMsg("Informações do herói: ");
         habilityInfoScreen.addMsg(heroiEscolhido.getHabilityInfo());
         habilityInfoScreen.print();
 
