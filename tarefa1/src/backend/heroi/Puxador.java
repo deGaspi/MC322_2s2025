@@ -1,9 +1,9 @@
-package personagens.heroi;
+package backend.heroi;
 
 import java.util.List;
 
-import io.Batalha;
-import personagens.Personagem;
+import backend.Batalha;
+import backend.Personagem;
 
 public class Puxador extends Herói {
     private int swing;
@@ -29,7 +29,6 @@ public class Puxador extends Herói {
         }
         Batalha.addPostRoundMessage("Esperança Conquistada!!");
         int resultado = Math.round((float) (Math.pow(1.4, this.swing)));
-        System.out.println("Esperança reconquistada");
         this.receberCura(resultado);
         return true;
     }

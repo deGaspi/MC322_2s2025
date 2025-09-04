@@ -1,9 +1,7 @@
-package personagens;
+package backend;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import io.Batalha;
 
 public abstract class Personagem {
     private String nome;
@@ -21,7 +19,7 @@ public abstract class Personagem {
     public int receberDano(int dano) {
         dano = Math.min(dano, this.pontosDeVida);
         this.pontosDeVida -= dano;
-        Batalha.addPostRoundMessage(this.nome + " recebeu " + dano + " pontos de dano.");
+        Batalha.addPostRoundMessage(this.nome + " recebeu " + dano + " pontos de dano, ficando com " + this.pontosDeVida + " pontos de vida.");
         return dano;
     }
 

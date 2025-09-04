@@ -1,10 +1,13 @@
-package io;
+package frontend;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 
+
+
+// Classe para criação de blocos de texto com largura fixa.
 public class BoxedString {
     private int stringLength;
     private Deque<StringBuilder> deque = new ArrayDeque<>();

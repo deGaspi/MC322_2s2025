@@ -1,10 +1,10 @@
-package personagens.heroi;
+package backend.heroi;
 
 import java.util.List;
 
-import io.Batalha;
-import personagens.Personagem;
-import personagens.monstro.Monstro;
+import backend.Batalha;
+import backend.Personagem;
+import backend.monstro.Monstro;
 
 public class Passista extends Herói {
     private int requebrado;

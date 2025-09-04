@@ -1,11 +1,11 @@
-package io.telas;
+package frontend.telas;
 
 import java.util.Scanner;
 
-import io.Utils;
-import io.BoxedString.HorizontalAlign;
-import personagens.heroi.Herói;
-import io.BoxedString;
+import backend.heroi.Herói;
+import frontend.BoxedString;
+import frontend.Utils;
+import frontend.BoxedString.HorizontalAlign;
 
 // ╭───────────────────────────────────────────────────────────────────────────────────────────────────────╮
 // │                                                                                                       │

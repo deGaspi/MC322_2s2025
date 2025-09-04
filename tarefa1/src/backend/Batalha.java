@@ -1,14 +1,14 @@
-package io;
+package backend;
 
 import java.util.Random;
 
-import io.telas.InspectionScreen;
-import io.telas.MsgScreen;
-import io.telas.RoundScreen;
-import personagens.heroi.Herói;
-import personagens.monstro.Entreguista;
-import personagens.monstro.Monstro;
-import io.telas.RoundScreen.Action;
+import backend.heroi.Herói;
+import backend.monstro.Entreguista;
+import backend.monstro.Monstro;
+import frontend.telas.InspectionScreen;
+import frontend.telas.MsgScreen;
+import frontend.telas.RoundScreen;
+import frontend.telas.RoundScreen.Action;
 
 public class Batalha {
     private Herói heroi;
@@ -59,13 +59,13 @@ public class Batalha {
             switch (action) {
                 case Action.ATAQUE_ESPECIAL:
                     postRoundScreen = new MsgScreen(); // Criação da tela pós turno.
-                    postRoundScreen.addMsg("Você usa ataque especial no " + monstro.getNome() + "."); // Adição de mensagem na tela
+                    postRoundScreen.addMsg("Você usa ataque especial no " + monstro.getTipo().getDescription() + "."); // Adição de mensagem na tela
                     roundAcabou = heroi.usarHabilidadeEspecial(monstro); // Os métodos de Personagem também adicionam mensagens na tela.
                     postRoundScreen.print();
                     break;
                 case Action.ATAQUE_SIMPLES:
                     postRoundScreen = new MsgScreen(); // Criação da tela pós turno.
-                    postRoundScreen.addMsg("Você ataca o " + monstro.getNome() + "."); // Adição de mensagem na tela
+                    postRoundScreen.addMsg("Você ataca o " + monstro.getTipo().getDescription() + "."); // Adição de mensagem na tela
                     roundAcabou = heroi.atacar(monstro); // Os métodos de Personagem também adicionam mensagens na tela.
                     postRoundScreen.print();
                     break;
@@ -80,7 +80,7 @@ public class Batalha {
 
     private void monsterRound() {
             postRoundScreen = new MsgScreen(); // Criação da tela pós turno.
-            postRoundScreen.addMsg("O " + monstro.getNome() + " te ataca"); // Adição de mensagem na tela
+            postRoundScreen.addMsg("O " + monstro.getTipo().getDescription() + " te ataca"); // Adição de mensagem na tela
             monstro.atacar(heroi); // Os métodos de Personagem também adicionam mensagens na tela.
 
             // Entreguista se metendo no meio da batalha.
@@ -88,11 +88,11 @@ public class Batalha {
                 var random = new Random();
                 boolean chance = random.nextBoolean();
                 if (chance) {
-                    postRoundScreen.addMsg("Entreguista vai privatizar a vida do... " + monstro.getNome() + "!!!");
-                    entreguista.atacar(heroi);
-                } else {
-                    postRoundScreen.addMsg("Entreguista vai privatizar a vida do... " + heroi.getNome() + "!!!");
+                    postRoundScreen.addMsg("\nEntreguista vai privatizar a vida do... " + monstro.getTipo().getDescription() + "!!!");
                     entreguista.atacar(monstro);
+                } else {
+                    postRoundScreen.addMsg("\nEntreguista vai privatizar a vida do... " + heroi.getNome() + "!!!");
+                    entreguista.atacar(heroi);
                 }
             }
             postRoundScreen.print();

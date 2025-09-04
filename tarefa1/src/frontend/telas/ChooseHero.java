@@ -1,10 +1,10 @@
-package io.telas;
+package frontend.telas;
 
 import java.util.Scanner;
 
-import io.BoxedString;
-import io.Utils;
-import personagens.heroi.Herói.heroEnum;
+import backend.heroi.Herói.heroEnum;
+import frontend.BoxedString;
+import frontend.Utils;
 
 // ╭───────────────────────────────────────────────────────────────────────────────────────────────────────╮
 // │                                                                                                       │

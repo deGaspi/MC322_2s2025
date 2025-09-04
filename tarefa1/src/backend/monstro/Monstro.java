@@ -1,8 +1,8 @@
-package personagens.monstro;
+package backend.monstro;
 
 import java.util.List;
 
-import personagens.Personagem;
+import backend.Personagem;
 
 public abstract class Monstro extends Personagem {
     private int xpConcedido;
@@ -19,9 +19,19 @@ public abstract class Monstro extends Personagem {
     public static enum monstroEnum {
         // Enum para facilitar implementação futura de novos monstros. Basta alterar
         // aqui, e não vários arquivos.
-        ENTREGUISTA,
-        IMPERIALISTA,
-        FALSO_PATRIOTA;
+        ENTREGUISTA("Entreguista"),
+        IMPERIALISTA("Imperialista"),
+        FALSO_PATRIOTA("Falso Patriota");
+        
+        private final String description;
+
+        monstroEnum(String description) {
+            this.description = description;
+        }
+
+        public String getDescription() {
+            return this.description;
+        }
     }
 
     public abstract monstroEnum getTipo(); // Para que lembrem de alterar o enum quando adicionarem outro heroi.
@@ -30,6 +40,7 @@ public abstract class Monstro extends Personagem {
     public List<String> getStatusList() {
         var statusList = super.getStatusList();
         statusList.add("XP: " + xpConcedido);
+        statusList.add("Classe: " + this.getTipo().getDescription());
         return statusList;
     }
 }

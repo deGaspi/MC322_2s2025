@@ -1,12 +1,12 @@
-package personagens.heroi;
+package backend.heroi;
 
 import java.util.List;
 import java.util.Random;
 
-import io.Batalha;
-import io.Utils.enumDescription;
-import personagens.Personagem;
-import personagens.monstro.Monstro;
+import backend.Batalha;
+import backend.Personagem;
+import backend.monstro.Monstro;
+import frontend.Utils.enumDescription;
 
 public abstract class Herói extends Personagem {
     private int nivel;
@@ -38,6 +38,7 @@ public abstract class Herói extends Personagem {
         var statusList = super.getStatusList();
         statusList.add("Nível: " + nivel);
         statusList.add("XP: " + experiencia);
+        statusList.add("Classe: " + this.getTipo().getDescription());
         return statusList;
     }
 
@@ -61,17 +62,27 @@ public abstract class Herói extends Personagem {
     public static enum heroEnum implements enumDescription {
         // Enum para facilitar implementação futura de novos heróis. Basta alterar
         // aqui, e não vários arquivos.
-        PASSISTA("Passista"),
-        PUXADOR("Puxador");
+        PASSISTA(
+                "Passista",
+                "Após requebrar muito, o passita manda seu passinho mais brasileiro, efetivo contra imperialistas e \nmortal para falsos patriotas."),
+        PUXADOR(
+            "Puxador de Samba",
+            "O puxador de samba reconquista a esperança da nação, convertendo seu swing para curar-se.");
 
         private final String description;
+        private final String habilityInfo;
 
-        heroEnum(String description) {
+        heroEnum(String description, String habilityInfo) {
             this.description = description;
+            this.habilityInfo = habilityInfo;
         }
 
         public String getDescription() {
             return description;
+        }
+
+        public String getHabilityInfo() {
+            return habilityInfo;
         }
 
         public Herói getDefaultInstance() {
@@ -87,6 +98,5 @@ public abstract class Herói extends Personagem {
     }
 
     public abstract heroEnum getTipo(); // Para que lembrem de alterar o enum quando adicionarem outro heroi.
-
 
 }

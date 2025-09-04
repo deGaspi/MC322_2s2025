@@ -1,9 +1,9 @@
-package io.telas;
+package frontend.telas;
 
 import java.util.Scanner;
 
-import io.BoxedString;
-import personagens.monstro.Monstro;
+import backend.monstro.Monstro;
+import frontend.BoxedString;
 
 // ╭───────────────────────────────────────────────────────────────────────────────────────────────────────╮
 // │                                                                                                       │
