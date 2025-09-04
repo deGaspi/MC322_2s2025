@@ -21,7 +21,7 @@ public abstract class Personagem {
     public int receberDano(int dano) {
         dano = Math.min(dano, this.pontosDeVida);
         this.pontosDeVida -= dano;
-        Batalha.addPostRoundMessage(this.nome + " recebeu " + dano + " pontos de dano.");
+        Batalha.addPostRoundMessage(this.nome + " recebeu " + dano + " pontos de dano, ficando com " + this.pontosDeVida + " pontos de vida.");
         return dano;
     }
 
