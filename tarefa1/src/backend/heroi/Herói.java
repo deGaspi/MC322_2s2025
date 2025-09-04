@@ -64,7 +64,7 @@ public abstract class Herói extends Personagem {
         // aqui, e não vários arquivos.
         PASSISTA(
                 "Passista",
-                "Após requebrar muito, o passita manda seu passinho mais brasileiro, mortal para falsos patriotas e \nmuito efetivo contra imperialistas."),
+                "Após requebrar muito, o passita manda seu passinho mais brasileiro, efetivo contra imperialistas e \nmortal para falsos patriotas."),
         PUXADOR(
             "Puxador de Samba",
             "O puxador de samba reconquista a esperança da nação, convertendo seu swing para curar-se.");
