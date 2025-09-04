@@ -12,24 +12,28 @@ public abstract class Herói extends Personagem{
     }
 
     public void ganharExperiencia(int x){
-        System.out.println(this.getClasse().name() + " recebeu " + x + " pontos de experiência");
-        experiencia += x;
-        if (experiencia >= 20) {
-            nivel += experiencia / 20;
-            experiencia %= 20;
-            System.out.println(this.getClasse().name() + "subiu para nível " + nivel);
+        float y = x * random.nextFloat() * 2;
+        int z = Math.round(y);
+        System.out.println(this.getClasse().name() + " recebeu " + z + " pontos de experiência");
+        this.experiencia += z;
+        if (this.experiencia >= 20) {
+            this.nivel += this.experiencia / 20;
+            this.experiencia %= 20;
+            System.out.println(this.getClasse().name() + " subiu para nível " + this.nivel);
         }
+        System.out.println();
     }
 
     @Override
     public void exibirStatus() {
         super.exibirStatus();
         System.out.println("Nível: " + nivel);
-        System.out.println("Nível: " + experiencia);
+        System.out.println("Experiência: " + experiencia);
+        System.out.println();
     }
 
     public int atacar(Personagem alvo) {
-        float dano = this.getForca() * (random.nextInt(3) + (random.nextInt(101) / 100));
+        float dano = (this.getForca() * random.nextFloat() * 2) + (this.nivel * 10);
         int danoAplicado = alvo.receberDano(Math.round(dano));
         if (alvo instanceof Monstro monstro && monstro.getPontosDeVida() == 0) {
             this.ganharExperiencia(monstro.getXpConcedido());

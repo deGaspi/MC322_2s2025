@@ -20,7 +20,6 @@ public class Puxador extends Herói{
         }
         int resultado = Math.round((float) (Math.pow(1.2, this.swing) - Math.pow(1.15, this.swing) + 1));
         System.out.println("Esperança reconquistada");
-        this.receberForca(resultado / 2);
         this.receberCura(resultado);
         return true;
     }
