@@ -15,7 +15,7 @@ public class Imperialista extends Monstro{
         System.out.println("Imperialista avança o lobby para privatizar o carnaval");
         float dano = (this.getForca() * random.nextFloat() * 3);
         alvo.receberDano(Math.round(dano));
-        Batalha.addPostRoundMessage("Imperialista avança o lobby para privatizar o carnaval");
+        System.out.println("Imperialista avança o lobby para privatizar o carnaval");
         return true;
     }
 

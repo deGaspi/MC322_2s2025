@@ -2,7 +2,6 @@ package backend.heroi;
 
 import java.util.List;
 
-import backend.Batalha;
 import backend.Personagem;
 import backend.monstro.Monstro;
 
@@ -16,7 +15,7 @@ public class Passista extends Herói {
 
     @Override
     public boolean atacar(Personagem alvo) {
-        Batalha.addPostRoundMessage("Conselho dado.");
+        System.out.println("Conselho dado.");
         this.requebrado++;
         super.atacar(alvo);
         return true;
@@ -26,14 +25,14 @@ public class Passista extends Herói {
     public boolean usarHabilidadeEspecial(Personagem alvo) {
         if (alvo instanceof Monstro monstro) {
             if (this.requebrado < 4) {
-                Batalha.addPostRoundMessage("Requebrdo insuficiente. Precisa ser maior que 7.");
+                System.out.println("Requebrdo insuficiente. Precisa ser maior que 7.");
                 return false;
             }
             this.requebrado -= 4;
 
             switch (monstro.getTipo()) {
                 case FALSO_PATRIOTA:
-                    Batalha.addPostRoundMessage("Explodiu o coração do falso patriota");
+                    System.out.println("Explodiu o coração do falso patriota");
                     alvo.receberDano(alvo.getPontosDeVida());
                     break;
                 case ENTREGUISTA:
