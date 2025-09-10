@@ -61,6 +61,10 @@ public abstract class Herói extends Personagem {
     @Override
     public boolean atacar(Personagem alvo) {
         float dano = (this.getForca() * sorte * 2) + (this.nivel * 0.5f) + (this.arma.getDano());
+        if (arma instanceof SemArma)
+            System.out.println(this.getNome() + " ataca desarmado");
+        else 
+            System.out.println(this.getNome() + " ataca com " + arma.getNome());
         alvo.receberDano(Math.round(dano));
         if (alvo instanceof Monstro monstro && monstro.getPontosDeVida() == 0) {
             this.ganharExperiencia(monstro.getXpConcedido());
