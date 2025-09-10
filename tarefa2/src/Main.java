@@ -1,11 +1,11 @@
 import java.util.Random;
 
-import backend.Batalha;
-import backend.monstro.Entreguista;
-import backend.monstro.FalsoPatriota;
-import backend.monstro.Imperialista;
-import backend.monstro.Monstro;
-import backend.heroi.Herói.heroEnum;
+import classes.Batalha;
+import classes.heroi.Herói.heroEnum;
+import classes.monstro.Entreguista;
+import classes.monstro.FalsoPatriota;
+import classes.monstro.Imperialista;
+import classes.monstro.Monstro;
 
 public class Main {
     private static int nLacaios = 6;

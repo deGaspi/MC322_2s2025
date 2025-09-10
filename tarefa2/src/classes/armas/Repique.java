@@ -1,4 +1,4 @@
-package backend.armas;
+package classes.armas;
 
 public class Repique extends Arma{
     private String nome;

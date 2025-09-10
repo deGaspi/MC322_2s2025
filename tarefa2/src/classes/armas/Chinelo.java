@@ -1,4 +1,4 @@
-package backend.armas;
+package classes.armas;
 
 public class Chinelo extends Arma{
     private String nome;

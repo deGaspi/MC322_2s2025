@@ -1,9 +1,9 @@
-package backend.heroi;
+package classes.heroi;
 
 import java.util.List;
 
-import backend.Personagem;
-import backend.monstro.Monstro;
+import classes.Personagem;
+import classes.monstro.Monstro;
 
 public class Passista extends Herói {
     private int requebrado;

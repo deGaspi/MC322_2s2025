@@ -1,13 +1,12 @@
-package backend.heroi;
+package classes.heroi;
 
 import java.util.List;
 import java.util.Random;
 
-import backend.Personagem;
-import backend.monstro.Monstro;
-import frontend.Utils.enumDescription;
-import backend.armas.Arma;
-import backend.armas.SemArma;
+import classes.Personagem;
+import classes.armas.Arma;
+import classes.armas.SemArma;
+import classes.monstro.Monstro;
 
 public abstract class Herói extends Personagem {
     private int nivel;
@@ -69,7 +68,7 @@ public abstract class Herói extends Personagem {
         return true;
     }
 
-    public static enum heroEnum implements enumDescription {
+    public static enum heroEnum {
         // Enum para facilitar implementação futura de novos heróis. Basta alterar
         // aqui, e não vários arquivos.
         PASSISTA(

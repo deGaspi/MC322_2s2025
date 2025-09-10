@@ -1,10 +1,10 @@
-package backend;
+package classes;
 
 import java.util.Random;
 
-import backend.heroi.Herói;
-import backend.monstro.Entreguista;
-import backend.monstro.Monstro;
+import classes.heroi.Herói;
+import classes.monstro.Entreguista;
+import classes.monstro.Monstro;
 
 public class Batalha {
     private Herói heroi;
