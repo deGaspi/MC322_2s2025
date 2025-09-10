@@ -1,13 +1,15 @@
+import java.util.Random;
+
 import backend.Batalha;
 import backend.monstro.Entreguista;
 import backend.monstro.FalsoPatriota;
 import backend.monstro.Imperialista;
 import backend.monstro.Monstro;
-import frontend.telas.ChooseHero;
 import frontend.telas.MsgScreen;
 import backend.armas.Chinelo;
 import backend.armas.Lança;
 import backend.armas.Repique;
+import backend.heroi.Herói.heroEnum;
 
 
 
@@ -21,15 +23,15 @@ public class Main {
         initialScreen.addMsg("Você nasceu e cresceu no samba, mas agora estão querendo acabar com a cultura do seu povo. \nSó resta uma coisa a fazer: resistir e derrotar a força imperialista que quer privatizar o \ncarnaval.");
         initialScreen.print();
 
-        // Escolha do heroi.
-        var heroiEscolhido = ChooseHero.print();
+        // Escolha do heroi.        
+        var random = new Random();
+        var heroValues = heroEnum.values();
+        var heroiEscolhido = heroValues[random.nextInt(heroValues.length)];
         var heroi = heroiEscolhido.getDefaultInstance();
 
         // Explicar habilidade do heroi escolhido.
-        var habilityInfoScreen = new MsgScreen();
-        habilityInfoScreen.addMsg("Informações do herói: ");
-        habilityInfoScreen.addMsg(heroiEscolhido.getHabilityInfo());
-        habilityInfoScreen.print();
+        System.out.println("Informações do herói: ");
+        heroiEscolhido.printHabilityInfo();
 
         // Introdução do objetivo do jogo.
         var objectiveScreen = new MsgScreen();

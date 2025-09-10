@@ -92,8 +92,8 @@ public abstract class Herói extends Personagem {
             return description;
         }
 
-        public String getHabilityInfo() {
-            return habilityInfo;
+        public void printHabilityInfo() {
+            System.out.println(habilityInfo);
         }
 
         public Herói getDefaultInstance() {
