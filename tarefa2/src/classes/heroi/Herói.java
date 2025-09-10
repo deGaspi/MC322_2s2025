@@ -1,14 +1,12 @@
-package backend.heroi;
+package classes.heroi;
 
 import java.util.List;
 import java.util.Random;
 
-import backend.Batalha;
-import backend.Personagem;
-import backend.monstro.Monstro;
-import frontend.Utils.enumDescription;
-import backend.armas.Arma;
-import backend.armas.SemArma;
+import classes.Personagem;
+import classes.armas.Arma;
+import classes.armas.SemArma;
+import classes.monstro.Monstro;
 
 public abstract class Herói extends Personagem {
     private int nivel;
@@ -27,19 +25,19 @@ public abstract class Herói extends Personagem {
 
     public abstract boolean usarHabilidadeEspecial(Personagem alvo); // retorna true se ataque faz turno acabar.
 
-    private void subirDeNivel(){
+    private void subirDeNivel() {
         if (this.experiencia >= expProxNivel) {
             this.nivel += this.experiencia / expProxNivel;
             this.experiencia %= expProxNivel;
             this.expProxNivel += 2;
-            Batalha.addPostRoundMessage(this.getNome() + " subiu para nível " + this.nivel + ".");
+            System.out.println(this.getNome() + " subiu para nível " + this.nivel + ".");
         }
     }
 
     public void ganharExperiencia(int x) {
         float y = x * sorte * 2;
         int z = Math.round(y);
-        Batalha.addPostRoundMessage(this.getNome() + " recebeu " + z + " pontos de experiência.");
+        System.out.println(this.getNome() + " recebeu " + z + " pontos de experiência.");
         this.experiencia += z;
         subirDeNivel();
     }
@@ -70,15 +68,15 @@ public abstract class Herói extends Personagem {
         return true;
     }
 
-    public static enum heroEnum implements enumDescription {
+    public static enum heroEnum {
         // Enum para facilitar implementação futura de novos heróis. Basta alterar
         // aqui, e não vários arquivos.
         PASSISTA(
                 "Passista",
                 "Após requebrar muito, o passita manda seu passinho mais brasileiro, efetivo contra imperialistas e \nmortal para falsos patriotas."),
         PUXADOR(
-            "Puxador de Samba",
-            "O puxador de samba reconquista a esperança da nação, convertendo seu swing para curar-se.");
+                "Puxador de Samba",
+                "O puxador de samba reconquista a esperança da nação, convertendo seu swing para curar-se.");
 
         private final String description;
         private final String habilityInfo;
@@ -92,8 +90,8 @@ public abstract class Herói extends Personagem {
             return description;
         }
 
-        public String getHabilityInfo() {
-            return habilityInfo;
+        public void printHabilityInfo() {
+            System.out.println(habilityInfo);
         }
 
         public Herói getDefaultInstance() {
@@ -108,7 +106,7 @@ public abstract class Herói extends Personagem {
         }
     }
 
-    public void equiparArma(Arma a){
+    public void equiparArma(Arma a) {
         this.arma = a;
     }
 

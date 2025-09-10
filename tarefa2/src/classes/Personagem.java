@@ -1,4 +1,4 @@
-package backend;
+package classes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,18 +19,18 @@ public abstract class Personagem {
     public int receberDano(int dano) {
         dano = Math.min(dano, this.pontosDeVida);
         this.pontosDeVida -= dano;
-        Batalha.addPostRoundMessage(this.nome + " recebeu " + dano + " pontos de dano, ficando com " + this.pontosDeVida + " pontos de vida.");
+        System.out.println(this.nome + " recebeu " + dano + " pontos de dano, ficando com " + this.pontosDeVida + " pontos de vida.");
         return dano;
     }
 
     public void receberCura(int cura) {
         this.pontosDeVida += cura;
-        Batalha.addPostRoundMessage(this.nome + " recebeu " + cura + " pontos de vida.");
+        System.out.println(this.nome + " recebeu " + cura + " pontos de vida.");
     }
 
     public void receberForca(int forca) {
         this.forca += forca;
-        Batalha.addPostRoundMessage(this.nome + " recebeu " + forca + " pontos de força.");
+        System.out.println(this.nome + " recebeu " + forca + " pontos de força.");
     }
 
     public int getPontosDeVida() {

@@ -1,9 +1,7 @@
-package backend.monstro;
+package classes.monstro;
 
 import java.util.Random;
-
-import backend.Batalha;
-import backend.Personagem;
+import classes.Personagem;
 
 public class FalsoPatriota extends Monstro {
     private Random random = new Random();
@@ -15,7 +13,7 @@ public class FalsoPatriota extends Monstro {
     public boolean atacar(Personagem alvo) {
         float dano = (this.getForca() * random.nextFloat());
         alvo.receberDano(Math.round(dano));
-        Batalha.addPostRoundMessage("Falso Patriota atacou com música gringa");
+        System.out.println("Falso Patriota atacou com música gringa");
         return true;
     }
 

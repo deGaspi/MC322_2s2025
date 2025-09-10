@@ -1,8 +1,6 @@
-package backend.monstro;
+package classes.monstro;
 import java.util.Random;
-
-import backend.Batalha;
-import backend.Personagem;
+import classes.Personagem;
 
 public class Imperialista extends Monstro{
     private Random random = new Random();
@@ -15,7 +13,7 @@ public class Imperialista extends Monstro{
         System.out.println("Imperialista avança o lobby para privatizar o carnaval");
         float dano = (this.getForca() * random.nextFloat() * 3);
         alvo.receberDano(Math.round(dano));
-        Batalha.addPostRoundMessage("Imperialista avança o lobby para privatizar o carnaval");
+        System.out.println("Imperialista avança o lobby para privatizar o carnaval");
         return true;
     }
 

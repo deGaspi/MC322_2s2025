@@ -1,9 +1,8 @@
-package backend.heroi;
+package classes.heroi;
 
 import java.util.List;
 
-import backend.Batalha;
-import backend.Personagem;
+import classes.Personagem;
 
 public class Puxador extends Herói {
     private int swing;
@@ -15,7 +14,7 @@ public class Puxador extends Herói {
 
     @Override
     public boolean atacar(Personagem alvo) {
-        Batalha.addPostRoundMessage("Bumbum, Paticumbum, Prugurundum.");
+        System.out.println("Bumbum, Paticumbum, Prugurundum.");
         this.swing++;
         super.atacar(alvo);
         return true;
@@ -24,10 +23,10 @@ public class Puxador extends Herói {
     @Override
     public boolean usarHabilidadeEspecial(Personagem alvo) {
         if (this.swing <= 0) {
-            Batalha.addPostRoundMessage("Swing zerado");
+            System.out.println("Swing zerado");
             return false;
         }
-        Batalha.addPostRoundMessage("Esperança Conquistada!!");
+        System.out.println("Esperança Conquistada!!");
         int resultado = Math.round((float) (Math.pow(1.4, this.swing)));
         this.receberCura(resultado);
         return true;

@@ -1,13 +1,13 @@
-package backend.monstro;
+package classes.monstro;
 
 import java.util.List;
 import java.util.Random;
 
-import backend.Personagem;
-import backend.armas.Arma;
-import backend.armas.Repique;
-import backend.armas.Lança;
-import backend.armas.Chinelo;
+import classes.Personagem;
+import classes.armas.Arma;
+import classes.armas.Chinelo;
+import classes.armas.Lança;
+import classes.armas.Repique;
 
 public abstract class Monstro extends Personagem {
     private Random random = new Random();

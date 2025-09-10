@@ -1,4 +1,4 @@
-package backend.armas;
+package classes.armas;
 
 public abstract class Arma {
     private int dano;
