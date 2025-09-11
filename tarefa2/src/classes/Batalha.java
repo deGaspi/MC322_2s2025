@@ -36,18 +36,4 @@ public class Batalha {
              monstro.atacar(heroi);
         }
     }
-    /* TODO: adicionar a lógica abaixo na classe do entreguista.
-            if (entreguista != null && round % 2 == 0) {
-                var random = new Random();
-                boolean chance = random.nextBoolean();
-                if (chance) {
-                    System.out.println(
-                            "\nEntreguista vai privatizar a vida do... " + monstro.getTipo().getDescription() + "!!!");
-                    entreguista.atacar(monstro);
-                } else {
-                    System.out.println("\nEntreguista vai privatizar a vida do... " + heroi.getNome() + "!!!");
-                    entreguista.atacar(heroi);
-                }
-            } 
-    */
 }

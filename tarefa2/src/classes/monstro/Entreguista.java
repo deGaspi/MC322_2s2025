@@ -14,6 +14,7 @@ public class Entreguista extends Monstro{  // Ele vai roubar vida do Herói ou d
 
     public boolean atacar(Personagem alvo){
         float dano = (this.getForca() * random.nextFloat() * 2) + 2;
+        System.out.println("\nEntreguista vai privatizar a vida de " + alvo.getNome() + "!!!");
         int n = alvo.receberDano(Math.round(dano));
         imperialista.receberCura(n);
         return true;
