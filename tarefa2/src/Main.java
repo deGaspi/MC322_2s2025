@@ -13,7 +13,7 @@ public class Main {
     public static void main(String[] args) {
         // Historia inicial.
         System.out.println(
-                "Você nasceu e cresceu no samba, mas agora estão querendo acabar com a cultura do seu povo. \nSó resta uma coisa a fazer: resistir e derrotar a força imperialista que quer privatizar o \ncarnaval.");
+                "Você nasceu e cresceu no samba, mas agora estão querendo acabar com a cultura do seu povo. \nSó resta uma coisa a fazer: resistir e derrotar a força imperialista que quer privatizar o \ncarnaval.\n");
 
         // Escolha do heroi.
         var random = new Random();
@@ -24,22 +24,23 @@ public class Main {
         // Explicar habilidade do heroi escolhido.
         System.out.println("Informações do herói: ");
         heroiEscolhido.printHabilityInfo();
+        System.out.println();
 
         // Introdução do objetivo do jogo.
         System.out.println(
-                "Você encontra a caverna do acúmulo, onde o terrível imperialista reside, você hesita, mas a alegria \nde seu povo depende de você, derrote os lacaios pra alcançar o imperialista e por um fim à sua \nganância");
+                "Você encontra a caverna do acúmulo, onde o terrível imperialista reside, você hesita, mas a alegria \nde seu povo depende de você, derrote os lacaios pra alcançar o imperialista e por um fim à sua \nganância.\n");
 
         // Inicialização dos inimigos
         Monstro lacaio;
         var boss = new Imperialista("Imperialista", 1, 5, 0);
-        var covarde = new Entreguista("b", 1, 5, 0, boss);
+        var covarde = new Entreguista("b", 1, 4, 0, boss);
 
         for (int lacaiosDerrotados = 0; lacaiosDerrotados < nLacaios; lacaiosDerrotados++) { // Loop de lacaios
             // Tela de introdução de um inimigo.
             if (lacaiosDerrotados != 0)
                 System.out.println(
                         "Você derrotou um lacaio do imperialismo, pelos seus sentidos aguçados, você sente que há mais "
-                                + (nLacaios - lacaiosDerrotados) + ".");
+                                + (nLacaios - lacaiosDerrotados) + ".\n\n");
             System.out.println("Um Falso Patriota se aproxima para defender os interesses extrangeiros.");
 
             // Criação do inimigo e batalha.
@@ -56,7 +57,7 @@ public class Main {
         }
 
         // Introdução do boss.
-        System.out.println("O entreguista fugiu para os Estados Unidos, deixando o imperialista vulnerável");
+        System.out.println("\nO entreguista fugiu para os Estados Unidos, deixando o imperialista vulnerável");
         System.out.println("Agora é a sua chance, você: " + heroi.getNome() + " enfrentará o imperialista");
 
         var batalha = new Batalha(heroi, boss, null);
@@ -64,7 +65,7 @@ public class Main {
 
         // Tela final.
         if (ganhou) {
-            System.out.println("Você eternizou o samba nos corações dos brasileiros");
+            System.out.println("\nVocê eternizou o samba nos corações dos brasileiros");
         } else {
             System.out.println("O imperialismo conseguiu privatizar o carnaval");
             System.out.println("O   S A M B A   M O R R E U");

@@ -1,12 +1,14 @@
 package classes.heroi;
 
 import java.util.List;
+import java.util.Random;
 
 import classes.Personagem;
 import classes.monstro.Monstro;
 
 public class Passista extends Herói {
     private int requebrado;
+    private Random random;
 
     public Passista(String name, int LP, int strength, int level, int xp, int shakeness) {
         super(name, LP, strength, level, xp);
@@ -15,6 +17,11 @@ public class Passista extends Herói {
 
     @Override
     public boolean atacar(Personagem alvo) {
+        int r = random.nextInt(3);            //1/3 de chance de usar a habilidade especial
+        if(r == 0){
+            this.usarHabilidadeEspecial(alvo);
+            return true;
+        }
         System.out.println("Conselho dado.");
         this.requebrado++;
         super.atacar(alvo);

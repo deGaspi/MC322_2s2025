@@ -111,7 +111,12 @@ public abstract class Herói extends Personagem {
     }
 
     public void equiparArma(Arma a) {
-        this.arma = a;
+        if(a.getMinNivel() < this.nivel){
+            System.out.println(this.getNome() + " não possui experiência suficiente para lidar com " + a.getNome());
+        }else{
+            System.out.println(this.getNome() + " equipou " + a.getNome());
+            this.arma = a;
+        }
     }
 
     public abstract heroEnum getTipo(); // Para que lembrem de alterar o enum quando adicionarem outro heroi.
