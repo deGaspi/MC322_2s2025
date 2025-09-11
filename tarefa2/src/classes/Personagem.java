@@ -16,6 +16,10 @@ public abstract class Personagem {
 
     public abstract boolean atacar(Personagem alvo); // retorna true se o ataque faz o turno acabar.
 
+    public void zerarVida() {
+        this.pontosDeVida = 0;
+    }
+
     public int receberDano(int dano) {
         dano = Math.min(dano, this.pontosDeVida);
         this.pontosDeVida -= dano;

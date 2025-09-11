@@ -8,7 +8,7 @@ import classes.monstro.Monstro;
 
 public class Passista extends Herói {
     private int requebrado;
-    private Random random;
+    private Random random = new Random ();
 
     public Passista(String name, int LP, int strength, int level, int xp, int shakeness) {
         super(name, LP, strength, level, xp);

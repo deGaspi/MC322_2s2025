@@ -1,16 +1,13 @@
 import java.util.Random;
 
-import classes.Batalha;
+import classes.ConstrutorDeCenário;
 import classes.heroi.Herói.heroEnum;
-import classes.monstro.Entreguista;
-import classes.monstro.FalsoPatriota;
-import classes.monstro.Imperialista;
-import classes.monstro.Monstro;
 
 public class Main {
-    private static int nLacaios = 6;
-
     public static void main(String[] args) {
+        final int N_DE_FASES = 4;
+        var fases = ConstrutorDeCenário.gerarFases(N_DE_FASES); // 4 fases
+
         // Historia inicial.
         System.out.println(
                 "Você nasceu e cresceu no samba, mas agora estão querendo acabar com a cultura do seu povo. \nSó resta uma coisa a fazer: resistir e derrotar a força imperialista que quer privatizar o \ncarnaval.\n");
@@ -31,44 +28,47 @@ public class Main {
                 "Você encontra a caverna do acúmulo, onde o terrível imperialista reside, você hesita, mas a alegria \nde seu povo depende de você, derrote os lacaios pra alcançar o imperialista e por um fim à sua \nganância.\n");
 
         // Inicialização dos inimigos
-        Monstro lacaio;
-        var boss = new Imperialista("Imperialista", 1, 5, 0);
-        var covarde = new Entreguista("b", 1, 4, 0, boss);
+        for (int i = 0; i<N_DE_FASES; i++) {
+            var fase = fases.removeFirst();
+            System.out.println("\n############################# Fase " + (i+1) + "/" + N_DE_FASES + " #############################\n");
+            System.out.println(fase.ambiente());
+            for (var monstro : fase.monstros()) {
+                int round = 0;
+                boolean ganhou;
+                System.out.println("\n"+monstro.getNome() + " se aproxima para defender os interesses extrangeiros.");
+                while (true) {
+                    round++;
+                    System.out.println("\n---------- Turno " + round + " ----------\n");
+                    if (monstro.getPontosDeVida() == 0) {
+                        ganhou = true;
+                        break;
+                    }
+                    if (heroi.getPontosDeVida() == 0) {
+                        ganhou = false;
+                        break;
+                    }
+                    heroi.atacar(monstro);
 
-        for (int lacaiosDerrotados = 0; lacaiosDerrotados < nLacaios; lacaiosDerrotados++) { // Loop de lacaios
-            // Tela de introdução de um inimigo.
-            if (lacaiosDerrotados != 0)
-                System.out.println(
-                        "Você derrotou um lacaio do imperialismo, pelos seus sentidos aguçados, você sente que há mais "
-                                + (nLacaios - lacaiosDerrotados) + ".\n\n");
-            System.out.println("Um Falso Patriota se aproxima para defender os interesses extrangeiros.");
-
-            // Criação do inimigo e batalha.
-            lacaio = new FalsoPatriota("Lacaio " + (lacaiosDerrotados + 1) + "/" + nLacaios, 10, 2, 50);
-            var batalha = new Batalha(heroi, lacaio, covarde);
-            var ganhou = batalha.executarTurnos();
-
-            // Tela de derrota.
-            if (!ganhou) {
-                System.out.println("O imperialismo conseguiu privatizar o carnaval");
-                System.out.println("O   S A M B A   M O R R E U");
-                return;
+                    // Verifica se a batalha acabou
+                    if (monstro.getPontosDeVida() == 0) {
+                        ganhou = true;
+                        break;
+                    }
+                    if (heroi.getPontosDeVida() == 0) {
+                        ganhou = false;
+                        break;
+                    }
+                    monstro.atacar(heroi);
+                    System.out.println("\n-----------------------------\n");
+                }
+                System.out.println("\n-----------------------------\n");
+                if (!ganhou) {
+                    System.out.println("O imperialismo conseguiu privatizar o carnaval");
+                    System.out.println("O   S A M B A   M O R R E U");
+                    return;
+                }
             }
         }
-
-        // Introdução do boss.
-        System.out.println("\nO entreguista fugiu para os Estados Unidos, deixando o imperialista vulnerável");
-        System.out.println("Agora é a sua chance, você: " + heroi.getNome() + " enfrentará o imperialista");
-
-        var batalha = new Batalha(heroi, boss, null);
-        var ganhou = batalha.executarTurnos();
-
-        // Tela final.
-        if (ganhou) {
-            System.out.println("\nVocê eternizou o samba nos corações dos brasileiros");
-        } else {
-            System.out.println("O imperialismo conseguiu privatizar o carnaval");
-            System.out.println("O   S A M B A   M O R R E U");
-        }
+        System.out.println("\nVocê eternizou o samba nos corações dos brasileiros");
     }
 }

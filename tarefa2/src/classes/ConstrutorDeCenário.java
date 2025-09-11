@@ -23,7 +23,7 @@ public class ConstrutorDeCenário {
         var imperialista = new Imperialista("", 1, 1, 1); // TODO: arrumar status.
         var ultimaFase = new Fase(
                 1, // TODO: arrumar nível.
-                "Batalha com o imperialista", // TODO: arrumar ambiente.
+                "Você desce até o fim da caverna. Agora é a sua chance de acabar com imperialista!!",
                 new ArrayList<Monstro>()
             );
         ultimaFase.monstros().add(imperialista);
@@ -41,7 +41,7 @@ public class ConstrutorDeCenário {
             monstros.add(new Entreguista("", 1, 1, 1, imperialista)); // TODO: arrumar status.
             var fase = new Fase(
                     1, // TODO: arrumar nível.
-                    "Inimigos no " + n + "° andar.", // TODO: arrumar ambiente.
+                    "Você desce para o " + n + "° andar, e se depara com 2 falsos patriotas e um entreguista.", // TODO: testar se a numeração dos andares está certa.
                     monstros
                 );
             listaDeFases.addFirst(fase);
@@ -54,7 +54,7 @@ public class ConstrutorDeCenário {
         monstros.add(new FalsoPatriota("", 1, 1, 1)); // TODO: arrumar status.
         var primeiraFase = new Fase(
                 1, // TODO: arrumar nível.
-                "Batalha para entrar na caverna", // TODO: arrumar ambiente.
+                "Você se aproxima da entrada da caverna, porém dois falsos patriotas te impedem. Prepare-se para a batalha!!",
                 monstros
             );
         listaDeFases.addFirst(primeiraFase);
