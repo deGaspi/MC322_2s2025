@@ -10,7 +10,7 @@ public class Batalha {
     private Herói heroi;
     private Monstro monstro;
     private Entreguista entreguista;
-    private int round = 1;
+    private int round = 0;
 
     public Batalha(Herói heroi, Monstro monstro, Entreguista entreguista) {
         this.heroi = heroi;
@@ -23,6 +23,9 @@ public class Batalha {
         while (true) {
             // Verifica se a batalha acabou
             this.round++;
+            System.out.println();
+            System.out.println("---------- Turno " + this.round + " ----------");
+            System.out.println();
             if (monstro.getPontosDeVida() == 0)
                 return true;
             if (heroi.getPontosDeVida() == 0)
