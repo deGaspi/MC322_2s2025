@@ -7,7 +7,7 @@ import classes.Personagem;
 
 public class Puxador extends Herói {
     private int swing;
-    private Random random;
+    private Random random = new Random();
 
     public Puxador(String name, int LP, int strength, int level, int xp, int shakeness) {
         super(name, LP, strength, level, xp);
