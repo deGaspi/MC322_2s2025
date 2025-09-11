@@ -13,10 +13,15 @@ public class Entreguista extends Monstro{  // Ele vai roubar vida do Herói ou d
     }
 
     public boolean atacar(Personagem alvo){
-        float dano = (this.getForca() * random.nextFloat() * 2) + 2;
-        System.out.println("\nEntreguista vai privatizar a vida de " + alvo.getNome() + "!!!");
-        int n = alvo.receberDano(Math.round(dano));
-        imperialista.receberCura(n);
+        if (random.nextFloat() < 0.1) { // 10% de chance de fugir.
+            System.out.println("\nO entreguista fugiu para os Estados Unidos, deixando o imperialista vulnerável");
+            this.zerarVida(); // Ele "morre" mas não dá xp para o heroi.
+        } else {
+            float dano = (this.getForca() * random.nextFloat() * 2) + 2;
+            System.out.println("\nEntreguista vai privatizar a vida de " + alvo.getNome() + "!!!");
+            int n = alvo.receberDano(Math.round(dano));
+            imperialista.receberCura(n);
+        }
         return true;
     }
 
