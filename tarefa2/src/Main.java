@@ -5,8 +5,6 @@ import classes.ConstrutorDeCenário;
 import classes.heroi.Herói.heroEnum;
 
 public class Main {
-    private static int nLacaios = 6;
-
     public static void main(String[] args) {
         var fases = ConstrutorDeCenário.gerarFases(4); // 4 fases
 
