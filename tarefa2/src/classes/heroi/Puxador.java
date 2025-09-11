@@ -16,8 +16,7 @@ public class Puxador extends Herói {
 
     @Override
     public boolean atacar(Personagem alvo) {
-        int r = random.nextInt(3);
-        if(r == 0){                            //1/3 de chance de usar a habilidade especial
+        if (swing > 0 && random.nextInt(3) == 0) {// 1/3 de chance de usar a habilidade especial
             this.usarHabilidadeEspecial(alvo);
             return true;
         }

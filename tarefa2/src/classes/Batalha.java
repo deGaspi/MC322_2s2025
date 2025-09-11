@@ -11,7 +11,6 @@ public class Batalha {
     private Monstro monstro;
     private Entreguista entreguista;
     private int round = 0;
-    private Random random;
 
     public Batalha(Herói heroi, Monstro monstro, Entreguista entreguista) {
         this.heroi = heroi;

@@ -17,8 +17,7 @@ public class Passista extends Herói {
 
     @Override
     public boolean atacar(Personagem alvo) {
-        int r = random.nextInt(3);            //1/3 de chance de usar a habilidade especial
-        if(r == 0){
+        if(requebrado >=4 && random.nextInt(3) == 0){ // 1/3 de chance de usar a habilidade especial//1/3 de chance de usar a habilidade especial
             this.usarHabilidadeEspecial(alvo);
             return true;
         }
