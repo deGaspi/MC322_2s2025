@@ -1,16 +1,15 @@
 import java.util.Random;
 
 import classes.Batalha;
+import classes.ConstrutorDeCenário;
 import classes.heroi.Herói.heroEnum;
-import classes.monstro.Entreguista;
-import classes.monstro.FalsoPatriota;
-import classes.monstro.Imperialista;
-import classes.monstro.Monstro;
 
 public class Main {
     private static int nLacaios = 6;
 
     public static void main(String[] args) {
+        var fases = ConstrutorDeCenário.gerarFases(4); // 4 fases
+
         // Historia inicial.
         System.out.println(
                 "Você nasceu e cresceu no samba, mas agora estão querendo acabar com a cultura do seu povo. \nSó resta uma coisa a fazer: resistir e derrotar a força imperialista que quer privatizar o \ncarnaval.\n");
@@ -31,10 +30,19 @@ public class Main {
                 "Você encontra a caverna do acúmulo, onde o terrível imperialista reside, você hesita, mas a alegria \nde seu povo depende de você, derrote os lacaios pra alcançar o imperialista e por um fim à sua \nganância.\n");
 
         // Inicialização dos inimigos
-        Monstro lacaio;
-        var boss = new Imperialista("Imperialista", 1, 5, 0);
-        var covarde = new Entreguista("b", 1, 4, 0, boss);
+        for (var fase : fases) {
+            for (var monstro : fase.monstros()) {
+                var batalha = new Batalha(heroi, monstro, null);
+                var ganhou = batalha.executarTurnos();
+                if (!ganhou) {
+                    System.out.println("perdeu!"); // TODO: arrumar mensagem.
+                    return;
+                }
+            }
+        }
+        System.out.println("Ganhou"); // TODO: arrumar mensagem
 
+/* 
         for (int lacaiosDerrotados = 0; lacaiosDerrotados < nLacaios; lacaiosDerrotados++) { // Loop de lacaios
             // Tela de introdução de um inimigo.
             if (lacaiosDerrotados != 0)
@@ -70,5 +78,6 @@ public class Main {
             System.out.println("O imperialismo conseguiu privatizar o carnaval");
             System.out.println("O   S A M B A   M O R R E U");
         }
+*/
     }
 }
