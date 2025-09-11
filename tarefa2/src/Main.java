@@ -5,7 +5,8 @@ import classes.heroi.Herói.heroEnum;
 
 public class Main {
     public static void main(String[] args) {
-        var fases = ConstrutorDeCenário.gerarFases(4); // 4 fases
+        final int N_DE_FASES = 4;
+        var fases = ConstrutorDeCenário.gerarFases(N_DE_FASES); // 4 fases
 
         // Historia inicial.
         System.out.println(
@@ -27,16 +28,17 @@ public class Main {
                 "Você encontra a caverna do acúmulo, onde o terrível imperialista reside, você hesita, mas a alegria \nde seu povo depende de você, derrote os lacaios pra alcançar o imperialista e por um fim à sua \nganância.\n");
 
         // Inicialização dos inimigos
-        for (var fase : fases) {
+        for (int i = 0; i<N_DE_FASES; i++) {
+            var fase = fases.removeFirst();
+            System.out.println("\n############################# Fase " + (i+1) + "/" + N_DE_FASES + " #############################\n");
+            System.out.println(fase.ambiente());
             for (var monstro : fase.monstros()) {
                 int round = 0;
                 boolean ganhou;
-                System.out.println(monstro.getNome() + " se aproxima para defender os interesses extrangeiros.");
+                System.out.println("\n"+monstro.getNome() + " se aproxima para defender os interesses extrangeiros.");
                 while (true) {
                     round++;
-                    System.out.println();
-                    System.out.println("---------- Turno " + round + " ----------");
-                    System.out.println();
+                    System.out.println("\n---------- Turno " + round + " ----------\n");
                     if (monstro.getPontosDeVida() == 0) {
                         ganhou = true;
                         break;
@@ -57,7 +59,9 @@ public class Main {
                         break;
                     }
                     monstro.atacar(heroi);
+                    System.out.println("\n-----------------------------\n");
                 }
+                System.out.println("\n-----------------------------\n");
                 if (!ganhou) {
                     System.out.println("O imperialismo conseguiu privatizar o carnaval");
                     System.out.println("O   S A M B A   M O R R E U");
