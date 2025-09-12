@@ -30,16 +30,18 @@ public class Main {
         // Inicialização dos inimigos
         for (int i = 0; i<N_DE_FASES; i++) {
             var fase = fases.removeFirst();
-            System.out.println("\n############################# Fase " + (i+1) + "/" + N_DE_FASES + " #############################\n");
+            System.out.println("\n\n############################# Fase " + (i+1) + "/" + N_DE_FASES + " #############################");
             System.out.println(fase.ambiente());
-            for (var monstro : fase.monstros()) {
+            final var N_DE_INIMIGOS = fase.monstros().size();
+            for (int j = 1; j<=N_DE_INIMIGOS; j++) {
+                var monstro = fase.monstros().removeFirst();
                 int round = 0;
                 boolean ganhou;
-                System.out.println("\n"+monstro.getNome() + " se aproxima para defender os interesses extrangeiros.");
+                System.out.println(monstro.getNome() + " se aproxima para defender os interesses extrangeiros.");
                 while (true) {
                     round++;
-                    System.out.println("\n-------------------- Turno " + round + " --------------------");
-                    System.out.println("Status do inimigo:");
+                    System.out.println("-------------------- Inimigo " + j + "/" + N_DE_INIMIGOS +"  |  Turno " + round + " --------------------");
+                    System.out.println("Status do lacaio:");
                     monstro.exibirStatus();
                     System.out.println("Status do herói:");
                     heroi.exibirStatus();
@@ -63,9 +65,8 @@ public class Main {
                         break;
                     }
                     monstro.atacar(heroi);
-                    System.out.println("-------------------------------------------------\n");
                 }
-                System.out.println("-------------------------------------------------\n");
+                System.out.println("-------------------------------------------------");
                 if (!ganhou) {
                     System.out.println("O imperialismo conseguiu privatizar o carnaval.");
                     System.out.println("O   S A M B A   M O R R E U");
