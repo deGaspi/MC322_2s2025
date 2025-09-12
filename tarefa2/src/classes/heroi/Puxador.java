@@ -1,6 +1,5 @@
 package classes.heroi;
 
-import java.util.List;
 import java.util.Random;
 
 import classes.Personagem;
@@ -20,7 +19,7 @@ public class Puxador extends Herói {
             this.usarHabilidadeEspecial(alvo);
             return true;
         }
-        System.out.println("Bumbum, Paticumbum, Prugurundum.");
+        System.out.print("Bumbum, Paticumbum, Prugurundum. ");
         this.swing++;
         super.atacar(alvo);
         return true;
@@ -36,13 +35,6 @@ public class Puxador extends Herói {
         int resultado = Math.round((float) (Math.pow(1.4, this.swing)));
         this.receberCura(resultado);
         return true;
-    }
-
-    @Override
-    public List<String> getStatusList() {
-        var statusList = super.getStatusList();
-        statusList.add("Swing: " + swing);
-        return statusList;
     }
 
     @Override

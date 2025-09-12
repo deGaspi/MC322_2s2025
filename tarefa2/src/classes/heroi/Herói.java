@@ -1,6 +1,5 @@
 package classes.heroi;
 
-import java.util.List;
 import java.util.Random;
 
 import classes.Personagem;
@@ -43,19 +42,11 @@ public abstract class Herói extends Personagem {
     }
 
     @Override
-    public List<String> getStatusList() {
-        var statusList = super.getStatusList();
-        statusList.add("Nível: " + nivel);
-        statusList.add("XP: " + experiencia);
-        statusList.add("Classe: " + this.getTipo().getDescription());
-        return statusList;
-    }
-
-    @Override
     public void exibirStatus() {
         super.exibirStatus();
-        System.out.println("Nível: " + nivel);
-        System.out.println("Experiência: " + experiencia);
+        System.out.println("    Nível: " + nivel);
+        System.out.println("    Experiência: " + experiencia);
+        System.out.println("    Tipo: " + getTipo().getDescription());
     }
 
     @Override

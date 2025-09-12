@@ -20,7 +20,7 @@ public class ConstrutorDeCenário {
         List<Fase> listaDeFases = new ArrayList<Fase>();
 
         // Ultima fase: Batalha com imperialista
-        var imperialista = new Imperialista("", 1, 1, 1); // TODO: arrumar status.
+        var imperialista = new Imperialista("Imperialista", 1, 1, 1); // TODO: arrumar status.
         var ultimaFase = new Fase(
                 1, // TODO: arrumar nível.
                 "Você desce até o fim da caverna. Agora é a sua chance de acabar com imperialista!!",
@@ -36,9 +36,9 @@ public class ConstrutorDeCenário {
         // Fases do meio: Batalhas com falsos patriotas e entreguistas para descer os andares
         while (n > 1) {
             List<Monstro> monstros = new ArrayList<Monstro>();
-            monstros.add(new FalsoPatriota("", 1, 1, 1)); // TODO: arrumar status.
-            monstros.add(new FalsoPatriota("", 1, 1, 1)); // TODO: arrumar status.
-            monstros.add(new Entreguista("", 1, 1, 1, imperialista)); // TODO: arrumar status.
+            monstros.add(new FalsoPatriota("Falso Patriota 1", 1, 1, 1)); // TODO: arrumar status.
+            monstros.add(new FalsoPatriota("Falso Patriota 2", 1, 1, 1)); // TODO: arrumar status.
+            monstros.add(new Entreguista("Entreguista", 1, 1, 1, imperialista)); // TODO: arrumar status.
             var fase = new Fase(
                     1, // TODO: arrumar nível.
                     "Você desce para o " + n + "° andar, e se depara com 2 falsos patriotas e um entreguista.", // TODO: testar se a numeração dos andares está certa.
@@ -50,8 +50,8 @@ public class ConstrutorDeCenário {
 
         // Primeira fase: Batalha com falsos patriotas para entrar na caverna.
         List<Monstro> monstros = new ArrayList<Monstro>();
-        monstros.add(new FalsoPatriota("", 1, 1, 1)); // TODO: arrumar status.
-        monstros.add(new FalsoPatriota("", 1, 1, 1)); // TODO: arrumar status.
+        monstros.add(new FalsoPatriota("Falso Patriota 1", 1, 1, 1)); // TODO: arrumar status.
+        monstros.add(new FalsoPatriota("Flaso Patriota 2", 1, 1, 1)); // TODO: arrumar status.
         var primeiraFase = new Fase(
                 1, // TODO: arrumar nível.
                 "Você se aproxima da entrada da caverna, porém dois falsos patriotas te impedem. Prepare-se para a batalha!!",

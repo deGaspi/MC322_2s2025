@@ -1,8 +1,5 @@
 package classes;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public abstract class Personagem {
     private String nome;
     private int pontosDeVida;
@@ -49,19 +46,10 @@ public abstract class Personagem {
         return this.nome;
     }
 
-    // Usado no lugar de exibirStatus().
-    public List<String> getStatusList() { 
-        List<String> statusList = new ArrayList<>();
-        statusList.add("Nome: " + this.nome);
-        statusList.add("Vida: " + this.pontosDeVida);
-        statusList.add("Força: " + this.forca);
-        return statusList;
-    }
-
     // Está aqui para satisfazer as exigências da atividade. Não é utilizado.
     public void exibirStatus() {
-        System.out.println("Nome: " + this.nome);
-        System.out.println("Vida: " + this.pontosDeVida);
-        System.out.println("Força: " + this.forca);
+        System.out.println("    Nome: " + this.nome);
+        System.out.println("    Vida: " + this.pontosDeVida);
+        System.out.println("    Força: " + this.forca);
     }
 }

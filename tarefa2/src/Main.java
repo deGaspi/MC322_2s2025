@@ -38,7 +38,11 @@ public class Main {
                 System.out.println("\n"+monstro.getNome() + " se aproxima para defender os interesses extrangeiros.");
                 while (true) {
                     round++;
-                    System.out.println("\n---------- Turno " + round + " ----------\n");
+                    System.out.println("\n-------------------- Turno " + round + " --------------------");
+                    System.out.println("Status do lacaio:");
+                    monstro.exibirStatus();
+                    System.out.println("Status do herói:");
+                    heroi.exibirStatus();
                     if (monstro.getPontosDeVida() == 0) {
                         ganhou = true;
                         break;
@@ -59,9 +63,9 @@ public class Main {
                         break;
                     }
                     monstro.atacar(heroi);
-                    System.out.println("\n-----------------------------\n");
+                    System.out.println("-------------------------------------------------\n");
                 }
-                System.out.println("\n-----------------------------\n");
+                System.out.println("-------------------------------------------------\n");
                 if (!ganhou) {
                     System.out.println("O imperialismo conseguiu privatizar o carnaval");
                     System.out.println("O   S A M B A   M O R R E U");
