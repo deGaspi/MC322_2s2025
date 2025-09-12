@@ -33,6 +33,7 @@ public class Puxador extends Herói {
         }
         System.out.println("Esperança Conquistada!!");
         int resultado = Math.round((float) (Math.pow(1.4, this.swing)));
+        this.swing = -1;
         this.receberCura(resultado);
         return true;
     }

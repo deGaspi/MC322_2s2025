@@ -13,7 +13,7 @@ public class Entreguista extends Monstro{  // Ele vai roubar vida do Herói ou d
     }
 
     public boolean atacar(Personagem alvo){
-        if (random.nextFloat() < 0.1) { // 10% de chance de fugir.
+        if (random.nextFloat() < 0.2) { // 20% de chance de fugir.
             System.out.println("\nO entreguista fugiu para os Estados Unidos, deixando o imperialista vulnerável");
             this.zerarVida(); // Ele "morre" mas não dá xp para o heroi.
         } else {
