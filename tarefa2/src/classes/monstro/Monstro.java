@@ -13,14 +13,14 @@ public abstract class Monstro extends Personagem {
 
     private int xpConcedido;
 
-    private Arma repique = new Repique();
-    private Arma lanca = new Lança();
-    private Arma chinelo = new Chinelo();
-    private Arma[] listaDeArmasParaLargar = {repique, lanca, chinelo};
+    private Arma[] listaDeArmas = {new Chinelo(), new Lança(), new Repique()};
 
     public Monstro(String name, int LP, int strength, int xp) {
         super(name, LP, strength);
         this.xpConcedido = xp;
+        if (random.nextFloat() < 0.5) {
+            receberArma(listaDeArmas[random.nextInt(listaDeArmas.length)]);
+        }
     }
 
     public int getXpConcedido() {
@@ -52,10 +52,5 @@ public abstract class Monstro extends Personagem {
     public void exibirStatus() {
         super.exibirStatus();
         System.out.println("    XP concedido: " + this.xpConcedido);
-    }
-
-    public Arma largaArma(){
-        int index = random.nextInt(3);
-        return listaDeArmasParaLargar[index];
     }
 }
