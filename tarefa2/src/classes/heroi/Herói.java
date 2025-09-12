@@ -22,7 +22,7 @@ public abstract class Herói extends Personagem {
         this.sorte = random.nextFloat();
     }
 
-    public abstract boolean usarHabilidadeEspecial(Personagem alvo); // retorna true se ataque faz turno acabar.
+    public abstract boolean usarHabilidadeEspecial(Personagem alvo);
 
     private void subirDeNivel() {
         if (this.experiencia >= expProxNivel) {
@@ -54,9 +54,9 @@ public abstract class Herói extends Personagem {
         var arma = getArma();
         float dano = (this.getForca() * sorte * 2) + (this.nivel * 0.5f) + (arma.getDano());
         if (arma instanceof SemArma)
-            System.out.println(this.getNome() + " ataca desarmado");
+            System.out.println(this.getNome() + " ataca desarmado.");
         else 
-            System.out.println(this.getNome() + " ataca com " + arma.getNome());
+            System.out.println(this.getNome() + " ataca com " + arma.getNome() + ".");
         alvo.receberDano(Math.round(dano));
         if (alvo instanceof Monstro monstro && monstro.getPontosDeVida() == 0) {
             this.ganharExperiencia(monstro.getXpConcedido());
@@ -109,7 +109,7 @@ public abstract class Herói extends Personagem {
     @Override
     public void receberArma(Arma a) {
         if(a.getMinNivel() < this.nivel){
-            System.out.println(this.getNome() + " não possui experiência suficiente para lidar com " + a.getNome());
+            System.out.println(this.getNome() + " não possui experiência suficiente para lidar com " + a.getNome() + ".");
         }else{
             super.receberArma(a);
         }

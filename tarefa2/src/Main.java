@@ -39,7 +39,7 @@ public class Main {
                 while (true) {
                     round++;
                     System.out.println("\n-------------------- Turno " + round + " --------------------");
-                    System.out.println("Status do lacaio:");
+                    System.out.println("Status do inimigo:");
                     monstro.exibirStatus();
                     System.out.println("Status do herói:");
                     heroi.exibirStatus();
@@ -67,12 +67,12 @@ public class Main {
                 }
                 System.out.println("-------------------------------------------------\n");
                 if (!ganhou) {
-                    System.out.println("O imperialismo conseguiu privatizar o carnaval");
+                    System.out.println("O imperialismo conseguiu privatizar o carnaval.");
                     System.out.println("O   S A M B A   M O R R E U");
                     return;
                 }
             }
         }
-        System.out.println("\nVocê eternizou o samba nos corações dos brasileiros");
+        System.out.println("\nVocê eternizou o samba nos corações dos brasileiros.\n O SAMBA VENCEU!!!!");
     }
 }
