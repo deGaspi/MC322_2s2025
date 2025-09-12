@@ -1,6 +1,5 @@
 package classes.monstro;
 
-import java.util.List;
 import java.util.Random;
 
 import classes.Personagem;
@@ -48,20 +47,11 @@ public abstract class Monstro extends Personagem {
 
     public abstract monstroEnum getTipo(); // Para que lembrem de alterar o enum quando adicionarem outro heroi.
 
-    @Override
-    public List<String> getStatusList() {
-        var statusList = super.getStatusList();
-        statusList.add("XP: " + xpConcedido);
-        statusList.add("Classe: " + this.getTipo().getDescription());
-        return statusList;
-    }
 
     @Override
     public void exibirStatus() {
-        System.out.println("Nome: " + super.getNome());
-        System.out.println("Vida: " + super.getPontosDeVida());
-        System.out.println("Força: " + super.getForca());
-        System.out.println("XP concedido: " + this.xpConcedido);
+        super.exibirStatus();
+        System.out.println("    XP concedido: " + this.xpConcedido);
     }
 
     public Arma largaArma(){

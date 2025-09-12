@@ -1,6 +1,5 @@
 package classes.heroi;
 
-import java.util.List;
 import java.util.Random;
 
 import classes.Personagem;
@@ -21,7 +20,7 @@ public class Passista extends Herói {
             this.usarHabilidadeEspecial(alvo);
             return true;
         }
-        System.out.println("Conselho dado.");
+        System.out.print("Conselho dado. ");
         this.requebrado++;
         super.atacar(alvo);
         return true;
@@ -59,12 +58,4 @@ public class Passista extends Herói {
     public heroEnum getTipo() {
         return heroEnum.PASSISTA;
     }
-
-    @Override
-    public List<String> getStatusList() {
-        var statusList = super.getStatusList();
-        statusList.add("Requebrado: " + requebrado);
-        return statusList;
-    }
-
 }
