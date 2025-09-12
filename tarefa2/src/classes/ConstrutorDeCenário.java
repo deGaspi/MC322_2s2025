@@ -36,12 +36,12 @@ public class ConstrutorDeCenário {
         // Fases do meio: Batalhas com falsos patriotas e entreguistas para descer os andares
         while (n > 1) {
             List<Monstro> monstros = new ArrayList<Monstro>();
-            monstros.add(new FalsoPatriota("Falso Patriota 1", 8*n, 2*n, 8*n)); // TODO: arrumar status.
-            monstros.add(new FalsoPatriota("Falso Patriota 2", 8*n, 2*n, 8*n)); // TODO: arrumar status.
-            monstros.add(new Entreguista("Entreguista", 8*n, 2*n, 8*n, imperialista)); // TODO: arrumar status.
+            monstros.add(new FalsoPatriota("Falso Patriota 1", 8*n, 2*n, 8*n));
+            monstros.add(new FalsoPatriota("Falso Patriota 2", 8*n, 2*n, 8*n));
+            monstros.add(new Entreguista("Entreguista", 8*n, 2*n, 8*n, imperialista));
             var fase = new Fase(
-                    n, // TODO: arrumar nível.
-                    "Você desce para o " + n + "° andar, e se depara com 2 falsos patriotas e um entreguista.", // TODO: testar se a numeração dos andares está certa.
+                    n,
+                    "Você desce para o " + n + "° andar, e se depara com 2 falsos patriotas e um entreguista.",
                     monstros
                 );
             listaDeFases.addFirst(fase);
@@ -50,10 +50,10 @@ public class ConstrutorDeCenário {
 
         // Primeira fase: Batalha com falsos patriotas para entrar na caverna.
         List<Monstro> monstros = new ArrayList<Monstro>();
-        monstros.add(new FalsoPatriota("Falso Patriota 1", 8*n, 2*n, 8*n)); // TODO: arrumar status.
-        monstros.add(new FalsoPatriota("Flaso Patriota 2", 8*n, 2*n, 8*n)); // TODO: arrumar status.
+        monstros.add(new FalsoPatriota("Falso Patriota 1", 8*n, 2*n, 8*n));
+        monstros.add(new FalsoPatriota("Flaso Patriota 2", 8*n, 2*n, 8*n));
         var primeiraFase = new Fase(
-                n, // TODO: arrumar nível.
+                n,
                 "Você se aproxima da entrada da caverna, porém dois falsos patriotas te impedem. Prepare-se para a batalha!!",
                 monstros
             );
