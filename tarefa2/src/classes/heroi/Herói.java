@@ -26,10 +26,12 @@ public abstract class Herói extends Personagem {
 
     private void subirDeNivel() {
         if (this.experiencia >= expProxNivel) {
-            this.nivel += this.experiencia / expProxNivel;
+            var novoNivel = experiencia / expProxNivel;
+            this.nivel += novoNivel;
             this.experiencia %= expProxNivel;
             this.expProxNivel += 2;
             System.out.println(this.getNome() + " subiu para nível " + this.nivel + ".");
+            receberCura(novoNivel * 8);
         }
     }
 
@@ -97,9 +99,9 @@ public abstract class Herói extends Personagem {
         public Herói getDefaultInstance() {
             switch (this) {
                 case PASSISTA:
-                    return new Passista("Valéria Valenssa", 23, 4, 0, 0, 0);
+                    return new Passista("Valéria Valenssa", 23, 6, 0, 0, 0);
                 case PUXADOR:
-                    return new Puxador("Jamelão", 23, 4, 0, 0, 0);
+                    return new Puxador("Jamelão", 23, 6, 0, 0, 0);
                 default:
                     throw new RuntimeException();
             }
