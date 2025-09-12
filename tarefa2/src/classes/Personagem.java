@@ -1,9 +1,13 @@
 package classes;
 
+import classes.armas.Arma;
+import classes.armas.SemArma;
+
 public abstract class Personagem {
     private String nome;
     private int pontosDeVida;
     private int forca;
+    private Arma arma = new SemArma();
 
     public Personagem(String name, int LP, int strength) {
         this.nome = name;
@@ -34,6 +38,15 @@ public abstract class Personagem {
         System.out.println(this.nome + " recebeu " + forca + " pontos de força.");
     }
 
+    public void receberArma(Arma arma) {
+        this.arma = arma;
+        System.out.println(this.getNome() + " equipou " + arma.getNome());
+    }
+
+    public Arma getArma() {
+        return this.arma;
+    }
+
     public int getPontosDeVida() {
         return this.pontosDeVida;
     }
@@ -51,5 +64,6 @@ public abstract class Personagem {
         System.out.println("    Nome: " + this.nome);
         System.out.println("    Vida: " + this.pontosDeVida);
         System.out.println("    Força: " + this.forca);
+        System.out.println("    Arma: " + arma.getNome() + " (Força: +"+ arma.getDano() + " | NívelMin: "+ arma.getMinNivel() + ")");
     }
 }

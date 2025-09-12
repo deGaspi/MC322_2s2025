@@ -12,7 +12,7 @@ public abstract class Herói extends Personagem {
     private int experiencia;
     private int expProxNivel = 20;
     private float sorte;
-    private Arma arma = new SemArma();
+    
     private Random random = new Random();
 
     public Herói(String name, int LP, int strength, int level, int xp) {
@@ -51,7 +51,8 @@ public abstract class Herói extends Personagem {
 
     @Override
     public boolean atacar(Personagem alvo) {
-        float dano = (this.getForca() * sorte * 2) + (this.nivel * 0.5f) + (this.arma.getDano());
+        var arma = getArma();
+        float dano = (this.getForca() * sorte * 2) + (this.nivel * 0.5f) + (arma.getDano());
         if (arma instanceof SemArma)
             System.out.println(this.getNome() + " ataca desarmado");
         else 
@@ -59,6 +60,10 @@ public abstract class Herói extends Personagem {
         alvo.receberDano(Math.round(dano));
         if (alvo instanceof Monstro monstro && monstro.getPontosDeVida() == 0) {
             this.ganharExperiencia(monstro.getXpConcedido());
+            var armaMonstro = monstro.getArma();
+            if (armaMonstro.getDano() > this.getArma().getDano()) {
+                this.receberArma(armaMonstro);
+            }
         }
         return true;
     }
@@ -101,12 +106,12 @@ public abstract class Herói extends Personagem {
         }
     }
 
-    public void equiparArma(Arma a) {
+    @Override
+    public void receberArma(Arma a) {
         if(a.getMinNivel() < this.nivel){
             System.out.println(this.getNome() + " não possui experiência suficiente para lidar com " + a.getNome());
         }else{
-            System.out.println(this.getNome() + " equipou " + a.getNome());
-            this.arma = a;
+            super.receberArma(a);
         }
     }
 
