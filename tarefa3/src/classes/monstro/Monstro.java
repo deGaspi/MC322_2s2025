@@ -3,7 +3,6 @@ package classes.monstro;
 import java.util.Random;
 
 import classes.Personagem;
-import classes.armas.Arma;
 import classes.armas.Chinelo;
 import classes.armas.Lança;
 import classes.armas.Repique;
@@ -14,8 +13,6 @@ public abstract class Monstro extends Personagem implements Lootavel{
     private Random random = new Random();
 
     private int xpConcedido;
-
-    private Arma[] listaDeArmas = {new Chinelo(), new Lança(), new Repique()};
     
     private static float sorte = 0.5f;
 
@@ -25,12 +22,16 @@ public abstract class Monstro extends Personagem implements Lootavel{
         switch(random.nextInt(6)){
             case 0:
                 this.receberArma(new Repique()); // 1/6 de chance
+                break;
             case 1:
                 this.receberArma(new Lança());   // 2/6 de chance
+                break;
             case 2:
-                this.receberArma(new Lança());   
+                this.receberArma(new Lança()); 
+                break;
             default:
                 this.receberArma(new Chinelo()); // 3/6 de chance
+                break;
         }
     }
 

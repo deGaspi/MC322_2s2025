@@ -2,7 +2,7 @@ package classes.cenarios;
 
 public enum TipoCenario {
     ENTRADA("Você se aproxima da entrada da caverna, porém dois falsos patriotas te impedem. Prepare-se para a batalha!!"),
-    CAVERNA("Você desce mais um andar da caverna"),
+    CAVERNA("Você desce mais um andar da caverna, porém dois falsos patriotas selvagens aparecem e você sente alguém à espreita"),
     CHEFE("Você desce até o fim da caverna. Agora é a sua chance de acabar com o imperialista!!");
 
     private String description;

@@ -83,6 +83,7 @@ public abstract class Herói extends Personagem {
             System.out.println(this.getNome() + " não possui experiência suficiente para lidar com " + a.getNome() + ".");
         }else{
             super.receberArma(a);
+            System.out.println(this.getNome() + " equipou " + a.getNome());
         }
     }
 
@@ -131,6 +132,9 @@ public abstract class Herói extends Personagem {
             acoes.get(0).executar(this, alvo);
             pontosEspecial++;
             if (alvo instanceof Monstro monstro && monstro.getPontosDeVida() == 0) {
+            if(alvo.getArma().getDano() > this.getArma().getDano()){
+                this.receberArma(alvo.getArma());
+            }
             this.ganharExperiencia(monstro.getXpConcedido());
             var armaMonstro = monstro.getArma();
             if (armaMonstro.getDano() > this.getArma().getDano()) {

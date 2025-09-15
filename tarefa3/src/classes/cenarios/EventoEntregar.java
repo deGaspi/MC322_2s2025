@@ -8,19 +8,23 @@ import classes.interfaces.Combatente;
 public class EventoEntregar implements Evento{
     private int turno;
     private Monstro entreguista;
-    private Combatente alvo;
     private TipoCenario tipo;
+    private Combatente alvo;
 
-    public EventoEntregar(Monstro ent, TipoCenario T){
-        turno = 0;
+    public EventoEntregar(Monstro ent, TipoCenario T, int round){
+        turno = round;
         entreguista = ent;
         tipo = T;
     }
 
     public boolean verificarGatilho(){
-        this.incrementarTurno();
-        if(turno % 4 == 0 && tipo == TipoCenario.CAVERNA){
-            return true;
+        if(tipo == TipoCenario.CAVERNA){
+            if(turno == 0){
+                System.out.println("Cuidado, há um entreguista à espreita");
+            }
+            if(turno % 4 == 0 ){
+                return true;
+            }
         }
         return false;
     }
@@ -34,6 +38,7 @@ public class EventoEntregar implements Evento{
     }
 
     public void executar(){
+        this.incrementarTurno();
         if(this.verificarGatilho()){
             entreguista.escolherAcao(alvo);
         }

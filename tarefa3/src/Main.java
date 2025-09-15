@@ -8,7 +8,8 @@ import classes.interfaces.Fase;
 public class Main {
     public static void main(String[] args) {
         final int N_DE_FASES = 4;
-        private ArrayList<Fase> fases = ConstrutorDeCenárioFixo.gerar(N_DE_FASES); // 4 fases
+        final ConstrutorDeCenárioFixo construtor = new ConstrutorDeCenárioFixo();
+        final ArrayList<Fase> fases = construtor.gerar(N_DE_FASES); // 4 fases
 
         // Historia inicial.
         System.out.println(
@@ -33,48 +34,17 @@ public class Main {
         for (int i = 0; i<N_DE_FASES; i++) {
             var fase = fases.removeFirst();
             System.out.println("\n############################# Fase " + (i+1) + "/" + N_DE_FASES + " #############################\n");
-            System.out.println(fase.ambiente());
-            for (var monstro : fase.monstros()) {
-                int round = 0;
-                boolean ganhou;
-                System.out.println("\n"+monstro.getNome() + " se aproxima para defender os interesses extrangeiros.");
-                while (true) {
-                    round++;
-                    System.out.println("\n-------------------- Turno " + round + " --------------------");
-                    System.out.println("Status do inimigo:");
-                    monstro.exibirStatus();
-                    System.out.println("Status do herói:");
-                    heroi.exibirStatus();
-                    if (monstro.getPontosDeVida() == 0) {
-                        ganhou = true;
-                        break;
-                    }
-                    if (heroi.getPontosDeVida() == 0) {
-                        ganhou = false;
-                        break;
-                    }
-                    heroi.atacar(monstro);
+            System.out.println(fase.getTipoCenario().getDescription());
+            boolean resultado = fase.iniciar(heroi);
 
-                    // Verifica se a batalha acabou
-                    if (monstro.getPontosDeVida() == 0) {
-                        ganhou = true;
-                        break;
-                    }
-                    if (heroi.getPontosDeVida() == 0) {
-                        ganhou = false;
-                        break;
-                    }
-                    monstro.atacar(heroi);
-                    System.out.println("-------------------------------------------------\n");
-                }
+
                 System.out.println("-------------------------------------------------\n");
-                if (!ganhou) {
+                if (!resultado) {
                     System.out.println("O imperialismo conseguiu privatizar o carnaval.");
                     System.out.println("O   S A M B A   M O R R E U");
                     return;
                 }
             }
-        }
         System.out.println("\nVocê eternizou o samba nos corações dos brasileiros.\n O SAMBA VENCEU!!!!");
     }
 }
