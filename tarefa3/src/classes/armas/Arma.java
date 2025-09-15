@@ -1,6 +1,8 @@
 package classes.armas;
 
-public abstract class Arma {
+import classes.interfaces.Item;
+
+public abstract class Arma implements Item{
     private int dano;
     private int minNivel;
 

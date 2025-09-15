@@ -1,17 +1,25 @@
 package classes.heroi;
 
 import java.util.Random;
+import java.util.ArrayList;
 
 import classes.Personagem;
+import classes.interfaces.Combatente;
 import classes.armas.Arma;
 import classes.armas.SemArma;
 import classes.monstro.Monstro;
+import classes.acoes.Ataque;
+import classes.acoes.Especial;
+import classes.interfaces.AcaoDeCombate;
 
 public abstract class Herói extends Personagem {
     private int nivel;
     private int experiencia;
     private int expProxNivel = 20;
     private float sorte;
+    private ArrayList<AcaoDeCombate> acoes = new ArrayList<AcaoDeCombate>();
+
+    private int pontosEspecial;
     
     private Random random = new Random();
 
@@ -20,9 +28,34 @@ public abstract class Herói extends Personagem {
         this.nivel = level;
         this.experiencia = xp;
         this.sorte = random.nextFloat();
+        pontosEspecial = 0;
+        acoes.add(new Ataque());
+        acoes.add(new Especial());
     }
 
-    public abstract boolean usarHabilidadeEspecial(Personagem alvo);
+    public int getNivel(){
+        return nivel;
+    }
+
+    public float getSorte(){
+        return this.sorte;
+    }
+
+    public int getPontosEspecial(){
+        return pontosEspecial;
+    }
+
+    public void setPontosEspecial(int set){
+        pontosEspecial = set;
+    }
+
+    @Override
+    public void exibirStatus() {
+        super.exibirStatus();
+        System.out.println("    Nível: " + nivel);
+        System.out.println("    Experiência: " + experiencia);
+        System.out.println("    Tipo: " + getTipo().getDescription());
+    }
 
     private void subirDeNivel() {
         if (this.experiencia >= expProxNivel) {
@@ -43,31 +76,14 @@ public abstract class Herói extends Personagem {
         subirDeNivel();
     }
 
-    @Override
-    public void exibirStatus() {
-        super.exibirStatus();
-        System.out.println("    Nível: " + nivel);
-        System.out.println("    Experiência: " + experiencia);
-        System.out.println("    Tipo: " + getTipo().getDescription());
-    }
 
     @Override
-    public boolean atacar(Personagem alvo) {
-        var arma = getArma();
-        float dano = (this.getForca() * sorte * 2) + (this.nivel * 0.5f) + (arma.getDano());
-        if (arma instanceof SemArma)
-            System.out.println(this.getNome() + " ataca desarmado.");
-        else 
-            System.out.println(this.getNome() + " ataca com " + arma.getNome() + ".");
-        alvo.receberDano(Math.round(dano));
-        if (alvo instanceof Monstro monstro && monstro.getPontosDeVida() == 0) {
-            this.ganharExperiencia(monstro.getXpConcedido());
-            var armaMonstro = monstro.getArma();
-            if (armaMonstro.getDano() > this.getArma().getDano()) {
-                this.receberArma(armaMonstro);
-            }
+    public void receberArma(Arma a) {
+        if(a.getMinNivel() < this.nivel){
+            System.out.println(this.getNome() + " não possui experiência suficiente para lidar com " + a.getNome() + ".");
+        }else{
+            super.receberArma(a);
         }
-        return true;
     }
 
     public static enum heroEnum {
@@ -99,24 +115,54 @@ public abstract class Herói extends Personagem {
         public Herói getDefaultInstance() {
             switch (this) {
                 case PASSISTA:
-                    return new Passista("Valéria Valenssa", 23, 6, 0, 0, 0);
+                    return new Passista("Valéria Valenssa", 23, 6, 0, 0);
                 case PUXADOR:
-                    return new Puxador("Jamelão", 23, 6, 0, 0, 0);
+                    return new Puxador("Cartola", 23, 6, 0, 0);
                 default:
                     throw new RuntimeException();
             }
         }
     }
 
-    @Override
-    public void receberArma(Arma a) {
-        if(a.getMinNivel() < this.nivel){
-            System.out.println(this.getNome() + " não possui experiência suficiente para lidar com " + a.getNome() + ".");
+    public boolean escolherAcao(Combatente alvo){
+        if(random.nextInt(3) == 0){
+            acoes.get(1).executar(this, alvo);
         }else{
-            super.receberArma(a);
+            acoes.get(0).executar(this, alvo);
+            pontosEspecial++;
+            if (alvo instanceof Monstro monstro && monstro.getPontosDeVida() == 0) {
+            this.ganharExperiencia(monstro.getXpConcedido());
+            var armaMonstro = monstro.getArma();
+            if (armaMonstro.getDano() > this.getArma().getDano()) {
+                this.receberArma(armaMonstro);
+            }
         }
+        }
+        return true;
     }
 
     public abstract heroEnum getTipo(); // Para que lembrem de alterar o enum quando adicionarem outro heroi.
+    public abstract int usarHabilidadeEspecial(Combatente alvo);
+
+
+    //Não é mais usado
+    @Override
+    public boolean atacar(Combatente alvo) {
+        var arma = getArma();
+        float dano = (this.getForca() * sorte * 2) + (this.nivel * 0.5f) + (arma.getDano());
+        if (arma instanceof SemArma)
+            System.out.println(this.getNome() + " ataca desarmado.");
+        else 
+            System.out.println(this.getNome() + " ataca com " + arma.getNome() + ".");
+        alvo.receberDano(Math.round(dano));
+        if (alvo instanceof Monstro monstro && monstro.getPontosDeVida() == 0) {
+            this.ganharExperiencia(monstro.getXpConcedido());
+            var armaMonstro = monstro.getArma();
+            if (armaMonstro.getDano() > this.getArma().getDano()) {
+                this.receberArma(armaMonstro);
+            }
+        }
+        return true;
+    }
 
 }

@@ -7,24 +7,39 @@ import classes.armas.Arma;
 import classes.armas.Chinelo;
 import classes.armas.Lança;
 import classes.armas.Repique;
+import classes.interfaces.Lootavel;
+import classes.interfaces.Item;
 
-public abstract class Monstro extends Personagem {
+public abstract class Monstro extends Personagem implements Lootavel{
     private Random random = new Random();
 
     private int xpConcedido;
 
     private Arma[] listaDeArmas = {new Chinelo(), new Lança(), new Repique()};
+    
+    private static float sorte = 0.5f;
 
     public Monstro(String name, int LP, int strength, int xp) {
         super(name, LP, strength);
         this.xpConcedido = xp;
-        if (random.nextFloat() < 0.5) {
-            receberArma(listaDeArmas[random.nextInt(listaDeArmas.length)]);
+        switch(random.nextInt(6)){
+            case 0:
+                this.receberArma(new Repique()); // 1/6 de chance
+            case 1:
+                this.receberArma(new Lança());   // 2/6 de chance
+            case 2:
+                this.receberArma(new Lança());   
+            default:
+                this.receberArma(new Chinelo()); // 3/6 de chance
         }
     }
 
     public int getXpConcedido() {
         return this.xpConcedido;
+    }
+
+    public float getSorte(){
+        return sorte;
     }
 
     public static enum monstroEnum {
@@ -45,12 +60,16 @@ public abstract class Monstro extends Personagem {
         }
     }
 
-    public abstract monstroEnum getTipo(); // Para que lembrem de alterar o enum quando adicionarem outro heroi.
-
+    public Item droparLoot(){
+        return this.getArma();
+    }
 
     @Override
     public void exibirStatus() {
         super.exibirStatus();
         System.out.println("    XP concedido: " + this.xpConcedido);
     }
+
+
+    public abstract monstroEnum getTipo(); // Para que lembrem de alterar o enum quando adicionarem outro heroi.
 }

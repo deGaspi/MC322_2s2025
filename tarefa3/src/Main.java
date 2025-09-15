@@ -1,12 +1,14 @@
 import java.util.Random;
+import java.util.ArrayList;
 
-import classes.ConstrutorDeCenário;
+import classes.cenarios.ConstrutorDeCenárioFixo;
 import classes.heroi.Herói.heroEnum;
+import classes.interfaces.Fase;
 
 public class Main {
     public static void main(String[] args) {
         final int N_DE_FASES = 4;
-        var fases = ConstrutorDeCenário.gerarFases(N_DE_FASES); // 4 fases
+        private ArrayList<Fase> fases = ConstrutorDeCenárioFixo.gerar(N_DE_FASES); // 4 fases
 
         // Historia inicial.
         System.out.println(

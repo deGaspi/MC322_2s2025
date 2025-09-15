@@ -1,41 +1,11 @@
 package classes.heroi;
 
-import java.util.Random;
-
-import classes.Personagem;
+import classes.interfaces.Combatente;
 
 public class Puxador extends Herói {
-    private int swing;
-    private Random random = new Random();
 
-    public Puxador(String name, int LP, int strength, int level, int xp, int shakeness) {
+    public Puxador(String name, int LP, int strength, int level, int xp) {
         super(name, LP, strength, level, xp);
-        this.swing = shakeness;
-    }
-
-    @Override
-    public boolean atacar(Personagem alvo) {
-        if (swing > 0 && random.nextInt(3) == 0) {// 1/3 de chance de usar a habilidade especial
-            this.usarHabilidadeEspecial(alvo);
-            return true;
-        }
-        System.out.print("Bumbum, Paticumbum, Prugurundum. ");
-        this.swing++;
-        super.atacar(alvo);
-        return true;
-    }
-
-    @Override
-    public boolean usarHabilidadeEspecial(Personagem alvo) {
-        if (this.swing <= 0) {
-            System.out.println("Swing zerado");
-            return false;
-        }
-        System.out.println("Esperança Conquistada!!");
-        int resultado = Math.round((float) (Math.pow(1.4, this.swing)));
-        this.swing = -1;
-        this.receberCura(resultado);
-        return true;
     }
 
     @Override
@@ -43,4 +13,16 @@ public class Puxador extends Herói {
         return heroEnum.PUXADOR;
     }
 
+    @Override
+    public int usarHabilidadeEspecial(Combatente alvo) {
+        if (super.getPontosEspecial() <= 0) {
+            System.out.println("Swing zerado");
+            return 0;
+        }
+        System.out.println("Esperança Conquistada!!");
+        int resultado = Math.round((float) (Math.pow(1.4, super.getPontosEspecial())));
+        super.setPontosEspecial(0);
+        this.receberCura(resultado);
+        return 0;
+    }
 }

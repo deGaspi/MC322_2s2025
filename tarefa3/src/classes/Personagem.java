@@ -2,8 +2,9 @@ package classes;
 
 import classes.armas.Arma;
 import classes.armas.SemArma;
+import classes.interfaces.Combatente;
 
-public abstract class Personagem {
+public abstract class Personagem implements Combatente{
     private String nome;
     private int pontosDeVida;
     private int forca;
@@ -15,7 +16,33 @@ public abstract class Personagem {
         this.forca = strength;
     }
 
-    public abstract boolean atacar(Personagem alvo); // retorna true se o ataque faz o turno acabar.
+    public Arma getArma() {
+        return this.arma;
+    }
+
+    public int getPontosDeVida() {
+        return this.pontosDeVida;
+    }
+
+    public int getForca() {
+        return this.forca;
+    }
+
+    public String getNome(){
+        return this.nome;
+    }
+
+    // Está aqui para satisfazer as exigências da atividade. Não é utilizado.
+    public void exibirStatus() {
+        System.out.println("    Nome: " + this.nome);
+        System.out.println("    Vida: " + this.pontosDeVida);
+        System.out.println("    Força: " + this.forca);
+        System.out.println("    Arma: " + arma.getNome() + " (Força: +"+ arma.getDano() + " | NívelMin: "+ arma.getMinNivel() + ")");
+    }
+
+    public boolean estaVivo(){
+        return this.pontosDeVida > 0;
+    }
 
     public void zerarVida() {
         this.pontosDeVida = 0;
@@ -43,27 +70,5 @@ public abstract class Personagem {
         System.out.println(this.getNome() + " equipou " + arma.getNome());
     }
 
-    public Arma getArma() {
-        return this.arma;
-    }
-
-    public int getPontosDeVida() {
-        return this.pontosDeVida;
-    }
-
-    public int getForca() {
-        return this.forca;
-    }
-
-    public String getNome(){
-        return this.nome;
-    }
-
-    // Está aqui para satisfazer as exigências da atividade. Não é utilizado.
-    public void exibirStatus() {
-        System.out.println("    Nome: " + this.nome);
-        System.out.println("    Vida: " + this.pontosDeVida);
-        System.out.println("    Força: " + this.forca);
-        System.out.println("    Arma: " + arma.getNome() + " (Força: +"+ arma.getDano() + " | NívelMin: "+ arma.getMinNivel() + ")");
-    }
+    public abstract boolean atacar(Combatente alvo); // retorna true se o ataque faz o turno acabar.
 }
