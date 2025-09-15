@@ -67,7 +67,6 @@ public abstract class Personagem implements Combatente{
 
     public void receberArma(Arma arma) {
         this.arma = arma;
-        System.out.println(this.getNome() + " equipou " + arma.getNome());
     }
 
     public abstract boolean atacar(Combatente alvo); // retorna true se o ataque faz o turno acabar.
