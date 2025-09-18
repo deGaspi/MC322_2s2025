@@ -1,73 +1,99 @@
 package classes;
 
 import classes.armas.Arma;
-import classes.armas.SemArma;
 import classes.interfaces.Combatente;
 
-public abstract class Personagem implements Combatente{
+public abstract class Personagem implements Combatente {
     private String nome;
     private int pontosDeVida;
     private int forca;
-    private Arma arma = new SemArma();
+    private float sorte;
+    private int lvl;
+    private Arma arma = Arma.DESARMADO;
 
-    public Personagem(String name, int LP, int strength) {
+    public Personagem(String name, int LP, int strength, float sorte, int lvl) {
         this.nome = name;
         this.pontosDeVida = LP;
         this.forca = strength;
+        this.sorte = sorte;
+        this.lvl = lvl;
     }
 
+    // ------------- getters -------------
     public Arma getArma() {
-        return this.arma;
+        return arma;
     }
 
     public int getPontosDeVida() {
-        return this.pontosDeVida;
+        return pontosDeVida;
     }
 
     public int getForca() {
-        return this.forca;
+        return forca;
+    }
+
+    public float getSorte() {
+        return sorte;
+    }
+
+    public int getNivel() {
+        return lvl;
     }
 
     public String getNome(){
-        return this.nome;
+        return nome;
     }
 
-    // Está aqui para satisfazer as exigências da atividade. Não é utilizado.
     public void exibirStatus() {
-        System.out.println("    Nome: " + this.nome);
-        System.out.println("    Vida: " + this.pontosDeVida);
-        System.out.println("    Força: " + this.forca);
-        System.out.println("    Arma: " + arma.getNome() + " (Força: +"+ arma.getDano() + " | NívelMin: "+ arma.getMinNivel() + ")");
+        System.out.println("    Nome: " + nome);
+        System.out.println("    Vida: " + pontosDeVida);
+        System.out.println("    Nível: " + lvl);
+        System.out.println("    Força: " + forca);
+        System.out.println("    Arma: " + arma.getNome() + " (Força: +" + arma.getDano() + " | NívelMin: "
+                + arma.getMinLvl() + ")");
     }
 
-    public boolean estaVivo(){
-        return this.pontosDeVida > 0;
-    }
-
-    public void zerarVida() {
-        this.pontosDeVida = 0;
+    @Override
+    public void darDano(Combatente alvo, int dano) { // é sobrescrita na classe heroi
+        alvo.receberDano(dano);
     }
 
     public int receberDano(int dano) {
-        dano = Math.min(dano, this.pontosDeVida);
-        this.pontosDeVida -= dano;
-        System.out.println(this.nome + " recebeu " + dano + " pontos de dano, ficando com " + this.pontosDeVida + " pontos de vida.");
+        dano = Math.min(dano, pontosDeVida);
+        pontosDeVida -= dano;
+        System.out.println(
+                nome + " recebeu " + dano + " pontos de dano, ficando com " + pontosDeVida + " pontos de vida.");
         return dano;
     }
 
     public void receberCura(int cura) {
-        this.pontosDeVida += cura;
-        System.out.println(this.nome + " recebeu " + cura + " pontos de vida.");
+        pontosDeVida += cura;
+        System.out.println(nome + " recebeu " + cura + " pontos de vida.");
     }
 
     public void receberForca(int forca) {
         this.forca += forca;
-        System.out.println(this.nome + " recebeu " + forca + " pontos de força.");
+        System.out.println(nome + " recebeu " + forca + " pontos de força.");
+    }
+
+    public void receberLvl(int lvl) {
+        this.lvl += lvl;
+        System.out.println(this.getNome() + " subiu para nível " + lvl + ".");
+    }
+
+
+
+    // ------------- setters -------------
+
+    public void setSorte(float sorte) {
+        this.sorte = sorte;
     }
 
     public void receberArma(Arma arma) {
-        this.arma = arma;
+        if(arma.getMinLvl() < getNivel()){
+            System.out.println(getNome() + " não possui experiência suficiente para lidar com " + arma.getNome() + ".");
+        }else{
+            System.out.println(this.getNome() + " equipou " + arma.getNome());
+        }
     }
-
-    public abstract boolean atacar(Combatente alvo); // retorna true se o ataque faz o turno acabar.
 }

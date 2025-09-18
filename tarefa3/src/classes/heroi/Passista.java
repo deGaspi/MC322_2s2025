@@ -10,8 +10,8 @@ public class Passista extends Herói {
     }
 
     @Override
-    public heroEnum getTipo() {
-        return heroEnum.PASSISTA;
+    public HeroEnum getHeroType() {
+        return HeroEnum.PASSISTA;
     }
 
     @Override

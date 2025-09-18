@@ -2,7 +2,7 @@ import java.util.Random;
 import java.util.ArrayList;
 
 import classes.cenarios.ConstrutorDeCenárioFixo;
-import classes.heroi.Herói.heroEnum;
+import classes.heroi.HeroEnum;
 import classes.interfaces.Fase;
 
 public class Main {
@@ -17,7 +17,7 @@ public class Main {
 
         // Escolha do heroi.
         var random = new Random();
-        var heroValues = heroEnum.values();
+        var heroValues = HeroEnum.values();
         var heroiEscolhido = heroValues[random.nextInt(heroValues.length)];
         var heroi = heroiEscolhido.getDefaultInstance();
 

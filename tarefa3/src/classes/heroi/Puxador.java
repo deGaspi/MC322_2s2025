@@ -9,8 +9,8 @@ public class Puxador extends Herói {
     }
 
     @Override
-    public heroEnum getTipo() {
-        return heroEnum.PUXADOR;
+    public HeroEnum getHeroType() {
+        return HeroEnum.PUXADOR;
     }
 
     @Override

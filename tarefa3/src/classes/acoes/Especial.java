@@ -1,5 +1,6 @@
 package classes.acoes;
 
+import classes.heroi.Herói;
 import classes.interfaces.AcaoDeCombate;
 import classes.interfaces.Combatente;
 
@@ -7,7 +8,9 @@ import classes.interfaces.Combatente;
 public class Especial implements AcaoDeCombate{
     public Especial(){}
 
-    public int executar(Combatente usuario, Combatente alvo){
-        return usuario.usarHabilidadeEspecial(alvo);
+    public void executar(Combatente usuario, Combatente alvo){
+        if (usuario instanceof Herói hero) {
+            hero.usarHabilidadeEspecial(alvo);
+        }
     }
 }

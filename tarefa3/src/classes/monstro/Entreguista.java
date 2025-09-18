@@ -18,7 +18,7 @@ public class Entreguista extends Monstro{  // Ele vai roubar vida do Herói ou d
         acoes.add(new Ataque());
     }
 
-    public boolean escolherAcao(Combatente alvo){
+    public AcaoDeCombate escolherAcao(Combatente alvo){
         imperialista.receberCura(acoes.get(0).executar(this, alvo));
         return true;
     }
@@ -28,14 +28,7 @@ public class Entreguista extends Monstro{  // Ele vai roubar vida do Herói ou d
         return monstroEnum.ENTREGUISTA;
     }
 
-
-
-
-
-
-
-
-    public boolean atacar(Combatente alvo){
+    public boolean darDano(Combatente alvo){
         if (random.nextFloat() < 0.2) { // 20% de chance de fugir.
             System.out.println("\nO entreguista fugiu para os Estados Unidos, deixando o imperialista vulnerável");
             this.zerarVida(); // Ele "morre" mas não dá xp para o heroi.
@@ -46,13 +39,5 @@ public class Entreguista extends Monstro{  // Ele vai roubar vida do Herói ou d
             imperialista.receberCura(n);
         }
         return true;
-    }
-    //Estão aqui só para completar a interface, não goste, mas tenho outras prioridades
-    public int usarHabilidadeEspecial(Combatente alvo){
-        return 0;
-    }
-
-    public int getNivel(){
-        return 0;
     }
 } 

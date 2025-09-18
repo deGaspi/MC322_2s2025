@@ -5,7 +5,7 @@ import java.util.Random;
 import classes.interfaces.Fase;
 import classes.heroi.Herói;
 import classes.monstro.Monstro;
-import classes.monstro.Monstro.monstroEnum;
+import classes.monstro.MonstroEnum;
 
 
 // Como se fosse a classe Batalha
@@ -33,7 +33,7 @@ public class FaseDeCombate implements Fase{
             for(Monstro m : monstros){
                 boolean ganhou;
                 while(true){
-                    if(m.getTipo() == monstroEnum.ENTREGUISTA){
+                    if(m.getTipo() == MonstroEnum.ENTREGUISTA){
                         System.out.println("O entreguista foge para os Estados Unidos");
                         System.out.println("-------------------------------------------------\n");
                         return true;
