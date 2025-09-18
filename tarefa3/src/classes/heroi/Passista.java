@@ -21,7 +21,7 @@ public class Passista extends Herói {
                 System.out.println("Requebrdo insuficiente. Precisa ser maior que 4.");
                 return 0;
             }
-            super.setPontosEspecial(super.getPontosEspecial()-4);
+            setPontosEspecial(getPontosEspecial()-4);
 
             switch (monstro.getTipo()) {
                 case FALSO_PATRIOTA:
@@ -29,9 +29,6 @@ public class Passista extends Herói {
                     int dano = alvo.getPontosDeVida();
                     alvo.receberDano(dano);
                     return dano;
-                case ENTREGUISTA:
-                    alvo.receberDano(10);
-                    return 10;
                 case IMPERIALISTA:
                     alvo.receberDano(10);
                     return 10;

@@ -6,7 +6,7 @@ public interface Combatente {
     public String getNome();
     public int receberDano(int dano);
     public void receberCura(int cura);
-    public AcaoDeCombate escolherAcao(Combatente Alvo);
+    public AcaoDeCombate escolherAcao();
     public int getPontosDeVida();
     public int getForca();
     public float getSorte();

@@ -15,14 +15,14 @@ public class Puxador extends Herói {
 
     @Override
     public int usarHabilidadeEspecial(Combatente alvo) {
-        if (super.getPontosEspecial() <= 0) {
+        if (getPontosEspecial() <= 0) {
             System.out.println("Swing zerado");
             return 0;
         }
         System.out.println("Esperança Conquistada!!");
-        int resultado = Math.round((float) (Math.pow(1.4, super.getPontosEspecial())));
-        super.setPontosEspecial(0);
-        this.receberCura(resultado);
+        int resultado = Math.round((float) (Math.pow(1.4, getPontosEspecial())));
+        setPontosEspecial(0);
+        receberCura(resultado);
         return 0;
     }
 }

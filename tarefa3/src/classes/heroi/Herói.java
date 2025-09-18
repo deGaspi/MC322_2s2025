@@ -16,7 +16,7 @@ import classes.interfaces.AcaoDeCombate;
 public abstract class Herói extends Personagem {
     private int xp;
     private int expProxNivel = 20;
-    private List<AcaoDeCombate> actionList = new ArrayList<AcaoDeCombate>(); // TODO: esse atributo é nonsense.
+    private List<AcaoDeCombate> actionList = new ArrayList<AcaoDeCombate>(); // TODO: esse atributo é desnecessário.
     private int pontosEspecial;
 
     public Herói(String name, int LP, int strength, int level, int xp) {
@@ -60,7 +60,7 @@ public abstract class Herói extends Personagem {
     }
 
     @Override
-    public AcaoDeCombate escolherAcao(Combatente alvo) {
+    public AcaoDeCombate escolherAcao() {
         if (new Random().nextInt(3) == 0) {
             return actionList.get(1); // TODO: dar um jeito de não usar get().
         } else {
@@ -68,8 +68,8 @@ public abstract class Herói extends Personagem {
         }
     }
 
-    public abstract HeroEnum getHeroType(); // Para que lembrem de alterar o enum quando adicionarem outro heroi.
-    public abstract int usarHabilidadeEspecial(Combatente alvo); // TODO: pontosEspecial++;
+    public abstract HeroEnum getHeroType();
+    public abstract int usarHabilidadeEspecial(Combatente alvo);
 
     @Override
     public void darDano(Combatente alvo, int dano) {
@@ -85,5 +85,6 @@ public abstract class Herói extends Personagem {
                 this.ganharExperiencia(monstro.getXpConcedido());
             }
         }
+        pontosEspecial++;
     }
 }

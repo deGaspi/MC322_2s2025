@@ -9,7 +9,6 @@ import classes.acoes.Ataque;
 import classes.armas.Arma;
 import classes.interfaces.Lootavel;
 import classes.interfaces.AcaoDeCombate;
-import classes.interfaces.Combatente;
 import classes.interfaces.Item;
 
 public abstract class Monstro extends Personagem implements Lootavel{
@@ -30,7 +29,7 @@ public abstract class Monstro extends Personagem implements Lootavel{
     }
 
     @Override
-    public AcaoDeCombate escolherAcao(Combatente alvo) {
+    public AcaoDeCombate escolherAcao() {
         return acoes.get(0);
     }
 

@@ -1,94 +1,100 @@
 package classes.cenarios;
-import java.util.ArrayList;
-import java.util.Random;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import classes.interfaces.Evento;
 import classes.interfaces.Fase;
 import classes.heroi.Herói;
 import classes.monstro.Monstro;
-import classes.monstro.MonstroEnum;
-
 
 // Como se fosse a classe Batalha
-public class FaseDeCombate implements Fase{
+public class FaseDeCombate implements Fase {
     private TipoCenario tipo;
-    private ArrayList<Monstro> monstros = new ArrayList<Monstro>();
-    private int turno = 0;
-    Random random = new Random();
+    private InfoBatalha batalhaAtual = null;
+    private boolean faseConcluida = false;
+    private List<Monstro> monstros = new ArrayList<Monstro>();
+    private List<Evento> eventos = new ArrayList<Evento>();
 
-    public FaseDeCombate(TipoCenario T){
+    public record InfoBatalha(int turno, Herói heroi, Monstro monstro) {
+    }
+
+    public FaseDeCombate(TipoCenario T) {
         tipo = T;
     }
 
-    public TipoCenario getTipoCenario(){
-        return this.tipo;
+    public TipoCenario getTipoCenario() {
+        return tipo;
     }
 
-    public void addMonstro(Monstro m){
+    public InfoBatalha getInfoBatalha() {
+        return batalhaAtual;
+    }
+
+    public void addMonstro(Monstro m) {
         monstros.add(m);
     }
 
-    public boolean iniciar(Herói H){ // Aqui estaria a batalha, falta completar
-        while(!this.isConcluida() || H.getPontosDeVida() != 0){
-            EventoEntregar entregar = new EventoEntregar(monstros.get(monstros.size() - 1), tipo, turno);
-            for(Monstro m : monstros){
-                boolean ganhou;
-                while(true){
-                    if(m.getTipo() == MonstroEnum.ENTREGUISTA){
-                        System.out.println("O entreguista foge para os Estados Unidos");
-                        System.out.println("-------------------------------------------------\n");
-                        return true;
-                    }
-                    System.out.println("\n"+m.getNome() + " se aproxima com uma " + m.getArma().getNome() +" para defender os interesses extrangeiros.");
-                    switch(random.nextInt(2)){
-                        case 0:
-                            entregar.setCombatente(m);
-                            break;
-                        case 1:
-                            entregar.setCombatente(H);
-                            break;
-                    }
-                    entregar.executar();
-                    turno++;
-                    System.out.println("\n-------------------- Turno " + turno + " --------------------");
-                    System.out.println("Status do inimigo:");
-                    m.exibirStatus();
-                    System.out.println("Status do herói:");
-                    H.exibirStatus();
-                    if (m.getPontosDeVida() == 0) {
-                        ganhou = true;
-                        break;
-                    }
-                    if (H.getPontosDeVida() == 0) {
-                        ganhou = false;
-                        break;
-                    }
-                    H.escolherAcao(m);
+    @Override
+    public void adicionarEvento(Evento evento) {
+        eventos.addFirst(evento);
+    }
 
-                    // Verifica se a batalha acabou
-                    if (m.getPontosDeVida() == 0) {
-                        ganhou = true;
-                        break;
-                    }
-                    if (H.getPontosDeVida() == 0) {
-                        ganhou = false;
-                        break;
-                    }
-                    m.escolherAcao(H);
-                    System.out.println("-------------------------------------------------\n");
+    @Override
+    public boolean isConcluida() {
+        return faseConcluida;
+    }
+
+    @Override
+    public boolean iniciar(Herói heroi) {
+        boolean ganhouFase = true;
+        for (Monstro monstro : monstros) {
+            int turno = 1;
+            System.out.println("\n" + monstro.getNome() + " se aproxima com uma " + monstro.getArma().getNome()
+                    + " para defender os interesses extrangeiros.");
+            while (true) {
+                // Print do turno
+                System.out.println("\n-------------------- Turno " + turno + " --------------------");
+                System.out.println("Status do inimigo:");
+                monstro.exibirStatus();
+                System.out.println("Status do herói:");
+                heroi.exibirStatus();
+                batalhaAtual = new InfoBatalha(turno, heroi, monstro);
+
+                // Round do heroi
+                if (monstro.getPontosDeVida() == 0)
+                    break;
+                if (heroi.getPontosDeVida() == 0) {
+                    ganhouFase = false;
+                    break;
                 }
-                if(!ganhou){
-                    return false;
+                heroi.escolherAcao().executar(heroi, monstro);
+                ;
+
+                // round do monstro
+                if (monstro.getPontosDeVida() == 0)
+                    break;
+                if (heroi.getPontosDeVida() == 0) {
+                    ganhouFase = false;
+                    break;
                 }
+                monstro.escolherAcao().executar(monstro, heroi);
+                ;
+
+                // Loop de eventos
+                for (var evento : eventos) {
+                    if (evento.verificarGatilho()) {
+                        eventos.remove(evento);
+                        evento.executar();
+                    }
+                }
+                System.out.println("-------------------------------------------------\n");
+                turno++;
             }
+            if (!ganhouFase)
+                break;
         }
-        return true;
+        faseConcluida = true;
+        return ganhouFase;
     }
-
-    public boolean isConcluida(){
-        if (monstros.size() == 0){
-            return true;
-        }
-        return false;
-    }
-    
 }
