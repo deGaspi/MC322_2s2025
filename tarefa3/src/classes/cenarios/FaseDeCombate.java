@@ -31,8 +31,8 @@ public class FaseDeCombate implements Fase{
         while(!this.isConcluida() || H.getPontosDeVida() != 0){
             EventoEntregar entregar = new EventoEntregar(monstros.get(monstros.size() - 1), tipo, turno);
             for(Monstro m : monstros){
-                boolean ganhou = true;
-                while(m.getPontosDeVida() != 0){
+                boolean ganhou;
+                while(true){
                     if(m.getTipo() == monstroEnum.ENTREGUISTA){
                         System.out.println("O entreguista foge para os Estados Unidos");
                         System.out.println("-------------------------------------------------\n");

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import classes.Personagem;
 import classes.interfaces.Combatente;
+import classes.interfaces.Lootavel;
 import classes.armas.Arma;
 import classes.armas.SemArma;
 import classes.monstro.Monstro;
@@ -131,16 +132,15 @@ public abstract class Herói extends Personagem {
         }else{
             acoes.get(0).executar(this, alvo);
             pontosEspecial++;
-            if (alvo instanceof Monstro monstro && monstro.getPontosDeVida() == 0) {
-            if(alvo.getArma().getDano() > this.getArma().getDano()){
-                this.receberArma(alvo.getArma());
+            if (alvo instanceof Lootavel monstro && monstro.getPontosDeVida() == 0) {
+                var loot = monstro.droparLoot();
+                if(loot instanceof Arma arma && arma.getDano() > getArma().getDano()){
+                    this.receberArma(arma);
+                }
             }
-            this.ganharExperiencia(monstro.getXpConcedido());
-            var armaMonstro = monstro.getArma();
-            if (armaMonstro.getDano() > this.getArma().getDano()) {
-                this.receberArma(armaMonstro);
+            if (alvo instanceof Monstro monstro) {
+                this.ganharExperiencia(monstro.getXpConcedido());
             }
-        }
         }
         return true;
     }
