@@ -1,5 +1,5 @@
 package classes.interfaces;
 
 public interface AcaoDeCombate {
-    public int executar(Combatente usuario, Combatente alvo);
+    public void executar(Combatente usuario, Combatente alvo);
 }

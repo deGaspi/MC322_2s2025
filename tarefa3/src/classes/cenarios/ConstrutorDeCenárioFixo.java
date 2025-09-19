@@ -3,7 +3,6 @@ package classes.cenarios;
 import java.util.ArrayList;
 
 import classes.interfaces.GeradorDeFases;
-import classes.monstro.Entreguista;
 import classes.monstro.FalsoPatriota;
 import classes.monstro.Imperialista;
 import classes.interfaces.Fase;
@@ -34,13 +33,13 @@ public class ConstrutorDeCenárioFixo implements GeradorDeFases {
         if (n == 0)
             return listaDeFases;
 
-        // Fases do meio: Batalhas com falsos patriotas e entreguistas para descer os
-        // andares
+        // Fases do meio: Batalhas com falsos patriotas para descer os andares
+        // Evento com entreguista pode ocorrer.
         while (n > 1) {
             FaseDeCombate fase = new FaseDeCombate(TipoCenario.CAVERNA);
             fase.addMonstro(new FalsoPatriota("Falso Patriota 1", 8 * n, 2 * n, 8 * n));
             fase.addMonstro(new FalsoPatriota("Falso Patriota 2", 8 * n, 2 * n, 8 * n));
-            fase.addMonstro(new Entreguista("Entreguista", 8 * n, 2 * n, 8 * n, imperialista));
+            fase.adicionarEvento(new EventoEntregar(fase, imperialista));
             listaDeFases.add(fase);
             n--;
         }
