@@ -87,4 +87,14 @@ public abstract class Herói extends Personagem {
         }
         pontosEspecial++;
     }
+
+    @Override
+    public void receberArma(Arma arma) {
+        if(arma.getMinLvl() < getNivel()){
+            System.out.println(getNome() + " não possui experiência suficiente para lidar com " + arma.getNome() + ".");
+        }else{
+            super.receberArma(arma);
+            System.out.println(this.getNome() + " equipou " + arma.getNome());
+        }
+    }
 }

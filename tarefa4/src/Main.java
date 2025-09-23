@@ -2,6 +2,7 @@ import java.util.Random;
 import java.util.ArrayList;
 
 import classes.cenarios.ConstrutorDeCenárioFixo;
+import classes.cenarios.Dificuldade;
 import classes.heroi.HeroEnum;
 import classes.interfaces.Fase;
 
@@ -9,7 +10,7 @@ public class Main {
     public static void main(String[] args) {
         final int N_DE_FASES = 4;
         final ConstrutorDeCenárioFixo construtor = new ConstrutorDeCenárioFixo();
-        final ArrayList<Fase> fases = construtor.gerar(N_DE_FASES); // 4 fases
+        final ArrayList<Fase> fases = construtor.gerar(N_DE_FASES, Dificuldade.FACIL); // TODO: dar prompt na dificuldade
 
         // Historia inicial.
         System.out.println(

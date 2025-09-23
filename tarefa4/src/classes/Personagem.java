@@ -1,6 +1,7 @@
 package classes;
 
 import classes.armas.Arma;
+import classes.armas.SemArma;
 import classes.interfaces.Combatente;
 
 public abstract class Personagem implements Combatente {
@@ -9,7 +10,7 @@ public abstract class Personagem implements Combatente {
     private int forca;
     private float sorte;
     private int lvl;
-    private Arma arma = Arma.DESARMADO;
+    private Arma arma = new SemArma();
 
     public Personagem(String name, int LP, int strength, float sorte, int lvl) {
         this.nome = name;
@@ -90,10 +91,6 @@ public abstract class Personagem implements Combatente {
     }
 
     public void receberArma(Arma arma) {
-        if(arma.getMinLvl() < getNivel()){
-            System.out.println(getNome() + " não possui experiência suficiente para lidar com " + arma.getNome() + ".");
-        }else{
-            System.out.println(this.getNome() + " equipou " + arma.getNome());
-        }
+        this.arma = arma;
     }
 }

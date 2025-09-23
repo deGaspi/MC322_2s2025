@@ -2,7 +2,6 @@ package classes.monstro;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import classes.Personagem;
 import classes.acoes.Ataque;
@@ -12,16 +11,15 @@ import classes.interfaces.AcaoDeCombate;
 import classes.interfaces.Item;
 
 public abstract class Monstro extends Personagem implements Lootavel{
-    private Random random = new Random();
     private List<AcaoDeCombate> acoes = new ArrayList<AcaoDeCombate>(); // TODO: essa variável é nonsense.
 
     private int xpConcedido;
 
-    public Monstro(String name, int LP, int strength, int xp) {
+    public Monstro(String name, int LP, int strength, int xp, Arma arma) {
         super(name, LP, strength, 0.5f, 0);
-        this.xpConcedido = xp;
-        this.receberArma(Arma.values()[random.nextInt(Arma.values().length)]); // TODO: dar um jeito de trocar as probabilidades.
+        this.xpConcedido = xp;        
         acoes.add(new Ataque());
+        this.receberArma(arma); // TODO: dar um jeito de trocar as probabilidades.
     }
 
     public int getXpConcedido() {
