@@ -6,8 +6,6 @@ import java.util.List;
 
 import classes.Personagem;
 import classes.interfaces.Combatente;
-import classes.interfaces.Lootavel;
-import classes.armas.Arma;
 import classes.monstro.Monstro;
 import classes.acoes.Ataque;
 import classes.acoes.Especial;
@@ -69,18 +67,13 @@ public abstract class Herói extends Personagem {
     }
 
     public abstract HeroEnum getHeroType();
+
     public abstract int usarHabilidadeEspecial(Combatente alvo);
 
     @Override
     public void darDano(Combatente alvo, int dano) {
         super.darDano(alvo, dano);
         if (alvo.getPontosDeVida() == 0) {
-            if (alvo instanceof Lootavel lootavel) {
-                var loot = lootavel.droparLoot();
-                if (loot instanceof Arma arma && arma.getDano() > getArma().getDano()) {
-                    this.receberArma(arma);
-                }
-            }
             if (alvo instanceof Monstro monstro) {
                 this.ganharExperiencia(monstro.getXpConcedido());
             }
