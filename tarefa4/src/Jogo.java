@@ -5,8 +5,8 @@ import classes.cenarios.ConstrutorDeCenárioFixo;
 import classes.heroi.HeroEnum;
 import classes.interfaces.Fase;
 
-public class Main {
-    public static void main(String[] args) {
+public class Jogo {
+    public static void main() {
         final int N_DE_FASES = 4;
         final ConstrutorDeCenárioFixo construtor = new ConstrutorDeCenárioFixo();
         final ArrayList<Fase> fases = construtor.gerar(N_DE_FASES); // 4 fases
