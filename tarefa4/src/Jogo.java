@@ -2,6 +2,7 @@ import java.util.Random;
 import java.util.ArrayList;
 
 import classes.cenarios.ConstrutorDeCenárioFixo;
+import classes.cenarios.Desistencia;
 import classes.heroi.HeroEnum;
 import classes.interfaces.Fase;
 
@@ -31,20 +32,26 @@ public class Jogo {
                 "Você encontra a caverna do acúmulo, onde o terrível imperialista reside, você hesita, mas a alegria \nde seu povo depende de você, derrote os lacaios pra alcançar o imperialista e por um fim à sua \nganância.\n");
 
         // Inicialização dos inimigos
-        for (int i = 0; i<N_DE_FASES; i++) {
+        for (int i = 0; i < N_DE_FASES; i++) {
             var fase = fases.removeFirst();
-            System.out.println("\n############################# Fase " + (i+1) + "/" + N_DE_FASES + " #############################\n");
+            System.out.println("\n############################# Fase " + (i + 1) + "/" + N_DE_FASES
+                    + " #############################\n");
             System.out.println(fase.getTipoCenario().getDescription());
-            boolean resultado = fase.iniciar(heroi);
-
-
-                System.out.println("-------------------------------------------------\n");
-                if (!resultado) {
-                    System.out.println("O imperialismo conseguiu privatizar o carnaval.");
-                    System.out.println("O   S A M B A   M O R R E U");
-                    return;
-                }
+            boolean resultado;
+            try {
+                resultado = fase.iniciar(heroi);
+            } catch (Desistencia e) {
+                System.out.println("Desistiu");
+                return;
             }
+
+            System.out.println("-------------------------------------------------\n");
+            if (!resultado) {
+                System.out.println("O imperialismo conseguiu privatizar o carnaval.");
+                System.out.println("O   S A M B A   M O R R E U");
+                return;
+            }
+        }
         System.out.println("\nVocê eternizou o samba nos corações dos brasileiros.\n O SAMBA VENCEU!!!!");
     }
 }

@@ -5,6 +5,9 @@ import java.util.List;
 
 import classes.interfaces.Evento;
 import classes.interfaces.Fase;
+import classes.interfaces.Lootavel;
+import classes.InputManager;
+import classes.armas.Arma;
 import classes.heroi.Herói;
 import classes.monstro.Monstro;
 
@@ -46,7 +49,7 @@ public class FaseDeCombate implements Fase {
     }
 
     @Override
-    public boolean iniciar(Herói heroi) {
+    public boolean iniciar(Herói heroi) throws Desistencia {
         boolean ganhouFase = true;
         for (Monstro monstro : monstros) {
             int turno = 1;
@@ -93,8 +96,38 @@ public class FaseDeCombate implements Fase {
             }
             if (!ganhouFase)
                 break;
+            postTurnInteract(monstro, heroi);
         }
         faseConcluida = true;
         return ganhouFase;
+    }
+
+    private static void postTurnInteract(Monstro inimigoMorto, Herói heroi) throws Desistencia {
+        final String menu = """
+                ==================================================
+                [1] Vasulhar inimigo.
+                [2] Informações do herói.
+                [3] Desistir do jogo
+                ==================================================
+                Digite sua opção >
+                """;
+        switch (InputManager.lerInteiro(menu, 1, 3)) {
+            case 1:
+                if (inimigoMorto instanceof Lootavel lootavel) {
+                    var loot = lootavel.droparLoot();
+                    if (loot instanceof Arma arma && arma.getDano() > heroi.getArma().getDano()) {
+                        heroi.receberArma(arma);
+                    }
+                }
+                break;
+            case 2:
+                heroi.exibirStatus();
+                break;
+            case 3:
+                throw new Desistencia();
+            default:
+                throw new AssertionError("Input inexperado.");
+        }
+
     }
 }
