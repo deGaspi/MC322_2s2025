@@ -96,13 +96,13 @@ public class FaseDeCombate implements Fase {
             }
             if (!ganhouFase)
                 break;
-            postTurnInteract(monstro, heroi);
+            postKillInteract(monstro, heroi);
         }
         faseConcluida = true;
         return ganhouFase;
     }
 
-    private static void postTurnInteract(Monstro inimigoMorto, Herói heroi) throws Desistencia {
+    private static void postKillInteract(Monstro inimigoMorto, Herói heroi) throws Desistencia {
         final String menu = """
                 ==================================================
                 [1] Vasulhar inimigo.
