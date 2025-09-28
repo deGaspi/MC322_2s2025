@@ -105,29 +105,42 @@ public class FaseDeCombate implements Fase {
     private static void postKillInteract(Monstro inimigoMorto, Herói heroi) throws Desistencia {
         final String menu = """
                 ==================================================
-                [1] Vasulhar inimigo.
+                [1] Vasculhar inimigo.
                 [2] Informações do herói.
-                [3] Desistir do jogo
+                [3] Continuar
+                [4] Desistir do jogo
                 ==================================================
                 Digite sua opção >
                 """;
-        switch (InputManager.lerInteiro(menu, 1, 3)) {
-            case 1:
-                if (inimigoMorto instanceof Lootavel lootavel) {
-                    var loot = lootavel.droparLoot();
-                    if (loot instanceof Arma arma && arma.getDano() > heroi.getArma().getDano()) {
-                        heroi.receberArma(arma);
+        
+        boolean loop = true;
+        while(loop){
+            switch (InputManager.lerInteiro(menu, 1, 4)) {
+                case 1:
+                    if (inimigoMorto instanceof Lootavel lootavel) {
+                        var loot = lootavel.droparLoot();
+                        if (loot instanceof Arma arma && arma.getDano() > heroi.getArma().getDano()) {
+                            try{
+                                heroi.receberArma(arma);
+                            } catch(EquiparSemNivel e){
+                                System.out.println(e.getMessage());
+                            }
+                        }
                     }
-                }
-                break;
-            case 2:
-                heroi.exibirStatus();
-                break;
-            case 3:
-                throw new Desistencia();
-            default:
-                throw new AssertionError("Input inexperado.");
+                    break;
+                case 2:
+                    heroi.exibirStatus();
+                    break;
+                case 3:
+                    loop = false;
+                    break;
+                case 4:
+                    throw new Desistencia();
+                default:
+                    throw new AssertionError("Input inexperado.");
+            }
         }
+        
 
     }
 }

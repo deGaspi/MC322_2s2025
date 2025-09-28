@@ -10,10 +10,12 @@ import classes.monstro.Monstro;
 import classes.acoes.Ataque;
 import classes.acoes.Especial;
 import classes.interfaces.AcaoDeCombate;
+import classes.armas.Arma;
+import classes.cenarios.EquiparSemNivel;
 
 public abstract class Herói extends Personagem {
     private int xp;
-    private int expProxNivel = 20;
+    private int expProxNivel = 15;
     private List<AcaoDeCombate> actionList = new ArrayList<AcaoDeCombate>(); // TODO: esse atributo é desnecessário.
     private int pontosEspecial;
 
@@ -45,7 +47,7 @@ public abstract class Herói extends Personagem {
             var novoNivel = xp / expProxNivel;
             receberLvl(novoNivel + novoNivel);
             this.xp %= expProxNivel;
-            this.expProxNivel += 2;
+            this.expProxNivel += 5;
             receberCura(novoNivel * 8);
         }
     }
@@ -82,11 +84,11 @@ public abstract class Herói extends Personagem {
     }
 
     @Override
-    public void receberArma(Arma arma) {
-        if(arma.getMinLvl() < getNivel()){
-            System.out.println(getNome() + " não possui experiência suficiente para lidar com " + arma.getNome() + ".");
-        }else{
-            super.receberArma(arma);
+    public void receberArma(Arma arma) throws EquiparSemNivel{
+        if(arma.getMinLvl() > getNivel()){
+            throw new EquiparSemNivel(this, arma);
+        }else{ 
+            super.setArma(arma);
             System.out.println(this.getNome() + " equipou " + arma.getNome());
         }
     }

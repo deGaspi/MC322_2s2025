@@ -10,6 +10,7 @@ import classes.interfaces.Lootavel;
 import classes.interfaces.AcaoDeCombate;
 import classes.interfaces.Item;
 
+
 public abstract class Monstro extends Personagem implements Lootavel{
     private List<AcaoDeCombate> acoes = new ArrayList<AcaoDeCombate>(); // TODO: essa variável é nonsense.
 
@@ -18,8 +19,9 @@ public abstract class Monstro extends Personagem implements Lootavel{
     public Monstro(String name, int LP, int strength, int xp, Arma arma) {
         super(name, LP, strength, 0.5f, 0);
         this.xpConcedido = xp;        
-        acoes.add(new Ataque());
-        this.receberArma(arma); // TODO: dar um jeito de trocar as probabilidades.
+        acoes.add(new Ataque());// TODO: dar um jeito de trocar as probabilidades.
+        super.setArma(arma);
+        
     }
 
     public int getXpConcedido() {

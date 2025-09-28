@@ -1,16 +1,49 @@
 import java.util.Random;
 import java.util.ArrayList;
 
+import classes.InputManager;
 import classes.cenarios.ConstrutorDeCenárioFixo;
 import classes.cenarios.Desistencia;
 import classes.heroi.HeroEnum;
 import classes.interfaces.Fase;
+import classes.cenarios.Dificuldade;
 
 public class Jogo {
     public static void main() {
+        //Escolha de Dificuldade
+        final Dificuldade dificuldade;
+        System.out.println();
+        final String escDificuldade = """
+                Escolha a dificuldade
+                ==================================================
+                [1] Fácil
+                [2] Médio
+                [3] Difícil
+                ==================================================
+                Digite sua opção >
+                """;
+
+        switch (InputManager.lerInteiro(escDificuldade, 1, 3)) {
+                case 1:
+                    dificuldade = Dificuldade.FACIL;
+                    break;
+                case 2:
+                    dificuldade = Dificuldade.MEDIO;
+                    break;
+                case 3:
+                    dificuldade = Dificuldade.DIFICIL;
+                    break;
+                default:
+                    dificuldade = Dificuldade.FACIL;
+                    break;
+            };
+
+
+
         final int N_DE_FASES = 4;
+        
         final ConstrutorDeCenárioFixo construtor = new ConstrutorDeCenárioFixo();
-        final ArrayList<Fase> fases = construtor.gerar(N_DE_FASES); // 4 fases
+        final ArrayList<Fase> fases = construtor.gerar(N_DE_FASES, dificuldade); // 4 fases
 
         // Historia inicial.
         System.out.println(
@@ -31,21 +64,22 @@ public class Jogo {
         System.out.println(
                 "Você encontra a caverna do acúmulo, onde o terrível imperialista reside, você hesita, mas a alegria \nde seu povo depende de você, derrote os lacaios pra alcançar o imperialista e por um fim à sua \nganância.\n");
 
-        // Inicialização dos inimigos
+        // Loop de fases
         for (int i = 0; i < N_DE_FASES; i++) {
             var fase = fases.removeFirst();
-            System.out.println("\n############################# Fase " + (i + 1) + "/" + N_DE_FASES
+            System.out.println("\n############################# Fase " + (i + 1) + "/" + N_DE_FASES // Divisor de fases
                     + " #############################\n");
             System.out.println(fase.getTipoCenario().getDescription());
             boolean resultado;
             try {
-                resultado = fase.iniciar(heroi);
+                resultado = fase.iniciar(heroi); // Aqui acontece a chamada da fase criada
             } catch (Desistencia e) {
-                System.out.println("Desistiu");
+                System.out.println(e.getMessage());
                 return;
             }
 
-            System.out.println("-------------------------------------------------\n");
+            //Resultado
+            System.out.println("-------------------------------------------------\n"); 
             if (!resultado) {
                 System.out.println("O imperialismo conseguiu privatizar o carnaval.");
                 System.out.println("O   S A M B A   M O R R E U");
