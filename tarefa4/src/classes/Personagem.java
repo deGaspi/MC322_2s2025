@@ -90,7 +90,11 @@ public abstract class Personagem implements Combatente {
         this.sorte = sorte;
     }
 
-    public void receberArma(Arma arma) {
+    public void setArma(Arma a){
+        this.arma = a;
+    }
+
+    public void receberArma(Arma arma) throws Exception{
         this.arma = arma;
     }
 }
