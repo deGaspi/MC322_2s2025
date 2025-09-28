@@ -23,10 +23,10 @@ public abstract class Arma implements Item{
                 multiplicador = 1;
                 break;
             case MEDIO:
-                multiplicador = 1.5f;
+                multiplicador = 1.25f;
                 break;
             case DIFICIL:
-                multiplicador = 2;
+                multiplicador = 1.5f;
                 break;
             default:
                 throw new AssertionError("Enum inesperado: " + dificuldade);

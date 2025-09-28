@@ -26,9 +26,9 @@ public enum HeroEnum {
     public Herói getDefaultInstance() {
         switch (this) {
             case PASSISTA:
-                return new Passista("Valéria Valenssa", 23, 6, 0, 0);
+                return new Passista("Valéria Valenssa", 45, 12, 0, 0);
             case PUXADOR:
-                return new Puxador("Cartola", 23, 6, 0, 0);
+                return new Puxador("Cartola", 45, 12, 0, 0);
             default:
                 throw new RuntimeException();
         }

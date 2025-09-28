@@ -33,14 +33,14 @@ public class ConstrutorDeCenárioFixo implements GeradorDeFases {
                 multiplicadorXP = 1f;
                 break;
             case MEDIO:
+                multiplicadorHP = 1.25f;
+                multiplicadorDano = 1.25f;
+                multiplicadorXP = 1.25f;
+                break;
+            case DIFICIL:
                 multiplicadorHP = 1.5f;
                 multiplicadorDano = 1.5f;
                 multiplicadorXP = 1.5f;
-                break;
-            case DIFICIL:
-                multiplicadorHP = 2f;
-                multiplicadorDano = 2f;
-                multiplicadorXP = 2f;
                 break;
             default:
                 throw new AssertionError("Dificuldade inesperada, valor recebido: " + dif);
@@ -50,15 +50,15 @@ public class ConstrutorDeCenárioFixo implements GeradorDeFases {
         FaseDeCombate primeiraFase = new FaseDeCombate(TipoCenario.ENTRADA);
         primeiraFase.addMonstro(new FalsoPatriota(
                 "Falso Patriota 1",
-                Math.round(8 * multiplicadorHP),
-                Math.round(2 * multiplicadorDano),
-                Math.round(8 * multiplicadorXP),
+                Math.round(8 * multiplicadorHP - n * 1.1f),
+                Math.round(2 * multiplicadorDano - n * 1.1f),
+                Math.round(10 * multiplicadorXP - n * 0.5f),
                 getRandArma(dif)));
         primeiraFase.addMonstro(new FalsoPatriota(
                 "Falso Patriota 2",
                 Math.round(8 * multiplicadorHP),
                 Math.round(2 * multiplicadorDano),
-                Math.round(8 * multiplicadorXP),
+                Math.round(10 * multiplicadorXP),
                 getRandArma(dif)));
         listaDeFases.add(primeiraFase);
 
@@ -82,15 +82,15 @@ public class ConstrutorDeCenárioFixo implements GeradorDeFases {
             FaseDeCombate fase = new FaseDeCombate(TipoCenario.CAVERNA);
             fase.addMonstro(new FalsoPatriota(
                 "Falso Patriota 1",
-                Math.round(8 * multiplicadorHP),
-                Math.round(2 * multiplicadorDano),
-                Math.round(8 * multiplicadorXP),
+                Math.round(8 * multiplicadorHP - n * 1.1f),
+                Math.round(2 * multiplicadorDano - n * 1.1f),
+                Math.round(10 * multiplicadorXP - n * 0.5f),
                 getRandArma(dif)));
             fase.addMonstro(new FalsoPatriota(
                 "Falso Patriota 2",
-                Math.round(8 * multiplicadorHP),
-                Math.round(2 * multiplicadorDano),
-                Math.round(8 * multiplicadorXP),
+                Math.round(8 * multiplicadorHP - n * 1.1f),
+                Math.round(2 * multiplicadorDano - n * 1.1f),
+                Math.round(10 * multiplicadorXP - n * 0.5f),
                 getRandArma(dif)));
             fase.adicionarEvento(new EventoEntregar(fase, imperialista));
             listaDeFases.add(fase);
@@ -102,40 +102,38 @@ public class ConstrutorDeCenárioFixo implements GeradorDeFases {
         return listaDeFases;
     }
 
+    //Escolha da arma com peso da dificuldade
     private static Arma getRandArma(Dificuldade dificuldade) {
-        enum escolhas {
-            CHINELO(1), LANÇA(1), REPIQUE(2), DESARMADO(2);
-
-            public int peso;
-
-            escolhas(int peso) {
-                this.peso = peso;
-            }
-        }
-
+        //pesoDesarmado, pesoChinelo, pesoLança, pesoRepique
+        int[] pesos = {5, 4, 1 + dificuldade.valor, 0 + dificuldade.valor}; //o peso afeta a probabilidade da arma ser escolhida
+        
+        //Obtem o total dos pesos
         int totalDosPesos = 0;
-        for (var candidato : escolhas.values()) {
-            totalDosPesos += candidato.peso;
+        for(int p : pesos){
+            totalDosPesos += p;
         }
 
-        int n = random.nextInt(totalDosPesos);
-        escolhas escolhido = null;
-        for (escolhas candidato : escolhas.values()) {
-            totalDosPesos -= candidato.peso;
-            if (totalDosPesos <= n) {
-                escolhido = candidato;
-                break;
+        //Cria o vetor candidatos, que atuará como espaço amostral
+        //Se uma arma tem peso 5, será colocado 5 números que representam essa arma em candidatos
+        int[] candidatos = new int[totalDosPesos];
+        int counter = 0;
+        for(int i=0; i<pesos.length; i++){
+            for(int j=0; j<pesos[i]; j++){
+                candidatos[counter] = i;
+                counter++;
             }
         }
+        //Assim, temos chances equiprováveis de obter qualquer valor em candidatos
+        int escolhido = candidatos[random.nextInt(totalDosPesos)];
 
         switch (escolhido) {
-            case CHINELO:
+            case 1:
                 return new Chinelo(dificuldade);
-            case LANÇA:
+            case 2:
                 return new Lança(dificuldade);
-            case REPIQUE:
+            case 3:
                 return new Repique(dificuldade);
-            case DESARMADO:
+            case 0:
                 return new SemArma();
             default:
                 throw new AssertionError("Enum inesperado: " + escolhido);

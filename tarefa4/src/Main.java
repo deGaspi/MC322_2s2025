@@ -1,38 +1,13 @@
-
-import java.util.Random;
-import java.util.ArrayList;
-
-import classes.cenarios.ConstrutorDeCenárioFixo;
-import classes.cenarios.Dificuldade;
+//Refatorar em pacotes
+//Balancear
 
 import classes.InputManager;
 
-import classes.heroi.HeroEnum;
-import classes.monstro.MonstroEnum;
-
 public class Main {
     public static void main(String[] args) {
-        final int N_DE_FASES = 4;
-        final ConstrutorDeCenárioFixo construtor = new ConstrutorDeCenárioFixo();
-        final ArrayList<Fase> fases = construtor.gerar(N_DE_FASES, Dificuldade.FACIL); // TODO: dar prompt na dificuldade
-
-        // Historia inicial.
-        System.out.println(
-                "Você nasceu e cresceu no samba, mas agora estão querendo acabar com a cultura do seu povo. \nSó resta uma coisa a fazer: resistir e derrotar a força imperialista que quer privatizar o \ncarnaval.\n");
-
-        // Escolha do heroi.
-        var random = new Random();
-        var heroValues = HeroEnum.values();
-        var heroiEscolhido = heroValues[random.nextInt(heroValues.length)];
-        var heroi = heroiEscolhido.getDefaultInstance();
-
-        // Explicar habilidade do heroi escolhido.
-        System.out.println("Informações do herói: ");
-        heroiEscolhido.printHabilityInfo();
-      
         System.out.println();
         final String menu = """
-                TERRAS SOMBRIAS - RPG
+                NÃO DEIXE O SAMBA MORRER - RPG
                 ==================================================
                 [1] Iniciar Novo Jogo
                 [2] Ver Informações das Classes de Heróis
@@ -41,36 +16,46 @@ public class Main {
                 ==================================================
                 Digite sua opção >
                 """;
-        switch (InputManager.lerInteiro(menu, 1, 4)) {
-            case 1:
-                Jogo.main();
-                break;
-            case 2:
-                heroInfo();
-                break;
-            case 3:
-                monsterInfo();
-                break;
-            case 4:
-                System.out.println("Tchau");
-                break;
-            default:
-                break;
-        };
+
+        //Loop principal
+        boolean loop = true;
+        while(loop){
+            switch (InputManager.lerInteiro(menu, 1, 4)) {
+                case 1:
+                    Jogo.main();                 //Inicia o jogo e fecha o Scanner
+                    InputManager.fecharScanner();
+                    loop = false;
+                    break;
+                case 2:
+                    heroInfo();
+                    break;
+                case 3:
+                    monsterInfo();
+                    break;
+                case 4:
+                    System.out.println("Tchau");
+                    loop = false;
+                    break;
+                default:
+                    break;
+            };
+        }
+        
     }
 
     private static void heroInfo() {
-        for (var hero: HeroEnum.values()) {
-            System.out.println(hero.getTypeName()+":");
-            hero.printHabilityInfo();
-            System.out.println("\n");
-        }
+        System.out.println("\nPassista:");
+        System.out.println("Sua habilidade especial é mortal contra Falsos Patriotas e causa dano direto sem estar sujeito à chances nos demais inimigos\n");
+        System.out.println("Puxador:");
+        System.out.println("Sua habilidade especial o cura exponencialmente em relação ao seus pontos\n");
     }
 
     private static void monsterInfo() {
-        for (var monster: MonstroEnum.values()) {
-            System.out.println(monster.getTypeName()+":");
-            System.out.println("\n");
-        }
+        System.out.println("\nFalso Patriota");
+        System.out.println("Monstro mais abundande e fraco do jogo\n");
+        System.out.println("Entreguista");
+        System.out.println("Rouba a vida do herói ou de falsos patriotas e a entrega para o Imperialista, foge quando perde proteção\n");
+        System.out.println("Imperialista");
+        System.out.println("Chefe final do jogo\n");
     }
 }
