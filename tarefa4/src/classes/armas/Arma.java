@@ -1,35 +1,45 @@
 package classes.armas;
 
+import classes.cenarios.Dificuldade;
 import classes.interfaces.Item;
 
-public enum Arma implements Item {
-    DESARMADO(0, 0, "Desarmado"),
-    CHINELO(3, 0, "Chinelo"),
-    LANÇA(9, 8, "Lança de Porta Bandeira"),
-    REPIQUE(15, 15, "Repique-mor");
+public abstract class Arma implements Item{
+    private final int dano;
+    private final int minLvl;
+    private final String nome;
+    private final Dificuldade dificuldade;
 
-    public final int dano;
-    public final int minLvl;
-    public final String nome;
-
-    private Arma(int damage, int minLevel, String nome){
+    public Arma(int damage, int minLvl, String nome, Dificuldade dificuldade){
         this.dano = damage;
-        this.minLvl = minLevel;
+        this.minLvl = minLvl;
         this.nome = nome;
+        this.dificuldade = dificuldade;
+    }
+
+    public int getDano(){
+        float multiplicador;
+        switch (dificuldade) {
+            case FACIL:
+                multiplicador = 1;
+                break;
+            case MEDIO:
+                multiplicador = 1.5f;
+                break;
+            case DIFICIL:
+                multiplicador = 2;
+                break;
+            default:
+                throw new AssertionError("Enum inesperado: " + dificuldade);
+        }
+        return Math.round(dano * multiplicador);
+    }
+
+    public int getMinLvl(){
+        return minLvl;
     }
 
     @Override
     public String getNome() {
         return nome;
     }
-
-    public int getDano() {
-        return dano;
-    }
-
-    public int getMinLvl() {
-        return minLvl;
-    }
-
-    
 }

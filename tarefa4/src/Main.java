@@ -1,9 +1,35 @@
+
+import java.util.Random;
+import java.util.ArrayList;
+
+import classes.cenarios.ConstrutorDeCenárioFixo;
+import classes.cenarios.Dificuldade;
+
 import classes.InputManager;
+
 import classes.heroi.HeroEnum;
 import classes.monstro.MonstroEnum;
 
 public class Main {
     public static void main(String[] args) {
+        final int N_DE_FASES = 4;
+        final ConstrutorDeCenárioFixo construtor = new ConstrutorDeCenárioFixo();
+        final ArrayList<Fase> fases = construtor.gerar(N_DE_FASES, Dificuldade.FACIL); // TODO: dar prompt na dificuldade
+
+        // Historia inicial.
+        System.out.println(
+                "Você nasceu e cresceu no samba, mas agora estão querendo acabar com a cultura do seu povo. \nSó resta uma coisa a fazer: resistir e derrotar a força imperialista que quer privatizar o \ncarnaval.\n");
+
+        // Escolha do heroi.
+        var random = new Random();
+        var heroValues = HeroEnum.values();
+        var heroiEscolhido = heroValues[random.nextInt(heroValues.length)];
+        var heroi = heroiEscolhido.getDefaultInstance();
+
+        // Explicar habilidade do heroi escolhido.
+        System.out.println("Informações do herói: ");
+        heroiEscolhido.printHabilityInfo();
+      
         System.out.println();
         final String menu = """
                 TERRAS SOMBRIAS - RPG

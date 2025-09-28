@@ -1,10 +1,11 @@
 package classes.monstro;
 
+import classes.armas.Arma;
 import classes.interfaces.Combatente;
 
 public class Imperialista extends Monstro{
-    public Imperialista(String name, int LP, int strength, int xp){
-        super(name, LP, strength, xp); 
+    public Imperialista(String name, int LP, int strength, int xp, Arma arma){
+        super(name, LP, strength, xp, arma);
     }
 
     @Override
