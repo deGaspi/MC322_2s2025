@@ -1,10 +1,14 @@
+
 import java.util.Random;
 import java.util.ArrayList;
 
 import classes.cenarios.ConstrutorDeCenárioFixo;
 import classes.cenarios.Dificuldade;
+
+import classes.InputManager;
+
 import classes.heroi.HeroEnum;
-import classes.interfaces.Fase;
+import classes.monstro.MonstroEnum;
 
 public class Main {
     public static void main(String[] args) {
@@ -25,27 +29,48 @@ public class Main {
         // Explicar habilidade do heroi escolhido.
         System.out.println("Informações do herói: ");
         heroiEscolhido.printHabilityInfo();
+      
         System.out.println();
+        final String menu = """
+                TERRAS SOMBRIAS - RPG
+                ==================================================
+                [1] Iniciar Novo Jogo
+                [2] Ver Informações das Classes de Heróis
+                [3] Ver Informações das Classes de Monstros
+                [4] Sair do Jogo
+                ==================================================
+                Digite sua opção >
+                """;
+        switch (InputManager.lerInteiro(menu, 1, 4)) {
+            case 1:
+                Jogo.main();
+                break;
+            case 2:
+                heroInfo();
+                break;
+            case 3:
+                monsterInfo();
+                break;
+            case 4:
+                System.out.println("Tchau");
+                break;
+            default:
+                break;
+        };
+    }
 
-        // Introdução do objetivo do jogo.
-        System.out.println(
-                "Você encontra a caverna do acúmulo, onde o terrível imperialista reside, você hesita, mas a alegria \nde seu povo depende de você, derrote os lacaios pra alcançar o imperialista e por um fim à sua \nganância.\n");
+    private static void heroInfo() {
+        for (var hero: HeroEnum.values()) {
+            System.out.println(hero.getTypeName()+":");
+            hero.printHabilityInfo();
+            System.out.println("\n");
+        }
+    }
 
-        // Inicialização dos inimigos
-        for (int i = 0; i<N_DE_FASES; i++) {
-            var fase = fases.removeFirst();
-            System.out.println("\n############################# Fase " + (i+1) + "/" + N_DE_FASES + " #############################\n");
-            System.out.println(fase.getTipoCenario().getDescription());
-            boolean resultado = fase.iniciar(heroi);
-
-
-                System.out.println("-------------------------------------------------\n");
-                if (!resultado) {
-                    System.out.println("O imperialismo conseguiu privatizar o carnaval.");
-                    System.out.println("O   S A M B A   M O R R E U");
-                    return;
-                }
-            }
-        System.out.println("\nVocê eternizou o samba nos corações dos brasileiros.\n O SAMBA VENCEU!!!!");
+    private static void monsterInfo() {
+        for (var monster: MonstroEnum.values()) {
+            System.out.println(monster.getTypeName()+":");
+            System.out.println("\n");
+        }
     }
 }
