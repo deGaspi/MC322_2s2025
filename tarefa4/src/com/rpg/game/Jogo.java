@@ -36,8 +36,7 @@ public class Jogo {
                     dificuldade = Dificuldade.DIFICIL;
                     break;
                 default:
-                    dificuldade = Dificuldade.FACIL;
-                    break;
+                    throw new AssertionError("Input inesperado.");
             };
 
 
@@ -59,7 +58,7 @@ public class Jogo {
 
         // Explicar habilidade do heroi escolhido.
         System.out.println("Informações do herói: ");
-        heroiEscolhido.printHabilityInfo();
+        heroiEscolhido.getHabilityInfo();
         System.out.println();
 
         // Introdução do objetivo do jogo.

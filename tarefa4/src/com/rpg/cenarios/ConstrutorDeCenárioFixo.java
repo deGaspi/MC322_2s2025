@@ -104,17 +104,21 @@ public class ConstrutorDeCenárioFixo implements GeradorDeFases {
 
     //Escolha da arma com peso da dificuldade
     private static Arma getRandArma(Dificuldade dificuldade) {
-        //pesoDesarmado, pesoChinelo, pesoLança, pesoRepique
-        int[] pesos = {5, 4, 1 + dificuldade.valor, 0 + dificuldade.valor}; //o peso afeta a probabilidade da arma ser escolhida
+        // O peso afeta a probabilidade da arma ser escolhida.
+        int[] pesos = {
+            5, // pesoDesarmado
+            4,  // pesoChinelo
+            1 + dificuldade.valor, // pesoLança
+            0 + dificuldade.valor, // pesoRepique
+        }; 
         
-        //Obtem o total dos pesos
         int totalDosPesos = 0;
         for(int p : pesos){
             totalDosPesos += p;
         }
 
-        //Cria o vetor candidatos, que atuará como espaço amostral
-        //Se uma arma tem peso 5, será colocado 5 números que representam essa arma em candidatos
+        // Cria o vetor candidatos, que atuará como espaço amostral.
+        // Se uma arma tem peso 5, será colocado 5 números que representam essa arma em candidatos.
         int[] candidatos = new int[totalDosPesos];
         int counter = 0;
         for(int i=0; i<pesos.length; i++){
@@ -123,20 +127,19 @@ public class ConstrutorDeCenárioFixo implements GeradorDeFases {
                 counter++;
             }
         }
-        //Assim, temos chances equiprováveis de obter qualquer valor em candidatos
         int escolhido = candidatos[random.nextInt(totalDosPesos)];
 
         switch (escolhido) {
+            case 0:
+                return new SemArma();
             case 1:
                 return new Chinelo(dificuldade);
             case 2:
                 return new Lança(dificuldade);
             case 3:
                 return new Repique(dificuldade);
-            case 0:
-                return new SemArma();
             default:
-                throw new AssertionError("Enum inesperado: " + escolhido);
+                throw new AssertionError("Escolha inesperada: " + escolhido);
         }
     }
 
