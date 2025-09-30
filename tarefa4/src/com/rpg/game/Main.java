@@ -2,6 +2,8 @@ package com.rpg.game;
 //Refatorar em pacotes
 //Balancear
 
+import com.rpg.heroi.HeroEnum;
+import com.rpg.monstro.MonstroEnum;
 import com.rpg.util.InputManager;
 
 public class Main {
@@ -45,18 +47,16 @@ public class Main {
     }
 
     private static void heroInfo() {
-        System.out.println("\nPassista:");
-        System.out.println("Sua habilidade especial é mortal contra Falsos Patriotas e causa dano direto sem estar sujeito à chances nos demais inimigos\n");
-        System.out.println("Puxador:");
-        System.out.println("Sua habilidade especial o cura exponencialmente em relação ao seus pontos\n");
+        for (var hero : HeroEnum.values()) {
+            System.out.println(hero.getTypeName());
+            System.out.println(hero.getHabilityInfo() + "\n");
+        }
     }
 
     private static void monsterInfo() {
-        System.out.println("\nFalso Patriota");
-        System.out.println("Monstro mais abundande e fraco do jogo\n");
-        System.out.println("Entreguista");
-        System.out.println("Rouba a vida do herói ou de falsos patriotas e a entrega para o Imperialista, foge quando perde proteção\n");
-        System.out.println("Imperialista");
-        System.out.println("Chefe final do jogo\n");
+        for (var monster : MonstroEnum.values()) {
+            System.out.println(monster.getTypeName());
+            System.out.println(monster.getDescripton() + "\n");
+        }
     }
 }
