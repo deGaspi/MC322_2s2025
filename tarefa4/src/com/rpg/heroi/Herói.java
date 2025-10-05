@@ -83,10 +83,9 @@ public abstract class Herói extends Personagem {
         pontosEspecial++;
     }
 
-    @Override
     public void receberArma(Arma arma) throws EquiparSemNivel{
         if(arma.getMinLvl() > getNivel()){
-            throw new EquiparSemNivel(this, arma);
+            throw new EquiparSemNivel(this.getNome() + " não tem experiência suficiente para lidar com " + arma.getNome());
         }else{ 
             super.setArma(arma);
             System.out.println(this.getNome() + " equipou " + arma.getNome());

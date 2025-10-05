@@ -137,7 +137,7 @@ public class FaseDeCombate implements Fase {
                     loop = false;
                     break;
                 case 4:
-                    throw new Desistencia();
+                    throw new Desistencia("Desistiu");
                 default:
                     throw new AssertionError("Input inexperado.");
             }

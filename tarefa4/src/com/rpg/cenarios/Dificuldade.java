@@ -5,9 +5,9 @@ public enum Dificuldade {
     MEDIO(2),
     DIFICIL(3);
 
-    public int valor;
+    public final int valor;
 
-    Dificuldade(int v){
-        this.valor = v;
+    Dificuldade(int valor){
+        this.valor = valor;
     }
 }
