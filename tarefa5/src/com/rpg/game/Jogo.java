@@ -11,6 +11,11 @@ import com.rpg.util.InputManager;
 
 import java.util.ArrayList;
 
+/**
+ * Jogo em si, escolhe-se a dificuldade, o herói é escolhido
+ * aliatoriamente e depois se chama o início de cada fase
+ * dentro de um try catch para capturar a exceção de desistência
+ */
 public class Jogo {
     public static void main() {
         //Escolha de Dificuldade

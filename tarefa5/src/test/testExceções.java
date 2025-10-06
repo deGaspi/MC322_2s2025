@@ -1,4 +1,4 @@
-package com.test;
+package test;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
@@ -14,6 +14,6 @@ public class testExceções {
         Repique r = new Repique(Dificuldade.DIFICIL);
         EquiparSemNivel e = assertThrows(EquiparSemNivel.class, () -> p.receberArma(r));
         assertEquals(e.getMessage(), p.getNome() + " não tem experiência suficiente para lidar com " + r.getNome());
-    }
+}
 }
 

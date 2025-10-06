@@ -7,6 +7,11 @@ import com.rpg.monstro.MonstroEnum;
 import com.rpg.util.InputManager;
 import java.util.Scanner;
 
+
+/**
+ * Começo da execução, é reduzido a um laço com um switch para a escolha inicial
+ * se o jogo é iniciado, chama a main de Jogo.java
+ */
 public class Main {
     public static void main(String[] args) {
         System.out.println();
