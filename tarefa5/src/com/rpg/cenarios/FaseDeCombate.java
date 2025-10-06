@@ -14,7 +14,11 @@ import com.rpg.util.Desistencia;
 import com.rpg.util.EquiparSemNivel;
 import com.rpg.util.InputManager;
 
-// Como se fosse a classe Batalha
+/**
+ * É responsavel por administrar a progressão de fase.
+ * Recebe o tipo de fase no construtor que dita o andamento
+ * da fase
+ */
 public class FaseDeCombate implements Fase {
     private TipoCenario tipo;
     private InfoBatalha batalhaAtual = null;
@@ -51,6 +55,12 @@ public class FaseDeCombate implements Fase {
         return faseConcluida;
     }
 
+    /**
+     * Inicia a fase, mostra algumas informações e começa o laço que alterna
+     * as ações do herói e do inimigo, ativa o EventoEntregar depois de cada 
+     * alternação e verifica se a luta acabou no durante o laço, se acabou, 
+     * chama PostKillInteract
+     */
     @Override
     public boolean iniciar(Heroi heroi) throws Desistencia {
         boolean ganhouFase = true;
@@ -104,7 +114,14 @@ public class FaseDeCombate implements Fase {
         faseConcluida = true;
         return ganhouFase;
     }
-
+    /**
+     * Interação
+     * Escolha opções depois que a batalha com cada inimigo acaba,
+     * implementado com um switch simples
+     * @param inimigoMorto
+     * @param heroi
+     * @throws Desistencia
+     */
     private static void postKillInteract(Monstro inimigoMorto, Heroi heroi) throws Desistencia {
         final String menu = """
                 ==================================================
@@ -149,5 +166,9 @@ public class FaseDeCombate implements Fase {
         }
         
 
+    }
+
+    public int getMonsterLife(){
+        return monstros.get(0).getPontosDeVida();
     }
 }

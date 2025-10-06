@@ -6,6 +6,12 @@ import com.rpg.interfaces.Combatente;
 import com.rpg.interfaces.Evento;
 import com.rpg.monstro.Imperialista;
 
+/**
+ * Nas fases do meio, não a primeira nem a última, há um entreguista presente,
+ * ele rouba a vida de Falsos Patriotas e Herois, dependendo de chance, e entrega
+ * para o chefe imperialista.
+ * É sempre executado na batalha, depende do gatilho para ser efetuado
+ */
 
 public class EventoEntregar implements Evento{
     private FaseDeCombate fase;
@@ -17,6 +23,7 @@ public class EventoEntregar implements Evento{
         this.imperialista = imperialista;
     }
 
+    //verifica se estamos em uma fase do meio
     @Override
     public boolean verificarGatilho(){
         if(fase.getTipoCenario() == TipoCenario.CAVERNA)
@@ -24,6 +31,13 @@ public class EventoEntregar implements Evento{
         return false;
     }
 
+    /**
+     * Verifica o gatilho e se está na fase certa, se a batalha acabou,
+     * printa a mensagem de fuga do imperialista, a cada quatro turnos da
+     * batalha, o evento é efetuado com chance de 50% de atingir o heroi
+     * e 50% de atingir seu adversário
+     * Recebe a informação do turno pela fase recebida no construtor
+     */
     @Override
     public void executar(){
         fase.adicionarEvento(new EventoEntregar(fase, imperialista));

@@ -13,62 +13,50 @@ import com.rpg.interfaces.GeradorDeFases;
 import com.rpg.monstro.FalsoPatriota;
 import com.rpg.monstro.Imperialista;
 
+/**
+ * Constrói as Fases de acordo com o tipo de cenário
+ * 
+ */
+
 public class ConstrutorDeCenárioFixo implements GeradorDeFases {
     private ArrayList<Fase> listaDeFases = new ArrayList<Fase>();
     private static final Random random = new Random();
 
     public ConstrutorDeCenárioFixo() {
     }
-
+    /**
+     * Cria a primeira fase e a luta com o chefe
+     * fases adicionais são adicionada dentro do laço
+     * 
+     */
     public ArrayList<Fase> gerar(int n, Dificuldade dif) {
         if (n < 1) {
             throw new IllegalArgumentException("Número de fases deve ser positivo");
-        }
-
-        final float multiplicadorHP, multiplicadorDano, multiplicadorXP;
-        switch (dif) {
-            case FACIL:
-                multiplicadorHP = 1f;
-                multiplicadorDano = 1f;
-                multiplicadorXP = 1f;
-                break;
-            case MEDIO:
-                multiplicadorHP = 1.25f;
-                multiplicadorDano = 1.25f;
-                multiplicadorXP = 1.25f;
-                break;
-            case DIFICIL:
-                multiplicadorHP = 1.5f;
-                multiplicadorDano = 1.5f;
-                multiplicadorXP = 1.5f;
-                break;
-            default:
-                throw new AssertionError("Dificuldade inesperada, valor recebido: " + dif);
         }
 
         // Primeira fase: Batalha com falsos patriotas para entrar na caverna.
         FaseDeCombate primeiraFase = new FaseDeCombate(TipoCenario.ENTRADA);
         primeiraFase.addMonstro(new FalsoPatriota(
                 "Falso Patriota 1",
-                Math.round(8 * multiplicadorHP - n * 1.1f),
-                Math.round(2 * multiplicadorDano - n * 1.1f),
-                Math.round(10 * multiplicadorXP - n * 0.5f),
-                getRandArma(dif)));
+                Math.round(8 - n * 1.1f),
+                Math.round(2 - n * 1.1f),
+                Math.round(10 - n * 0.5f),
+                getRandArma(dif), dif));
         primeiraFase.addMonstro(new FalsoPatriota(
                 "Falso Patriota 2",
-                Math.round(8 * multiplicadorHP),
-                Math.round(2 * multiplicadorDano),
-                Math.round(10 * multiplicadorXP),
-                getRandArma(dif)));
+                Math.round(8),
+                Math.round(2),
+                Math.round(10),
+                getRandArma(dif), dif));
         listaDeFases.add(primeiraFase);
 
         // Ultima fase: Batalha com imperialista
         var imperialista = new Imperialista(
                 "Imperialista",
-                Math.round(10 * multiplicadorHP),
-                Math.round(3 * multiplicadorDano),
-                Math.round(30 * multiplicadorXP),
-                getRandArma(dif));
+                Math.round(10),
+                Math.round(3),
+                Math.round(30),
+                getRandArma(dif), dif);
         FaseDeCombate ultimaFase = new FaseDeCombate(TipoCenario.CHEFE);
         ultimaFase.addMonstro(imperialista);
         n--;
@@ -82,16 +70,16 @@ public class ConstrutorDeCenárioFixo implements GeradorDeFases {
             FaseDeCombate fase = new FaseDeCombate(TipoCenario.CAVERNA);
             fase.addMonstro(new FalsoPatriota(
                 "Falso Patriota 1",
-                Math.round(8 * multiplicadorHP - n * 1.1f),
-                Math.round(2 * multiplicadorDano - n * 1.1f),
-                Math.round(10 * multiplicadorXP - n * 0.5f),
-                getRandArma(dif)));
+                Math.round(8 - n * 1.1f),
+                Math.round(2 - n * 1.1f),
+                Math.round(10 - n * 0.5f),
+                getRandArma(dif), dif));
             fase.addMonstro(new FalsoPatriota(
                 "Falso Patriota 2",
-                Math.round(8 * multiplicadorHP - n * 1.1f),
-                Math.round(2 * multiplicadorDano - n * 1.1f),
-                Math.round(10 * multiplicadorXP - n * 0.5f),
-                getRandArma(dif)));
+                Math.round(8 - n * 1.1f),
+                Math.round(2 - n * 1.1f),
+                Math.round(10 - n * 0.5f),
+                getRandArma(dif), dif));
             fase.adicionarEvento(new EventoEntregar(fase, imperialista));
             listaDeFases.add(fase);
             n--;
@@ -102,7 +90,7 @@ public class ConstrutorDeCenárioFixo implements GeradorDeFases {
         return listaDeFases;
     }
 
-    //Escolha da arma com peso da dificuldade
+    //Escolha da arma para monstros com peso da dificuldade
     private static Arma getRandArma(Dificuldade dificuldade) {
         // O peso afeta a probabilidade da arma ser escolhida.
         int[] pesos = {
@@ -143,4 +131,7 @@ public class ConstrutorDeCenárioFixo implements GeradorDeFases {
         }
     }
 
+    public Fase getPrimeiraFase(){
+        return listaDeFases.get(0);
+    }
 }

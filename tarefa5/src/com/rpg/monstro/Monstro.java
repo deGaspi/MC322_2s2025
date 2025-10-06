@@ -9,6 +9,7 @@ import com.rpg.heroi.Personagem;
 import com.rpg.interfaces.AcaoDeCombate;
 import com.rpg.interfaces.Item;
 import com.rpg.interfaces.Lootavel;
+import com.rpg.cenarios.Dificuldade;
 
 
 public abstract class Monstro extends Personagem implements Lootavel{
@@ -16,9 +17,9 @@ public abstract class Monstro extends Personagem implements Lootavel{
 
     private int xpConcedido;
 
-    public Monstro(String name, int LP, int strength, int xp, Arma arma) {
-        super(name, LP, strength, 0.5f, 0);
-        this.xpConcedido = xp;        
+    public Monstro(String name, int LP, int strength, int xp, Arma arma, Dificuldade dif) {
+        super(name, LP*dif.valor, strength*dif.valor, 0.5f, 0);
+        this.xpConcedido = xp*dif.valor;        
         acoes.add(new Ataque());// TODO: dar um jeito de trocar as probabilidades.
         super.setArma(arma);
         
