@@ -23,7 +23,7 @@ public enum HeroEnum {
         return habilityInfo;
     }
 
-    public Herói getDefaultInstance() {
+    public Heroi getDefaultInstance() {
         switch (this) {
             case PASSISTA:
                 return new Passista("Valéria Valenssa", 45, 12, 0, 0);

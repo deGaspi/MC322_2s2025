@@ -13,13 +13,13 @@ import com.rpg.util.EquiparSemNivel;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Herói extends Personagem {
+public abstract class Heroi extends Personagem {
     private int xp;
     private int expProxNivel = 15;
     private List<AcaoDeCombate> actionList = new ArrayList<AcaoDeCombate>(); // TODO: esse atributo é desnecessário.
     private int pontosEspecial;
 
-    public Herói(String name, int LP, int strength, int level, int xp) {
+    public Heroi(String name, int LP, int strength, int level, int xp) {
         super(name, LP, strength, new Random().nextFloat(), level);
         this.xp = xp;
         pontosEspecial = 0;

@@ -1,6 +1,6 @@
 package com.rpg.acoes;
 
-import com.rpg.heroi.Herói;
+import com.rpg.heroi.Heroi;
 import com.rpg.interfaces.AcaoDeCombate;
 import com.rpg.interfaces.Combatente;
 
@@ -9,7 +9,7 @@ public class Especial implements AcaoDeCombate{
     public Especial(){}
 
     public void executar(Combatente usuario, Combatente alvo){
-        if (usuario instanceof Herói hero) {
+        if (usuario instanceof Heroi hero) {
             hero.usarHabilidadeEspecial(alvo);
         }
     }

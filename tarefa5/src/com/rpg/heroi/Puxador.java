@@ -2,7 +2,7 @@ package com.rpg.heroi;
 
 import com.rpg.interfaces.Combatente;
 
-public class Puxador extends Herói {
+public class Puxador extends Heroi {
 
     public Puxador(String name, int LP, int strength, int level, int xp) {
         super(name, LP, strength, level, xp);

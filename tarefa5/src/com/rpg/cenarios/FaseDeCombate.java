@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.rpg.armas.Arma;
-import com.rpg.heroi.Herói;
+import com.rpg.heroi.Heroi;
 import com.rpg.interfaces.Evento;
 import com.rpg.interfaces.Fase;
 import com.rpg.interfaces.Lootavel;
@@ -21,7 +21,7 @@ public class FaseDeCombate implements Fase {
     private List<Monstro> monstros = new ArrayList<Monstro>();
     private List<Evento> eventos = new ArrayList<Evento>();
 
-    public record InfoBatalha(int turno, Herói heroi, Monstro monstro) {
+    public record InfoBatalha(int turno, Heroi heroi, Monstro monstro) {
     }
 
     public FaseDeCombate(TipoCenario T) {
@@ -51,7 +51,7 @@ public class FaseDeCombate implements Fase {
     }
 
     @Override
-    public boolean iniciar(Herói heroi) throws Desistencia {
+    public boolean iniciar(Heroi heroi) throws Desistencia {
         boolean ganhouFase = true;
         for (Monstro monstro : monstros) {
             int turno = 1;
@@ -104,7 +104,7 @@ public class FaseDeCombate implements Fase {
         return ganhouFase;
     }
 
-    private static void postKillInteract(Monstro inimigoMorto, Herói heroi) throws Desistencia {
+    private static void postKillInteract(Monstro inimigoMorto, Heroi heroi) throws Desistencia {
         final String menu = """
                 ==================================================
                 [1] Vasculhar inimigo.
