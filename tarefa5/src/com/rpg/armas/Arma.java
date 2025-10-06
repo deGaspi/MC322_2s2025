@@ -3,6 +3,9 @@ package com.rpg.armas;
 import com.rpg.cenarios.Dificuldade;
 import com.rpg.interfaces.Item;
 
+/**
+ * Classe abstrata de todas as armas
+ */
 public abstract class Arma implements Item{
     private final int dano;
     private final int minLvl;

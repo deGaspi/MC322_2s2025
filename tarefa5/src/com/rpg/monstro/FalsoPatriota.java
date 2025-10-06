@@ -1,11 +1,12 @@
 package com.rpg.monstro;
 
 import com.rpg.armas.Arma;
-import com.rpg.interfaces.Combatente;;
+import com.rpg.interfaces.Combatente;
+import com.rpg.cenarios.Dificuldade;
 
 public class FalsoPatriota extends Monstro {
-    public FalsoPatriota(String name, int LP, int strength, int xp, Arma arma) {
-        super(name, LP, strength, xp, arma);
+    public FalsoPatriota(String name, int LP, int strength, int xp, Arma arma, Dificuldade dif) {
+        super(name, LP, strength, xp, arma, dif);
     }
 
     @Override

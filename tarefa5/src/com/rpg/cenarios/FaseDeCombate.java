@@ -2,9 +2,10 @@ package com.rpg.cenarios;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import com.rpg.armas.Arma;
-import com.rpg.heroi.Herói;
+import com.rpg.heroi.Heroi;
 import com.rpg.interfaces.Evento;
 import com.rpg.interfaces.Fase;
 import com.rpg.interfaces.Lootavel;
@@ -13,7 +14,11 @@ import com.rpg.util.Desistencia;
 import com.rpg.util.EquiparSemNivel;
 import com.rpg.util.InputManager;
 
-// Como se fosse a classe Batalha
+/**
+ * É responsavel por administrar a progressão de fase.
+ * Recebe o tipo de fase no construtor que dita o andamento
+ * da fase
+ */
 public class FaseDeCombate implements Fase {
     private TipoCenario tipo;
     private InfoBatalha batalhaAtual = null;
@@ -21,7 +26,7 @@ public class FaseDeCombate implements Fase {
     private List<Monstro> monstros = new ArrayList<Monstro>();
     private List<Evento> eventos = new ArrayList<Evento>();
 
-    public record InfoBatalha(int turno, Herói heroi, Monstro monstro) {
+    public record InfoBatalha(int turno, Heroi heroi, Monstro monstro) {
     }
 
     public FaseDeCombate(TipoCenario T) {
@@ -50,8 +55,14 @@ public class FaseDeCombate implements Fase {
         return faseConcluida;
     }
 
+    /**
+     * Inicia a fase, mostra algumas informações e começa o laço que alterna
+     * as ações do herói e do inimigo, ativa o EventoEntregar depois de cada 
+     * alternação e verifica se a luta acabou no durante o laço, se acabou, 
+     * chama PostKillInteract
+     */
     @Override
-    public boolean iniciar(Herói heroi) throws Desistencia {
+    public boolean iniciar(Heroi heroi) throws Desistencia {
         boolean ganhouFase = true;
         for (Monstro monstro : monstros) {
             int turno = 1;
@@ -103,8 +114,15 @@ public class FaseDeCombate implements Fase {
         faseConcluida = true;
         return ganhouFase;
     }
-
-    private static void postKillInteract(Monstro inimigoMorto, Herói heroi) throws Desistencia {
+    /**
+     * Interação
+     * Escolha opções depois que a batalha com cada inimigo acaba,
+     * implementado com um switch simples
+     * @param inimigoMorto
+     * @param heroi
+     * @throws Desistencia
+     */
+    private static void postKillInteract(Monstro inimigoMorto, Heroi heroi) throws Desistencia {
         final String menu = """
                 ==================================================
                 [1] Vasculhar inimigo.
@@ -117,7 +135,8 @@ public class FaseDeCombate implements Fase {
         
         boolean loop = true;
         while(loop){
-            switch (InputManager.lerInteiro(menu, 1, 4)) {
+            var input = new InputManager(new Scanner(System.in));
+            switch (input.lerInteiro(menu, 1, 4)) {
                 case 1:
                     if (inimigoMorto instanceof Lootavel lootavel) {
                         var loot = lootavel.droparLoot();
@@ -137,12 +156,19 @@ public class FaseDeCombate implements Fase {
                     loop = false;
                     break;
                 case 4:
+                    input.fecharScanner();
                     throw new Desistencia("Desistiu");
                 default:
+                    input.fecharScanner();
                     throw new AssertionError("Input inexperado.");
             }
+            input.fecharScanner();
         }
         
 
+    }
+
+    public int getMonsterLife(){
+        return monstros.get(0).getPontosDeVida();
     }
 }

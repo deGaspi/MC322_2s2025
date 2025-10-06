@@ -3,7 +3,7 @@ package com.rpg.heroi;
 import com.rpg.interfaces.Combatente;
 import com.rpg.monstro.Monstro;
 
-public class Passista extends Herói {
+public class Passista extends Heroi {
 
     public Passista(String name, int LP, int strength, int level, int xp) {
         super(name, LP, strength, level, xp);

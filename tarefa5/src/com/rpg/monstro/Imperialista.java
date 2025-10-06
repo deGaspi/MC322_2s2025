@@ -1,11 +1,12 @@
 package com.rpg.monstro;
 
 import com.rpg.armas.Arma;
+import com.rpg.cenarios.Dificuldade;
 import com.rpg.interfaces.Combatente;
 
 public class Imperialista extends Monstro{
-    public Imperialista(String name, int LP, int strength, int xp, Arma arma){
-        super(name, LP, strength, xp, arma);
+    public Imperialista(String name, int LP, int strength, int xp, Arma arma, Dificuldade dif){
+        super(name, LP, strength, xp, arma, dif);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.rpg.game;
 import java.util.Random;
+import java.util.Scanner;
 
 import com.rpg.cenarios.ConstrutorDeCenárioFixo;
 import com.rpg.cenarios.Dificuldade;
@@ -10,6 +11,11 @@ import com.rpg.util.InputManager;
 
 import java.util.ArrayList;
 
+/**
+ * Jogo em si, escolhe-se a dificuldade, o herói é escolhido
+ * aliatoriamente e depois se chama o início de cada fase
+ * dentro de um try catch para capturar a exceção de desistência
+ */
 public class Jogo {
     public static void main() {
         //Escolha de Dificuldade
@@ -24,8 +30,8 @@ public class Jogo {
                 ==================================================
                 Digite sua opção >
                 """;
-
-        switch (InputManager.lerInteiro(escDificuldade, 1, 3)) {
+        var input = new InputManager(new Scanner(System.in));
+        switch (input.lerInteiro(escDificuldade, 1, 3)) {
                 case 1:
                     dificuldade = Dificuldade.FACIL;
                     break;
@@ -36,8 +42,10 @@ public class Jogo {
                     dificuldade = Dificuldade.DIFICIL;
                     break;
                 default:
+                    input.fecharScanner();
                     throw new AssertionError("Input inesperado.");
             };
+            input.fecharScanner();
 
 
 
