@@ -2,6 +2,7 @@ package com.rpg.cenarios;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import com.rpg.armas.Arma;
 import com.rpg.heroi.Heroi;
@@ -117,7 +118,8 @@ public class FaseDeCombate implements Fase {
         
         boolean loop = true;
         while(loop){
-            switch (InputManager.lerInteiro(menu, 1, 4)) {
+            var input = new InputManager(new Scanner(System.in));
+            switch (input.lerInteiro(menu, 1, 4)) {
                 case 1:
                     if (inimigoMorto instanceof Lootavel lootavel) {
                         var loot = lootavel.droparLoot();
@@ -137,10 +139,13 @@ public class FaseDeCombate implements Fase {
                     loop = false;
                     break;
                 case 4:
+                    input.fecharScanner();
                     throw new Desistencia("Desistiu");
                 default:
+                    input.fecharScanner();
                     throw new AssertionError("Input inexperado.");
             }
+            input.fecharScanner();
         }
         
 

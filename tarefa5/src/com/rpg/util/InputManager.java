@@ -4,12 +4,13 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public final class InputManager {
-    private static final Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner;
 
-    private InputManager() {
+    public InputManager(Scanner scanner) {
+        this.scanner = scanner;
     }
 
-    public static int lerInteiro(String mensagem, int min, int max) {
+    public int lerInteiro(String mensagem, int min, int max) {
         int valor;
         while (true) {
             try {
@@ -29,12 +30,12 @@ public final class InputManager {
         return valor;
     }
 
-    public static String lerString(String mensagem) {
+    public String lerString(String mensagem) {
         System.out.print(mensagem);
         return scanner.nextLine();
     }
 
-    public static boolean lerSimNao(String mensagem) {
+    public boolean lerSimNao(String mensagem) {
         String resposta;
         while (true) {
             System.out.print(mensagem);
@@ -49,12 +50,12 @@ public final class InputManager {
         }
     }
 
-    public static void esperarEnter(String mensagem) {
+    public void esperarEnter(String mensagem) {
         System.out.print(mensagem);
         scanner.nextLine();
     }
 
-    public static void fecharScanner() {
+    public void fecharScanner() {
         if (scanner != null) {
             scanner.close();
         }
