@@ -5,6 +5,7 @@ package com.rpg.game;
 import com.rpg.heroi.HeroEnum;
 import com.rpg.monstro.MonstroEnum;
 import com.rpg.util.InputManager;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -22,11 +23,12 @@ public class Main {
 
         //Loop principal
         boolean loop = true;
+        var input = new InputManager(new Scanner(System.in));
         while(loop){
-            switch (InputManager.lerInteiro(menu, 1, 4)) {
+            switch (input.lerInteiro(menu, 1, 4)) {
                 case 1:
-                    Jogo.main();                 //Inicia o jogo e fecha o Scanner
-                    InputManager.fecharScanner();
+                    Jogo.main();                
+                    input.fecharScanner();
                     loop = false;
                     break;
                 case 2:
