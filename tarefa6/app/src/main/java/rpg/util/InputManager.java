@@ -1,6 +1,6 @@
 package rpg.util;
 
-import java.util.InputMismatchException;
+import java.util.InputMismatchException; 
 import java.util.Scanner;
 
 public final class InputManager {

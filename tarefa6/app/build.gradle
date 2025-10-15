@@ -34,7 +34,12 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = 'tarefa6.App'
+    mainClass = 'rpg.game.Main'
+
+    run{
+        standardInput = System.in
+        standardOutput = System.out 
+    }
 }
 
 tasks.named('test') {

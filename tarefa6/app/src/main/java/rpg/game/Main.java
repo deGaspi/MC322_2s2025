@@ -33,7 +33,6 @@ public class Main {
             switch (input.lerInteiro(menu, 1, 4)) {
                 case 1:
                     Jogo.main();                
-                    input.fecharScanner();
                     loop = false;
                     break;
                 case 2:
@@ -50,6 +49,7 @@ public class Main {
                     break;
             };
         }
+        input.fecharScanner();
         
     }
 

@@ -42,10 +42,8 @@ public class Jogo {
                     dificuldade = Dificuldade.DIFICIL;
                     break;
                 default:
-                    input.fecharScanner();
                     throw new AssertionError("Input inesperado.");
             };
-            input.fecharScanner();
 
 
 

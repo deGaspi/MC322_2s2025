@@ -156,13 +156,10 @@ public class FaseDeCombate implements Fase {
                     loop = false;
                     break;
                 case 4:
-                    input.fecharScanner();
                     throw new Desistencia("Desistiu");
                 default:
-                    input.fecharScanner();
                     throw new AssertionError("Input inexperado.");
             }
-            input.fecharScanner();
         }
         
 
