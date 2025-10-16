@@ -17,6 +17,7 @@ import java.util.ArrayList;
  * Jogo em si, escolhe-se a dificuldade, o herói é escolhido
  * aliatoriamente e depois se chama o início de cada fase
  * dentro de um try catch para capturar a exceção de desistência
+ * ou salvamento
  */
 public class Jogo {
     private final static int N_DE_FASES = 4;

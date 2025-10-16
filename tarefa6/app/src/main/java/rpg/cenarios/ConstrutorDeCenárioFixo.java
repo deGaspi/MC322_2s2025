@@ -22,12 +22,7 @@ public class ConstrutorDeCenárioFixo implements GeradorDeFases {
     private ArrayList<FaseDeCombate> listaDeFases = new ArrayList<FaseDeCombate>();
     private static final Random random = new Random();
     private Dificuldade dif;
-    private Imperialista imp = new Imperialista(
-                "Imperialista",
-                Math.round(10),
-                Math.round(3),
-                Math.round(30),
-                getRandArma(dif), dif);
+    private Imperialista imp;
     
 
     public FaseDeCombate gerarFase(TipoCenario tipo, int nivel){
@@ -67,6 +62,12 @@ public class ConstrutorDeCenárioFixo implements GeradorDeFases {
 
     public ConstrutorDeCenárioFixo(Dificuldade dificulty) {
         this.dif = dificulty;
+        imp = new Imperialista(
+                "Imperialista",
+                Math.round(10),
+                Math.round(3),
+                Math.round(30),
+                new Repique(dif), dif);
     }
     /**
      * Cria a primeira fase e a luta com o chefe

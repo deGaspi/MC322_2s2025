@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<saveGame>
+    <phaseProperties>
+        <phase>1</phase>
+        <dificulty>FACIL</dificulty>
+        <defeatedBoth>true</defeatedBoth>
+    </phaseProperties>
+    <hero>
+        <hLP>48</hLP>
+        <hStrength>12</hStrength>
+        <hLevel>2</hLevel>
+        <hXp>5</hXp>
+        <hWeapon/>
+        <hClass>PUXADOR</hClass>
+    </hero>
+</saveGame>

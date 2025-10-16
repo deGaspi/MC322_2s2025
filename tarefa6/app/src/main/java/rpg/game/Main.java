@@ -11,8 +11,13 @@ import java.util.Scanner;
 
 
 /**
- * Começo da execução, é reduzido a um laço com um switch para a escolha inicial
- * se o jogo é iniciado, chama a main de Jogo.java
+ * Implementa o menu principal e chama as próximas classes de acordo
+ * com a escolha.
+ * [1] Iniciar Novo Jogo
+ * [2] Carregar Jogo
+ * [3] Ver Informações das Classes de Heróis
+ * [4] Ver Informações das Classes de Monstros
+ * [5] Sair do Jogo
  */
 public class Main {
     public static void main(String[] args) {

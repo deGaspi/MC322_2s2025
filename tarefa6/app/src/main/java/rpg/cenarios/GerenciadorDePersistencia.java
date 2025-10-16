@@ -40,7 +40,7 @@ public class GerenciadorDePersistencia {
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 
             // Salvar em arquivo
-            File file = new File(nomeArquivo + ".xml");
+            File file = new File("src/main/java/rpg/util/"+nomeArquivo + ".xml");
             marshaller.marshal(saveGame, file);
             System.out.println("Jogo salvo com sucesso em: " + file.getAbsolutePath());
 
@@ -51,7 +51,7 @@ public class GerenciadorDePersistencia {
 
     public void carregarJogo(String nomeArquivo) throws Exception {
         try {
-            File file = new File(nomeArquivo + ".xml");
+            File file = new File("src/main/java/rpg/util/"+nomeArquivo + ".xml");
             if (!file.exists()) {
                 throw new Exception("Arquivo de salvamento não encontrado: " + file.getAbsolutePath());
             }
