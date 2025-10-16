@@ -1,7 +1,9 @@
 package rpg.util;
 /**
- * Se o personagem desiste do jogo ou pede para salvar,
- * no último caso, salvamento será true
+ * Classe para capiturar a exceção do 
+ * jogador desistir do jogo ou pedir 
+ * para salvar, no último caso, 
+ * salvamento será true
  */
 public class paradaJogador extends Exception {
     private boolean salvamento;

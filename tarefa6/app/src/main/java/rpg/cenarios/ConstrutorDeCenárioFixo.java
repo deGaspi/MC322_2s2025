@@ -19,8 +19,43 @@ import rpg.monstro.Imperialista;
  */
 
 public class ConstrutorDeCenárioFixo implements GeradorDeFases {
-    private ArrayList<Fase> listaDeFases = new ArrayList<Fase>();
+    private ArrayList<FaseDeCombate> listaDeFases = new ArrayList<FaseDeCombate>();
     private static final Random random = new Random();
+
+    public FaseDeCombate gerarFase(TipoCenario tipo, int nivel, Dificuldade dif, Imperialista imp){
+        FaseDeCombate fase = new FaseDeCombate(tipo);
+        if(tipo == TipoCenario.ENTRADA){
+            fase.addMonstro(new FalsoPatriota(
+                "Falso Patriota 1",
+                Math.round(8 + nivel * 1.1f),
+                Math.round(2 + nivel * 1.1f),
+                Math.round(10 + nivel * 0.5f),
+                getRandArma(dif), dif));
+            fase.addMonstro(new FalsoPatriota(
+                "Falso Patriota 2",
+                Math.round(8 + nivel * 1.1f),
+                Math.round(2 + nivel * 1.1f),
+                Math.round(10 + nivel * 0.5f),
+                getRandArma(dif), dif));
+        }else if(tipo == TipoCenario.CAVERNA){
+            fase.addMonstro(new FalsoPatriota(
+                "Falso Patriota 1",
+                Math.round(8 + nivel * 1.1f),
+                Math.round(2 + nivel * 1.1f),
+                Math.round(10 + nivel * 0.5f),
+                getRandArma(dif), dif));
+            fase.addMonstro(new FalsoPatriota(
+                "Falso Patriota 2",
+                Math.round(8 + nivel * 1.1f),
+                Math.round(2 + nivel * 1.1f),
+                Math.round(10 + nivel * 0.5f),
+                getRandArma(dif), dif));
+                fase.adicionarEvento(new EventoEntregar(fase, imp));
+        }else if(tipo == TipoCenario.CHEFE){
+            fase.addMonstro(imp);
+        }
+        return fase;
+    }
 
     public ConstrutorDeCenárioFixo() {
     }
@@ -29,36 +64,25 @@ public class ConstrutorDeCenárioFixo implements GeradorDeFases {
      * fases adicionais são adicionada dentro do laço
      * 
      */
-    public ArrayList<Fase> gerar(int n, Dificuldade dif) {
+    public ArrayList<FaseDeCombate> gerar(int n, Dificuldade dif) {
         if (n < 1) {
             throw new IllegalArgumentException("Número de fases deve ser positivo");
         }
 
-        // Primeira fase: Batalha com falsos patriotas para entrar na caverna.
-        FaseDeCombate primeiraFase = new FaseDeCombate(TipoCenario.ENTRADA);
-        primeiraFase.addMonstro(new FalsoPatriota(
-                "Falso Patriota 1",
-                Math.round(8 - n * 1.1f),
-                Math.round(2 - n * 1.1f),
-                Math.round(10 - n * 0.5f),
-                getRandArma(dif), dif));
-        primeiraFase.addMonstro(new FalsoPatriota(
-                "Falso Patriota 2",
-                Math.round(8),
-                Math.round(2),
-                Math.round(10),
-                getRandArma(dif), dif));
-        listaDeFases.add(primeiraFase);
-
-        // Ultima fase: Batalha com imperialista
         var imperialista = new Imperialista(
                 "Imperialista",
                 Math.round(10),
                 Math.round(3),
                 Math.round(30),
                 getRandArma(dif), dif);
-        FaseDeCombate ultimaFase = new FaseDeCombate(TipoCenario.CHEFE);
-        ultimaFase.addMonstro(imperialista);
+
+        // Primeira fase: Batalha com falsos patriotas para entrar na caverna.
+        FaseDeCombate primeiraFase = gerarFase(TipoCenario.ENTRADA, 1, dif, imperialista);
+        listaDeFases.add(primeiraFase);
+
+        // Ultima fase: Batalha com imperialista
+        
+        FaseDeCombate ultimaFase = gerarFase(TipoCenario.CHEFE, n, dif, imperialista);
         n--;
 
         if (n == 0)
@@ -67,20 +91,7 @@ public class ConstrutorDeCenárioFixo implements GeradorDeFases {
         // Fases do meio: Batalhas com falsos patriotas para descer os andares
         // Evento com entreguista pode ocorrer.
         while (n > 1) {
-            FaseDeCombate fase = new FaseDeCombate(TipoCenario.CAVERNA);
-            fase.addMonstro(new FalsoPatriota(
-                "Falso Patriota 1",
-                Math.round(8 - n * 1.1f),
-                Math.round(2 - n * 1.1f),
-                Math.round(10 - n * 0.5f),
-                getRandArma(dif), dif));
-            fase.addMonstro(new FalsoPatriota(
-                "Falso Patriota 2",
-                Math.round(8 - n * 1.1f),
-                Math.round(2 - n * 1.1f),
-                Math.round(10 - n * 0.5f),
-                getRandArma(dif), dif));
-            fase.adicionarEvento(new EventoEntregar(fase, imperialista));
+            FaseDeCombate fase = gerarFase(TipoCenario.CAVERNA, n, dif, imperialista);
             listaDeFases.add(fase);
             n--;
         }

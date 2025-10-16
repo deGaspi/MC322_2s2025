@@ -54,6 +54,10 @@ public class FaseDeCombate implements Fase {
         return faseConcluida;
     }
 
+    public List<Monstro> getMonsterList(){
+        return monstros;
+    }
+
     /**
      * Inicia a fase, mostra algumas informações e começa o laço que alterna
      * as ações do herói e do inimigo, ativa o EventoEntregar depois de cada 
@@ -167,7 +171,24 @@ public class FaseDeCombate implements Fase {
 
     }
 
-    public int getMonsterLife(){
-        return monstros.get(0).getPontosDeVida();
+    public ArrayList<Integer> getMonsterLife(){
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        for(Monstro m : monstros){
+            list.add(m.getPontosDeVida());
+        }
+        return list;
+    }
+
+    public boolean derrotouOsDois(){
+        if(tipo != TipoCenario.CHEFE){
+            int soma = monstros.get(0).getPontosDeVida() + monstros.get(1).getPontosDeVida();
+            if(soma == 0){
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
     }
 }

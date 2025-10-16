@@ -91,4 +91,8 @@ public abstract class Heroi extends Personagem {
             System.out.println(this.getNome() + " equipou " + arma.getNome());
         }
     }
+
+    public int getXp(){
+        return this.xp;
+    }
 }

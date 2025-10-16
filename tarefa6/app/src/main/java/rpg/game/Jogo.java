@@ -4,8 +4,8 @@ import java.util.Scanner;
 
 import rpg.cenarios.ConstrutorDeCenárioFixo;
 import rpg.cenarios.Dificuldade;
+import rpg.cenarios.FaseDeCombate;
 import rpg.heroi.HeroEnum;
-import rpg.interfaces.Fase;
 import rpg.util.paradaJogador;
 import rpg.util.InputManager;
 import rpg.cenarios.GerenciadorDePersistencia;
@@ -50,7 +50,7 @@ public class Jogo {
         final Dificuldade dif = escolherDificuldade();
         
         final ConstrutorDeCenárioFixo construtor = new ConstrutorDeCenárioFixo();
-        final ArrayList<Fase> fases = construtor.gerar(N_DE_FASES, dif); // 4 fases
+        final ArrayList<FaseDeCombate> fases = construtor.gerar(N_DE_FASES, dif); // 4 fases
 
         // Historia inicial.
         System.out.println(
@@ -73,7 +73,7 @@ public class Jogo {
 
         // Loop de fases
         for (int i = 1; i <= N_DE_FASES; i++) {
-            var fase = fases.removeFirst();
+            FaseDeCombate fase = fases.removeFirst();
             System.out.println("\n############################# Fase " + i + "/" + N_DE_FASES // Divisor de fases
                     + " #############################\n");
             System.out.println(fase.getTipoCenario().getDescription());
@@ -85,7 +85,7 @@ public class Jogo {
                 System.out.println(e.getMessage());
                 if(e.toSave()){
                     GerenciadorDePersistencia persistir = new GerenciadorDePersistencia();
-                    persistir.salvarJogo("save", i, dif, heroi);
+                    persistir.salvarJogo("save", i, dif, heroi, fase.derrotouOsDois());
                 }
                 return;
             }
@@ -101,26 +101,23 @@ public class Jogo {
         System.out.println("\nVocê eternizou o samba nos corações dos brasileiros.\n O SAMBA VENCEU!!!!");
     }
 
-    public static void jogoCarregado(ArrayList<Fase> fases, int faseAtual, Heroi heroi, Dificuldade dif){
 
-        // Historia inicial.
-        System.out.println(
-                "Você nasceu e cresceu no samba, mas agora estão querendo acabar com a cultura do seu povo. \nSó resta uma coisa a fazer: resistir e derrotar a força imperialista que quer privatizar o \ncarnaval.\n");
 
-        // Escolha do heroi.
+
+
+
+
+    
+    public static void jogoCarregado(ArrayList<FaseDeCombate> fases, int faseAtual, Heroi heroi, Dificuldade dif){
 
         // Explicar habilidade do heroi escolhido.
         System.out.println("Informações do herói: ");
         heroi.exibirStatus();
         System.out.println();
 
-        // Introdução do objetivo do jogo.
-        System.out.println(
-                "Você encontra a caverna do acúmulo, onde o terrível imperialista reside, você hesita, mas a alegria \nde seu povo depende de você, derrote os lacaios pra alcançar o imperialista e por um fim à sua \nganância.\n");
-
         // Loop de fases
         for (int i = faseAtual; i <= N_DE_FASES; i++) {
-            var fase = fases.removeFirst();
+            FaseDeCombate fase = fases.removeFirst();
             System.out.println("\n############################# Fase " + i + "/" + N_DE_FASES // Divisor de fases
                     + " #############################\n");
             System.out.println(fase.getTipoCenario().getDescription());
@@ -132,7 +129,8 @@ public class Jogo {
                 System.out.println(e.getMessage());
                 if(e.toSave()){
                     GerenciadorDePersistencia persistir = new GerenciadorDePersistencia();
-                    persistir.salvarJogo("save", i, dif, heroi);
+                    persistir.salvarJogo("save", i, dif, heroi, fase.derrotouOsDois());
+                    
                 }
                 return;
             }
