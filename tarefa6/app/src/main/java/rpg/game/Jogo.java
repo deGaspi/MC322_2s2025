@@ -9,6 +9,7 @@ import rpg.interfaces.Fase;
 import rpg.util.paradaJogador;
 import rpg.util.InputManager;
 import rpg.cenarios.GerenciadorDePersistencia;
+import rpg.heroi.Heroi;
 
 import java.util.ArrayList;
 
@@ -18,6 +19,7 @@ import java.util.ArrayList;
  * dentro de um try catch para capturar a exceção de desistência
  */
 public class Jogo {
+    private final static int N_DE_FASES = 4;
 
     public static Dificuldade escolherDificuldade(){
          System.out.println();
@@ -44,8 +46,6 @@ public class Jogo {
 
     }
     public static void novoJogo() {
-       
-        final int N_DE_FASES = 4;
 
         final Dificuldade dif = escolherDificuldade();
         
@@ -101,7 +101,50 @@ public class Jogo {
         System.out.println("\nVocê eternizou o samba nos corações dos brasileiros.\n O SAMBA VENCEU!!!!");
     }
 
-    public static void jogoCarregado(ArrayList<Fase> listaDeFases){
+    public static void jogoCarregado(ArrayList<Fase> fases, int faseAtual, Heroi heroi, Dificuldade dif){
 
+        // Historia inicial.
+        System.out.println(
+                "Você nasceu e cresceu no samba, mas agora estão querendo acabar com a cultura do seu povo. \nSó resta uma coisa a fazer: resistir e derrotar a força imperialista que quer privatizar o \ncarnaval.\n");
+
+        // Escolha do heroi.
+
+        // Explicar habilidade do heroi escolhido.
+        System.out.println("Informações do herói: ");
+        heroi.exibirStatus();
+        System.out.println();
+
+        // Introdução do objetivo do jogo.
+        System.out.println(
+                "Você encontra a caverna do acúmulo, onde o terrível imperialista reside, você hesita, mas a alegria \nde seu povo depende de você, derrote os lacaios pra alcançar o imperialista e por um fim à sua \nganância.\n");
+
+        // Loop de fases
+        for (int i = faseAtual; i <= N_DE_FASES; i++) {
+            var fase = fases.removeFirst();
+            System.out.println("\n############################# Fase " + i + "/" + N_DE_FASES // Divisor de fases
+                    + " #############################\n");
+            System.out.println(fase.getTipoCenario().getDescription());
+            boolean resultado;
+
+            try {
+                resultado = fase.iniciar(heroi); // Aqui acontece a chamada da fase criada
+            } catch (paradaJogador e) {
+                System.out.println(e.getMessage());
+                if(e.toSave()){
+                    GerenciadorDePersistencia persistir = new GerenciadorDePersistencia();
+                    persistir.salvarJogo("save", i, dif, heroi);
+                }
+                return;
+            }
+
+            //Resultado
+            System.out.println("-------------------------------------------------\n"); 
+            if (!resultado) {
+                System.out.println("O imperialismo conseguiu privatizar o carnaval.");
+                System.out.println("O   S A M B A   M O R R E U");
+                return;
+            }
+        }
+        System.out.println("\nVocê eternizou o samba nos corações dos brasileiros.\n O SAMBA VENCEU!!!!");
     }
 }

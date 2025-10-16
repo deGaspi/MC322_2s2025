@@ -40,7 +40,13 @@ public class Main {
                     break;
                 case 2:
                     GerenciadorDePersistencia persistir = new GerenciadorDePersistencia();
-                    Jogo.jogoCarregado(persistir.carregarJogo(input.lerString("Qual jogo deve ser carregado?")));
+                    try{
+                        persistir.carregarJogo(input.lerString("Qual jogo deve ser carregado?"));
+                        Jogo.jogoCarregado(persistir.getListaDeFases(), persistir.getFaseInicial(), persistir.getHeroi(), persistir.getDificuldade());
+                    }catch(Exception e){
+                        System.out.println(e.getMessage());
+                        break;
+                    }
                     loop = false;
                     break;
                 case 3:
