@@ -2,6 +2,7 @@ package rpg.util;
 
 import rpg.heroi.Heroi;
 import rpg.heroi.HeroEnum;
+import rpg.armas.Arma;
 
 import javax.xml.bind.annotation.*;
 
@@ -20,7 +21,7 @@ public class HeroSave {
     private int hXp;
     
     @XmlElement(name = "hWeapon")
-    private String hWeapon;
+    private Arma hWeapon;
     
     @XmlElement(name = "hClass")
     private HeroEnum hClass;
@@ -33,7 +34,7 @@ public class HeroSave {
         this.hStrength = heroi.getForca();
         this.hLevel = heroi.getNivel();
         this.hXp = heroi.getXp();
-        this.hWeapon = heroi.getArma() != null ? heroi.getArma().getNome() : "";
+        this.hWeapon = heroi.getArma();
         this.hClass = heroi.getHeroType();
     }
 
@@ -50,8 +51,8 @@ public class HeroSave {
     public int getHXp() { return hXp; }
     public void setHXp(int hXp) { this.hXp = hXp; }
     
-    public String getHWeapon() { return hWeapon; }
-    public void setHWeapon(String hWeapon) { this.hWeapon = hWeapon; }
+    public Arma getHWeapon() { return hWeapon; }
+    public void setHWeapon(Arma hWeapon) { this.hWeapon = hWeapon; }
     
     public HeroEnum getHClass() { return hClass; }
     public void setHClass(HeroEnum hClass) { this.hClass = hClass; }

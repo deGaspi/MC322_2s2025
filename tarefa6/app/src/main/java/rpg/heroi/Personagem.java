@@ -28,9 +28,15 @@ public abstract class Personagem implements Combatente {
     public int getPontosDeVida() {
         return pontosDeVida;
     }
+    public void setPontosDeVida(int v){
+        this.pontosDeVida = v;
+    }
 
     public int getForca() {
         return forca;
+    }
+    public void setForca(int v){
+        this.forca = v;
     }
 
     public float getSorte() {
@@ -39,6 +45,9 @@ public abstract class Personagem implements Combatente {
 
     public int getNivel() {
         return lvl;
+    }
+    public void setNivel(int v){
+        this.lvl = v;
     }
 
     public String getNome(){

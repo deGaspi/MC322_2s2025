@@ -30,7 +30,7 @@ public class GerenciadorDePersistencia {
     public void salvarJogo(String nomeArquivo, int faseAtual, Dificuldade dif, Heroi heroi, boolean derrotouOsDois) {
         try {
             // Criar estrutura de salvamento
-            PhaseProperties phaseProps = new PhaseProperties(faseAtual, dif);
+            PhaseProperties phaseProps = new PhaseProperties(faseAtual, dif, derrotouOsDois);
             HeroSave heroSave = new HeroSave(heroi);
             SaveGame saveGame = new SaveGame(phaseProps, heroSave);
 
@@ -71,6 +71,36 @@ public class GerenciadorDePersistencia {
             
             // Recriar herói baseado na classe salva
             this.h = heroSave.getHClass().getDefaultInstance();
+            this.h.setArma(heroSave.getHWeapon());
+            this.h.setPontosDeVida(heroSave.getHLP());
+            this.h.setForca(heroSave.getHStrength());
+            this.h.setNivel(heroSave.getHLevel());
+            this.h.setXp(heroSave.getHXp());
+
+            if(phaseProps.isDefeatedBoth()){
+                this.faseInicial++;
+            }
+
+            //Recria a lista de Fases
+            ConstrutorDeCenárioFixo construtor = new ConstrutorDeCenárioFixo(dif);
+            int temp = this.faseInicial;
+
+            
+            if(temp == 1){
+                this.listaDeFases.add(construtor.gerarFase(TipoCenario.ENTRADA, 1));
+                temp++;
+            }
+            if(temp == 2){
+                this.listaDeFases.add(construtor.gerarFase(TipoCenario.CAVERNA, 2));
+                temp++;
+            }
+            if(temp == 3){
+                this.listaDeFases.add(construtor.gerarFase(TipoCenario.CAVERNA,3));
+                temp++;
+            }
+            if(temp == 4){
+                this.listaDeFases.add(construtor.gerarFase(TipoCenario.CHEFE, 4));
+            }
 
         } catch (JAXBException e) {
             throw new Exception("Erro ao carregar o jogo: " + e.getMessage());

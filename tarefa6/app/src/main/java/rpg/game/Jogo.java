@@ -49,7 +49,7 @@ public class Jogo {
 
         final Dificuldade dif = escolherDificuldade();
         
-        final ConstrutorDeCenárioFixo construtor = new ConstrutorDeCenárioFixo();
+        final ConstrutorDeCenárioFixo construtor = new ConstrutorDeCenárioFixo(dif);
         final ArrayList<FaseDeCombate> fases = construtor.gerar(N_DE_FASES, dif); // 4 fases
 
         // Historia inicial.

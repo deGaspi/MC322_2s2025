@@ -95,4 +95,7 @@ public abstract class Heroi extends Personagem {
     public int getXp(){
         return this.xp;
     }
+    public void setXp(int v){
+        this.xp = v;
+    }
 }
