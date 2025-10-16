@@ -2,10 +2,10 @@ package rpg.interfaces;
 
 import rpg.cenarios.TipoCenario;
 import rpg.heroi.Heroi;
-import rpg.util.Desistencia;
+import rpg.util.paradaJogador;
 
 public interface Fase {
-    public boolean iniciar(Heroi heroi) throws Desistencia;
+    public boolean iniciar(Heroi heroi) throws paradaJogador;
     public boolean isConcluida();
     public TipoCenario getTipoCenario();
     public int getMonsterLife();

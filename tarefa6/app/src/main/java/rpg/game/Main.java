@@ -5,6 +5,8 @@ package rpg.game;
 import rpg.heroi.HeroEnum;
 import rpg.monstro.MonstroEnum;
 import rpg.util.InputManager;
+import rpg.cenarios.GerenciadorDePersistencia;
+
 import java.util.Scanner;
 
 
@@ -19,9 +21,10 @@ public class Main {
                 NÃO DEIXE O SAMBA MORRER - RPG
                 ==================================================
                 [1] Iniciar Novo Jogo
-                [2] Ver Informações das Classes de Heróis
-                [3] Ver Informações das Classes de Monstros
-                [4] Sair do Jogo
+                [2] Carregar Jogo
+                [3] Ver Informações das Classes de Heróis
+                [4] Ver Informações das Classes de Monstros
+                [5] Sair do Jogo
                 ==================================================
                 Digite sua opção >
                 """;
@@ -30,18 +33,23 @@ public class Main {
         boolean loop = true;
         var input = new InputManager(new Scanner(System.in));
         while(loop){
-            switch (input.lerInteiro(menu, 1, 4)) {
+            switch (input.lerInteiro(menu, 1, 5)) {
                 case 1:
-                    Jogo.main();                
+                    Jogo.novoJogo();                
                     loop = false;
                     break;
                 case 2:
-                    heroInfo();
+                    GerenciadorDePersistencia persistir = new GerenciadorDePersistencia();
+                    Jogo.jogoCarregado(persistir.carregarJogo(input.lerString("Qual jogo deve ser carregado?")));
+                    loop = false;
                     break;
                 case 3:
-                    monsterInfo();
+                    heroInfo();
                     break;
                 case 4:
+                    monsterInfo();
+                    break;
+                case 5:
                     System.out.println("Tchau");
                     loop = false;
                     break;

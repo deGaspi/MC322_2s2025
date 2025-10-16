@@ -6,8 +6,9 @@ import rpg.cenarios.ConstrutorDeCenárioFixo;
 import rpg.cenarios.Dificuldade;
 import rpg.heroi.HeroEnum;
 import rpg.interfaces.Fase;
-import rpg.util.Desistencia;
+import rpg.util.paradaJogador;
 import rpg.util.InputManager;
+import rpg.cenarios.GerenciadorDePersistencia;
 
 import java.util.ArrayList;
 
@@ -17,10 +18,9 @@ import java.util.ArrayList;
  * dentro de um try catch para capturar a exceção de desistência
  */
 public class Jogo {
-    public static void main() {
-        //Escolha de Dificuldade
-        final Dificuldade dificuldade;
-        System.out.println();
+
+    public static Dificuldade escolherDificuldade(){
+         System.out.println();
         final String escDificuldade = """
                 Escolha a dificuldade
                 ==================================================
@@ -33,24 +33,24 @@ public class Jogo {
         var input = new InputManager(new Scanner(System.in));
         switch (input.lerInteiro(escDificuldade, 1, 3)) {
                 case 1:
-                    dificuldade = Dificuldade.FACIL;
-                    break;
+                    return Dificuldade.FACIL;
                 case 2:
-                    dificuldade = Dificuldade.MEDIO;
-                    break;
+                    return Dificuldade.MEDIO;
                 case 3:
-                    dificuldade = Dificuldade.DIFICIL;
-                    break;
+                    return Dificuldade.DIFICIL;
                 default:
                     throw new AssertionError("Input inesperado.");
-            };
+            }
 
-
-
+    }
+    public static void novoJogo() {
+       
         final int N_DE_FASES = 4;
+
+        final Dificuldade dif = escolherDificuldade();
         
         final ConstrutorDeCenárioFixo construtor = new ConstrutorDeCenárioFixo();
-        final ArrayList<Fase> fases = construtor.gerar(N_DE_FASES, dificuldade); // 4 fases
+        final ArrayList<Fase> fases = construtor.gerar(N_DE_FASES, dif); // 4 fases
 
         // Historia inicial.
         System.out.println(
@@ -72,16 +72,21 @@ public class Jogo {
                 "Você encontra a caverna do acúmulo, onde o terrível imperialista reside, você hesita, mas a alegria \nde seu povo depende de você, derrote os lacaios pra alcançar o imperialista e por um fim à sua \nganância.\n");
 
         // Loop de fases
-        for (int i = 0; i < N_DE_FASES; i++) {
+        for (int i = 1; i <= N_DE_FASES; i++) {
             var fase = fases.removeFirst();
-            System.out.println("\n############################# Fase " + (i + 1) + "/" + N_DE_FASES // Divisor de fases
+            System.out.println("\n############################# Fase " + i + "/" + N_DE_FASES // Divisor de fases
                     + " #############################\n");
             System.out.println(fase.getTipoCenario().getDescription());
             boolean resultado;
+
             try {
                 resultado = fase.iniciar(heroi); // Aqui acontece a chamada da fase criada
-            } catch (Desistencia e) {
+            } catch (paradaJogador e) {
                 System.out.println(e.getMessage());
+                if(e.toSave()){
+                    GerenciadorDePersistencia persistir = new GerenciadorDePersistencia();
+                    persistir.salvarJogo("save", i, dif, heroi);
+                }
                 return;
             }
 
@@ -94,5 +99,9 @@ public class Jogo {
             }
         }
         System.out.println("\nVocê eternizou o samba nos corações dos brasileiros.\n O SAMBA VENCEU!!!!");
+    }
+
+    public static void jogoCarregado(ArrayList<Fase> listaDeFases){
+
     }
 }

@@ -10,10 +10,9 @@ import rpg.interfaces.Evento;
 import rpg.interfaces.Fase;
 import rpg.interfaces.Lootavel;
 import rpg.monstro.Monstro;
-import rpg.util.Desistencia;
+import rpg.util.paradaJogador;
 import rpg.util.EquiparSemNivel;
 import rpg.util.InputManager;
-
 /**
  * É responsavel por administrar a progressão de fase.
  * Recebe o tipo de fase no construtor que dita o andamento
@@ -62,7 +61,7 @@ public class FaseDeCombate implements Fase {
      * chama PostKillInteract
      */
     @Override
-    public boolean iniciar(Heroi heroi) throws Desistencia {
+    public boolean iniciar(Heroi heroi) throws paradaJogador {
         boolean ganhouFase = true;
         for (Monstro monstro : monstros) {
             int turno = 1;
@@ -122,13 +121,14 @@ public class FaseDeCombate implements Fase {
      * @param heroi
      * @throws Desistencia
      */
-    private static void postKillInteract(Monstro inimigoMorto, Heroi heroi) throws Desistencia {
+    private static void postKillInteract(Monstro inimigoMorto, Heroi heroi) throws paradaJogador {
         final String menu = """
                 ==================================================
                 [1] Vasculhar inimigo.
                 [2] Informações do herói.
                 [3] Continuar
-                [4] Desistir do jogo
+                [4] Salvar Jogo
+                [5] Desistir do jogo
                 ==================================================
                 Digite sua opção >
                 """;
@@ -136,7 +136,7 @@ public class FaseDeCombate implements Fase {
         boolean loop = true;
         while(loop){
             var input = new InputManager(new Scanner(System.in));
-            switch (input.lerInteiro(menu, 1, 4)) {
+            switch (input.lerInteiro(menu, 1, 5)) {
                 case 1:
                     if (inimigoMorto instanceof Lootavel lootavel) {
                         var loot = lootavel.droparLoot();
@@ -156,7 +156,9 @@ public class FaseDeCombate implements Fase {
                     loop = false;
                     break;
                 case 4:
-                    throw new Desistencia("Desistiu");
+                    throw new paradaJogador("Salvando Jogo", true);
+                case 5:
+                    throw new paradaJogador("Desistiu", false);
                 default:
                     throw new AssertionError("Input inexperado.");
             }

@@ -1,0 +1,11 @@
+<!--DTD for saving the game-->
+<!ELEMENT phaseProperties (phase, dificulty)>
+<!ELEMENT phase (#PCDATA)>
+<!ELEMENT dificulty (#PCDATA)>
+
+<!ELEMENT hero (hLP, hStrength, hLevel, hXp, hWeapon, hClass)>
+<!ELEMENT hLP (#PCDATA)>
+<!ELEMENT hStrength (#PCDATA)>
+<!ELEMENT hLevel (#PCDATA)>
+<!ELEMENT hWeapon (#PCDATA)>
+<!ELEMENT hClass (#PCDATA)>
