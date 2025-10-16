@@ -48,12 +48,12 @@ public class Main {
                     try{
                         persistir.carregarJogo(input.lerString("Qual jogo deve ser carregado?"));
                         Jogo.jogoCarregado(persistir.getListaDeFases(), persistir.getFaseInicial(), persistir.getHeroi(), persistir.getDificuldade());
+                        loop = false;
+                        break;
                     }catch(Exception e){
                         System.out.println(e.getMessage());
                         break;
                     }
-                    loop = false;
-                    break;
                 case 3:
                     heroInfo();
                     break;

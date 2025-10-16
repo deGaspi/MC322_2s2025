@@ -2,15 +2,15 @@
 <saveGame>
     <phaseProperties>
         <phase>1</phase>
-        <dificulty>FACIL</dificulty>
+        <dificulty>MEDIO</dificulty>
         <defeatedBoth>true</defeatedBoth>
     </phaseProperties>
     <hero>
-        <hLP>48</hLP>
+        <hLP>58</hLP>
         <hStrength>12</hStrength>
-        <hLevel>2</hLevel>
-        <hXp>5</hXp>
-        <hWeapon/>
+        <hLevel>6</hLevel>
+        <hXp>18</hXp>
+        <hWeapon>Desarmado</hWeapon>
         <hClass>PUXADOR</hClass>
     </hero>
 </saveGame>

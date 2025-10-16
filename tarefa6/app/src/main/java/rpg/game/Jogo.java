@@ -110,6 +110,9 @@ public class Jogo {
 
     
     public static void jogoCarregado(ArrayList<FaseDeCombate> fases, int faseAtual, Heroi heroi, Dificuldade dif){
+        System.err.println();
+        heroi.exibirStatus();
+        System.err.println();
 
         // Explicar habilidade do heroi escolhido.
         System.out.println("Informações do herói: ");

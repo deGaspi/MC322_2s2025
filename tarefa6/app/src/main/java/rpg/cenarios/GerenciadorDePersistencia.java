@@ -11,6 +11,7 @@ import java.io.File;
 
 import rpg.heroi.Heroi;
 import rpg.util.*;
+import rpg.armas.*;
 
 
 /**
@@ -26,6 +27,11 @@ public class GerenciadorDePersistencia {
     private int faseInicial;
     private ArrayList<FaseDeCombate> listaDeFases;
     private Dificuldade dif;
+
+    public GerenciadorDePersistencia(){
+        listaDeFases = new ArrayList<FaseDeCombate>();
+    }
+
 
     public void salvarJogo(String nomeArquivo, int faseAtual, Dificuldade dif, Heroi heroi, boolean derrotouOsDois) {
         try {
@@ -71,11 +77,29 @@ public class GerenciadorDePersistencia {
             
             // Recriar herói baseado na classe salva
             this.h = heroSave.getHClass().getDefaultInstance();
-            this.h.setArma(heroSave.getHWeapon());
             this.h.setPontosDeVida(heroSave.getHLP());
             this.h.setForca(heroSave.getHStrength());
             this.h.setNivel(heroSave.getHLevel());
             this.h.setXp(heroSave.getHXp());
+
+            //Lógica para equipar a arma a partir do nome
+            //Poderia ser feito num Enum, mas o Hilder e a Ketty não deixaram
+            switch(heroSave.getHWeapon()){
+                case "Chinelo":
+                    h.setArma(new Chinelo(this.dif));
+                    break;
+                case "Lança de Porta Bandeira":
+                    h.setArma(new Lança(this.dif));
+                    break;
+                case "Repique-mor":
+                    h.setArma(new Repique(this.dif));
+                    break;
+                case "Desarmado":
+                    h.setArma(new SemArma());
+                    break;
+                default:
+                    throw new Exception("Deu ruim no carregamento da arma");
+            }
 
             if(phaseProps.isDefeatedBoth()){
                 this.faseInicial++;
@@ -83,22 +107,22 @@ public class GerenciadorDePersistencia {
 
             //Recria a lista de Fases
             ConstrutorDeCenárioFixo construtor = new ConstrutorDeCenárioFixo(dif);
-            int temp = this.faseInicial;
+            int nivel = this.faseInicial;
 
             
-            if(temp == 1){
+            if(nivel == 1){
                 this.listaDeFases.add(construtor.gerarFase(TipoCenario.ENTRADA, 1));
-                temp++;
+                nivel++;
             }
-            if(temp == 2){
+            if(nivel == 2){
                 this.listaDeFases.add(construtor.gerarFase(TipoCenario.CAVERNA, 2));
-                temp++;
+                nivel++;
             }
-            if(temp == 3){
+            if(nivel == 3){
                 this.listaDeFases.add(construtor.gerarFase(TipoCenario.CAVERNA,3));
-                temp++;
+                nivel++;
             }
-            if(temp == 4){
+            if(nivel == 4){
                 this.listaDeFases.add(construtor.gerarFase(TipoCenario.CHEFE, 4));
             }
 
@@ -106,8 +130,7 @@ public class GerenciadorDePersistencia {
             throw new Exception("Erro ao carregar o jogo: " + e.getMessage());
         }
     }
-
-    // Resto dos métodos getters permanecem iguais
+    
     public int getFaseInicial() { return faseInicial; }
     public ArrayList<FaseDeCombate> getListaDeFases() { return listaDeFases; }
     public Heroi getHeroi() { return h; }
