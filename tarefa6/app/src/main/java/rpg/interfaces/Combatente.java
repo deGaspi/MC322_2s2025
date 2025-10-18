@@ -13,4 +13,5 @@ public interface Combatente {
     public Arma getArma();
     public int getNivel();
     public void darDano(Combatente alvo, int dano);
+    public void usarHabilidadeEspecial(Combatente alvo);
 }
