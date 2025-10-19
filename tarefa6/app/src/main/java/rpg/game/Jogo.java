@@ -11,7 +11,9 @@ import rpg.util.InputManager;
 import rpg.cenarios.GerenciadorDePersistencia;
 import rpg.heroi.Heroi;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Jogo em si, escolhe-se a dificuldade, o herói é escolhido
@@ -20,6 +22,7 @@ import java.util.ArrayList;
  * ou salvamento
  */
 public class Jogo {
+    static InputManager input = new InputManager(new Scanner(System.in));
     private final static int N_DE_FASES = 4;
 
     public static Dificuldade escolherDificuldade(){
@@ -33,7 +36,6 @@ public class Jogo {
                 ==================================================
                 Digite sua opção >
                 """;
-        var input = new InputManager(new Scanner(System.in));
         switch (input.lerInteiro(escDificuldade, 1, 3)) {
                 case 1:
                     return Dificuldade.FACIL;
@@ -46,8 +48,9 @@ public class Jogo {
             }
 
     }
-    public static void novoJogo() {
 
+    public static void novoJogo() {
+        final String saveName = escolherSaveName();
         final Dificuldade dif = escolherDificuldade();
         
         final ConstrutorDeCenárioFixo construtor = new ConstrutorDeCenárioFixo(dif);
@@ -71,35 +74,8 @@ public class Jogo {
         // Introdução do objetivo do jogo.
         System.out.println(
                 "Você encontra a caverna do acúmulo, onde o terrível imperialista reside, você hesita, mas a alegria \nde seu povo depende de você, derrote os lacaios pra alcançar o imperialista e por um fim à sua \nganância.\n");
-
-        // Loop de fases
-        for (int i = 1; i <= N_DE_FASES; i++) {
-            FaseDeCombate fase = fases.removeFirst();
-            System.out.println("\n############################# Fase " + i + "/" + N_DE_FASES // Divisor de fases
-                    + " #############################\n");
-            System.out.println(fase.getTipoCenario().getDescription());
-            boolean resultado;
-
-            try {
-                resultado = fase.iniciar(heroi); // Aqui acontece a chamada da fase criada
-            } catch (paradaJogador e) {
-                System.out.println(e.getMessage());
-                if(e.toSave()){
-                    GerenciadorDePersistencia persistir = new GerenciadorDePersistencia();
-                    persistir.salvarJogo("save", i, dif, heroi, fase.derrotouOsDois());
-                }
-                return;
-            }
-
-            //Resultado
-            System.out.println("-------------------------------------------------\n"); 
-            if (!resultado) {
-                System.out.println("O imperialismo conseguiu privatizar o carnaval.");
-                System.out.println("O   S A M B A   M O R R E U");
-                return;
-            }
-        }
-        System.out.println("\nVocê eternizou o samba nos corações dos brasileiros.\n O SAMBA VENCEU!!!!");
+        
+        jogoCarregado(saveName, fases, 0, N_DE_FASES, heroi, dif);
     }
 
 
@@ -109,20 +85,24 @@ public class Jogo {
 
 
     
-    public static void jogoCarregado(ArrayList<FaseDeCombate> fases, int faseAtual, Heroi heroi, Dificuldade dif){
-        System.err.println();
-        heroi.exibirStatus();
-        System.err.println();
+    private static String escolherSaveName() {
+        var input = new InputManager(new Scanner(System.in));
+        while (true) {
+            var saveName = input.lerString("Escolha um nome para o save > ");
+            var file = new File("savedGames/"+saveName+".xml");
+            if (!file.exists()) {
+                return saveName;
+            }
+            System.out.println("Já existe um save com esse nome.");
+        }
+    }
 
-        // Explicar habilidade do heroi escolhido.
-        System.out.println("Informações do herói: ");
-        heroi.exibirStatus();
-        System.out.println();
+    public static void jogoCarregado(String saveName, List<FaseDeCombate> fases, int faseAtual, int nDeFases, Heroi heroi, Dificuldade dif){
 
         // Loop de fases
-        for (int i = faseAtual; i <= N_DE_FASES; i++) {
-            FaseDeCombate fase = fases.removeFirst();
-            System.out.println("\n############################# Fase " + i + "/" + N_DE_FASES // Divisor de fases
+        for (int i = faseAtual; i <= nDeFases; i++) {
+            FaseDeCombate fase = fases.get(i);
+            System.out.println("\n############################# Fase " + i + "/" + nDeFases // Divisor de fases
                     + " #############################\n");
             System.out.println(fase.getTipoCenario().getDescription());
             boolean resultado;
@@ -133,7 +113,7 @@ public class Jogo {
                 System.out.println(e.getMessage());
                 if(e.toSave()){
                     GerenciadorDePersistencia persistir = new GerenciadorDePersistencia();
-                    persistir.salvarJogo("save", i, dif, heroi, fase.derrotouOsDois());
+                    persistir.salvarJogo(N_DE_FASES, saveName, i, dif, heroi, fase.derrotouOsDois());
                     
                 }
                 return;

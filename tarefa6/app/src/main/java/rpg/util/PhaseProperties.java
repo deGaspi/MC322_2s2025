@@ -8,6 +8,9 @@ import rpg.cenarios.Dificuldade;
 public class PhaseProperties {
     @XmlElement(name = "phase")
     private int phase;
+
+    @XmlElement(name = "nOfPhases")
+    private int nOfPhases;
     
     @XmlElement(name = "dificulty")
     private String dificulty;
@@ -18,7 +21,8 @@ public class PhaseProperties {
     // Construtores, getters e setters
     public PhaseProperties() {}
 
-    public PhaseProperties(int phase, Dificuldade dificulty, boolean defeatedBoth) {
+    public PhaseProperties(int nOfPhases, int phase, Dificuldade dificulty, boolean defeatedBoth) {
+        this.nOfPhases = nOfPhases;
         this.phase = phase;
         this.dificulty = dificulty.name();
         this.defeatedBoth = defeatedBoth;
@@ -26,6 +30,9 @@ public class PhaseProperties {
 
     public int getPhase() { return phase; }
     public void setPhase(int phase) { this.phase = phase; }
+
+    public int getNOfPhases() { return nOfPhases; }
+    public void setNOfPhases(int nOfPhases) { this.nOfPhases = nOfPhases; }
     
     public String getDificulty() { return dificulty; }
     public void setDificulty(String dificulty) { this.dificulty = dificulty; }

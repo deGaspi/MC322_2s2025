@@ -7,6 +7,7 @@ import rpg.monstro.MonstroEnum;
 import rpg.util.InputManager;
 import rpg.cenarios.GerenciadorDePersistencia;
 
+import java.io.File;
 import java.util.Scanner;
 
 
@@ -44,16 +45,12 @@ public class Main {
                     loop = false;
                     break;
                 case 2:
-                    GerenciadorDePersistencia persistir = new GerenciadorDePersistencia();
-                    try{
-                        persistir.carregarJogo(input.lerString("Qual jogo deve ser carregado?"));
-                        Jogo.jogoCarregado(persistir.getListaDeFases(), persistir.getFaseInicial(), persistir.getHeroi(), persistir.getDificuldade());
-                        loop = false;
-                        break;
-                    }catch(Exception e){
-                        System.out.println(e.getMessage());
-                        break;
+                    try {
+                        loop = loadSaves(input);
+                    } catch (Exception e) {
+                        System.out.println("Erro ao carregar save: " + e);
                     }
+                    break;
                 case 3:
                     heroInfo();
                     break;
@@ -84,5 +81,35 @@ public class Main {
             System.out.println(monster.getTypeName());
             System.out.println(monster.getDescripton() + "\n");
         }
+    }
+
+    public static boolean loadSaves(InputManager input) throws Exception {
+        File directory = new File("savedGames");
+
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+
+        File[] files = directory.listFiles();
+        if (files.length <1) {
+            System.out.println("Não há saves.");
+            return true;
+        }
+
+        String menu = "Escolha um save:\n";
+        for (int i = 1; i <= files.length; i++) {
+            String filename = files[i-1].getName();
+            menu += "["+i+"] " + filename.substring(0, filename.length()-4) + "\n";
+        }
+        menu += "Digite sua opção > ";
+
+        int i = input.lerInteiro(menu.toString(), 1, files.length);
+        String filename = files[i-1].getName();
+        filename = filename.substring(0, filename.length()-4);
+
+        GerenciadorDePersistencia persistir = new GerenciadorDePersistencia();
+        persistir.carregarJogo(files[i-1]);
+        Jogo.jogoCarregado(filename, persistir.getListaDeFases(), persistir.getFaseInicial(), persistir.getNDeFases(), persistir.getHeroi(), persistir.getDificuldade());
+        return false;
     }
 }
