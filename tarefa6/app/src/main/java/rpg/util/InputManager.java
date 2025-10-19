@@ -29,6 +29,10 @@ public final class InputManager {
         return valor;
     }
 
+    public static int lerInteiro(int min, int max) {
+        return lerInteiro("Digite um número entre " + min + " e " + max + " > ", min, max);
+    }
+
     public static String lerString(String mensagem) {
         System.out.print(mensagem);
         return scanner.nextLine();
@@ -52,6 +56,10 @@ public final class InputManager {
     public static void esperarEnter(String mensagem) {
         System.out.print(mensagem);
         scanner.nextLine();
+    }
+
+    public static void esperarEnter() {
+        esperarEnter("Pressione enter para continuar > ");
     }
 
     public static void fecharScanner() {

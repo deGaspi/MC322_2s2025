@@ -89,7 +89,6 @@ public abstract class Heroi extends Personagem {
             throw new EquiparSemNivel(this.getNome() + " não tem experiência suficiente para lidar com " + arma.getNome());
         }else{ 
             super.setArma(arma);
-            System.out.println(this.getNome() + " equipou " + arma.getNome());
         }
     }
 
