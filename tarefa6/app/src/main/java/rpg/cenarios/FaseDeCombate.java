@@ -32,6 +32,7 @@ public class FaseDeCombate implements Fase {
         tipo = T;
     }
 
+    @Override
     public TipoCenario getTipoCenario() {
         return tipo;
     }
@@ -54,9 +55,47 @@ public class FaseDeCombate implements Fase {
         return faseConcluida;
     }
 
-    public List<Monstro> getMonsterList(){
-        return monstros;
+    @Override
+    public String getState() {
+        int mostrosDerrotados = 0;
+        for (var monstro: monstros) {
+            if (monstro.getPontosDeVida() > 0) {
+                break;
+            }
+            mostrosDerrotados++;
+        }
+        return ""+mostrosDerrotados;
     }
+
+    @Override
+    public void setState(String state) {
+        int i;
+        try {
+            i = Integer.parseInt(state);
+        } catch (Exception e) {
+            throw new IllegalArgumentException(e.toString());
+        }
+        if (i > monstros.size()) {
+            throw new AssertionError();
+        }
+        if (i == monstros.size()) {
+            faseConcluida = true;
+        }
+        while (i > 0) {
+            monstros.get(--i).setPontosDeVida(0);
+        }
+    }
+
+    public void matarMonstros(int n) {
+        if (n > monstros.size()) {
+            throw new IllegalArgumentException();
+        }
+
+        for (int i = 0; i < n; i++) {
+            monstros.get(i).setPontosDeVida(0);
+        }
+
+    } 
 
     /**
      * Inicia a fase, mostra algumas informações e começa o laço que alterna
@@ -68,6 +107,10 @@ public class FaseDeCombate implements Fase {
     public boolean iniciar(Heroi heroi) throws paradaJogador {
         boolean ganhouFase = true;
         for (Monstro monstro : monstros) {
+            if (monstro.getPontosDeVida() == 0) {
+                continue;
+            }
+            
             int turno = 1;
             System.out.println("\n" + monstro.getNome() + " se aproxima com uma " + monstro.getArma().getNome()
                     + " para defender os interesses extrangeiros.");
@@ -114,7 +157,7 @@ public class FaseDeCombate implements Fase {
                 break;
             postKillInteract(monstro, heroi);
         }
-        faseConcluida = true;
+        faseConcluida  = true;
         return ganhouFase;
     }
     /**
@@ -169,26 +212,5 @@ public class FaseDeCombate implements Fase {
         }
         
 
-    }
-
-    public ArrayList<Integer> getMonsterLife(){
-        ArrayList<Integer> list = new ArrayList<Integer>();
-        for(Monstro m : monstros){
-            list.add(m.getPontosDeVida());
-        }
-        return list;
-    }
-
-    public boolean derrotouOsDois(){
-        if(tipo != TipoCenario.CHEFE){
-            int soma = monstros.get(0).getPontosDeVida() + monstros.get(1).getPontosDeVida();
-            if(soma == 0){
-                return true;
-            }else{
-                return false;
-            }
-        }else{
-            return false;
-        }
     }
 }

@@ -27,6 +27,7 @@ public class GerenciadorDePersistencia {
     private Heroi h;
     private int nOfFases;
     private int faseInicial;
+    private String faseState;
     private List<FaseDeCombate> listaDeFases;
     private Dificuldade dif;
 
@@ -34,10 +35,10 @@ public class GerenciadorDePersistencia {
     }
 
 
-    public void salvarJogo(int nDeFases, String nomeArquivo, int faseAtual, Dificuldade dif, Heroi heroi, boolean derrotouOsDois) {
+    public void salvarJogo(int nDeFases, String nomeArquivo, int faseAtual, Dificuldade dif, Heroi heroi, String faseState) {
         try {
             // Criar estrutura de salvamento
-            PhaseProperties phaseProps = new PhaseProperties(nDeFases, faseAtual, dif, derrotouOsDois);
+            GameProperties phaseProps = new GameProperties(nDeFases, faseAtual, dif, faseState);
             HeroSave heroSave = new HeroSave(heroi);
             SaveGame saveGame = new SaveGame(phaseProps, heroSave);
 
@@ -64,13 +65,14 @@ public class GerenciadorDePersistencia {
 
             // Carregar dados
             SaveGame saveGame = (SaveGame) unmarshaller.unmarshal(file);
-            PhaseProperties phaseProps = saveGame.getPhaseProperties();
+            GameProperties gameProps = saveGame.getGameProperties();
             HeroSave heroSave = saveGame.getHero();
 
             // Restaurar estado do jogo
-            this.nOfFases = phaseProps.getNOfPhases();
-            this.faseInicial = phaseProps.getPhase();
-            this.dif = Dificuldade.valueOf(phaseProps.getDificulty());
+            this.nOfFases = gameProps.getNOfPhases();
+            this.faseInicial = gameProps.getPhase();
+            this.dif = Dificuldade.valueOf(gameProps.getDificulty());
+            this.faseState = gameProps.getPhaseState();
             
             // Recriar herói baseado na classe salva
             this.h = heroSave.getHClass().getDefaultInstance();
@@ -98,13 +100,10 @@ public class GerenciadorDePersistencia {
                     throw new Exception("Deu ruim no carregamento da arma");
             }
 
-            if(phaseProps.isDefeatedBoth()){
-                this.faseInicial++;
-            }
-
             //Recria a lista de Fases
             ConstrutorDeCenárioFixo construtor = new ConstrutorDeCenárioFixo(dif);
             listaDeFases = construtor.gerar(nOfFases, dif);
+            listaDeFases.get(faseInicial).setState(faseState);
 
         } catch (JAXBException e) {
             throw new Exception("Erro ao carregar o jogo: " + e.getMessage());

@@ -78,13 +78,6 @@ public class Jogo {
         jogoCarregado(saveName, fases, 0, N_DE_FASES, heroi, dif);
     }
 
-
-
-
-
-
-
-    
     private static String escolherSaveName() {
         var input = new InputManager(new Scanner(System.in));
         while (true) {
@@ -98,7 +91,6 @@ public class Jogo {
     }
 
     public static void jogoCarregado(String saveName, List<FaseDeCombate> fases, int faseAtual, int nDeFases, Heroi heroi, Dificuldade dif){
-
         // Loop de fases
         for (int i = faseAtual; i <= nDeFases; i++) {
             FaseDeCombate fase = fases.get(i);
@@ -113,7 +105,7 @@ public class Jogo {
                 System.out.println(e.getMessage());
                 if(e.toSave()){
                     GerenciadorDePersistencia persistir = new GerenciadorDePersistencia();
-                    persistir.salvarJogo(N_DE_FASES, saveName, i, dif, heroi, fase.derrotouOsDois());
+                    persistir.salvarJogo(N_DE_FASES, saveName, i, dif, heroi, fase.getState());
                     
                 }
                 return;

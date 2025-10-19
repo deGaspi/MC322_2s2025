@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.*;
 import rpg.cenarios.Dificuldade;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class PhaseProperties {
+public class GameProperties {
     @XmlElement(name = "phase")
     private int phase;
 
@@ -15,17 +15,17 @@ public class PhaseProperties {
     @XmlElement(name = "dificulty")
     private String dificulty;
 
-    @XmlElement(name = "defeatedBoth")
-    private boolean defeatedBoth;
+    @XmlElement(name = "phaseState")
+    private String phaseState;
 
     // Construtores, getters e setters
-    public PhaseProperties() {}
+    public GameProperties() {}
 
-    public PhaseProperties(int nOfPhases, int phase, Dificuldade dificulty, boolean defeatedBoth) {
+    public GameProperties(int nOfPhases, int phase, Dificuldade dificulty, String phaseState) {
         this.nOfPhases = nOfPhases;
         this.phase = phase;
         this.dificulty = dificulty.name();
-        this.defeatedBoth = defeatedBoth;
+        this.phaseState = phaseState;
     }
 
     public int getPhase() { return phase; }
@@ -37,6 +37,6 @@ public class PhaseProperties {
     public String getDificulty() { return dificulty; }
     public void setDificulty(String dificulty) { this.dificulty = dificulty; }
 
-    public boolean isDefeatedBoth() { return defeatedBoth; }
-    public void setDefeatedBoth(boolean defeatedBoth) { this.defeatedBoth = defeatedBoth;}
+    public String getPhaseState() { return phaseState; }
+    public void setPhaseState(String phaseState) { this.phaseState = phaseState; }
 }
