@@ -16,15 +16,18 @@ import java.util.List;
 public abstract class Heroi extends Personagem {
     private int xp;
     private int expProxNivel = 15;
-    private List<AcaoDeCombate> actionList = new ArrayList<AcaoDeCombate>(); // TODO: esse atributo é desnecessário.
+    private static List<AcaoDeCombate> actionList = new ArrayList<AcaoDeCombate>(); // TODO: esse atributo é desnecessário.
     private int pontosEspecial;
+
+    static {
+        actionList.add(new Ataque());
+        actionList.add(new Especial());
+    }
 
     public Heroi(String name, int LP, int strength, int level, int xp) {
         super(name, LP, strength, new Random().nextFloat(), level);
         this.xp = xp;
         pontosEspecial = 0;
-        actionList.add(new Ataque());
-        actionList.add(new Especial());
     }
 
     public int getPontosEspecial() {
@@ -70,8 +73,6 @@ public abstract class Heroi extends Personagem {
 
     public abstract HeroEnum getHeroType();
 
-    public abstract int usarHabilidadeEspecial(Combatente alvo);
-
     @Override
     public void darDano(Combatente alvo, int dano) {
         super.darDano(alvo, dano);
@@ -88,7 +89,6 @@ public abstract class Heroi extends Personagem {
             throw new EquiparSemNivel(this.getNome() + " não tem experiência suficiente para lidar com " + arma.getNome());
         }else{ 
             super.setArma(arma);
-            System.out.println(this.getNome() + " equipou " + arma.getNome());
         }
     }
 

@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.*;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class SaveGame {
     @XmlElement(name = "phaseProperties")
-    private PhaseProperties phaseProperties;
+    private GameProperties gameProperties;
     
     @XmlElement(name = "hero")
     private HeroSave hero;
@@ -14,13 +14,13 @@ public class SaveGame {
     // Construtores, getters e setters
     public SaveGame() {}
 
-    public SaveGame(PhaseProperties phaseProperties, HeroSave hero) {
-        this.phaseProperties = phaseProperties;
+    public SaveGame(GameProperties gameProperties, HeroSave hero) {
+        this.gameProperties = gameProperties;
         this.hero = hero;
     }
 
-    public PhaseProperties getPhaseProperties() { return phaseProperties; }
-    public void setPhaseProperties(PhaseProperties phaseProperties) { this.phaseProperties = phaseProperties; }
+    public GameProperties getGameProperties() { return gameProperties; }
+    public void setGameProperties(GameProperties gameProperties) { this.gameProperties = gameProperties; }
     
     public HeroSave getHero() { return hero; }
     public void setHero(HeroSave hero) { this.hero = hero; }

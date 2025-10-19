@@ -13,16 +13,18 @@ import rpg.cenarios.Dificuldade;
 
 
 public abstract class Monstro extends Personagem implements Lootavel{
-    private List<AcaoDeCombate> acoes = new ArrayList<AcaoDeCombate>(); // TODO: essa variável é nonsense.
+    private static List<AcaoDeCombate> acoes = new ArrayList<AcaoDeCombate>();
+
+    static {
+        acoes.add(new Ataque());
+    }
 
     private int xpConcedido;
 
     public Monstro(String name, int LP, int strength, int xp, Arma arma, Dificuldade dif) {
         super(name, LP*dif.valor, strength*dif.valor, 0.5f, 0);
         this.xpConcedido = xp*dif.valor;        
-        acoes.add(new Ataque());// TODO: dar um jeito de trocar as probabilidades.
         super.setArma(arma);
-        
     }
 
     public int getXpConcedido() {

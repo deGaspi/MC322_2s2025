@@ -1,6 +1,5 @@
 package rpg.game;
 import java.util.Random;
-import java.util.Scanner;
 
 import rpg.cenarios.ConstrutorDeCenárioFixo;
 import rpg.cenarios.Dificuldade;
@@ -8,10 +7,13 @@ import rpg.cenarios.FaseDeCombate;
 import rpg.heroi.HeroEnum;
 import rpg.util.paradaJogador;
 import rpg.util.InputManager;
+import rpg.util.Util;
 import rpg.cenarios.GerenciadorDePersistencia;
 import rpg.heroi.Heroi;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Jogo em si, escolhe-se a dificuldade, o herói é escolhido
@@ -22,131 +24,87 @@ import java.util.ArrayList;
 public class Jogo {
     private final static int N_DE_FASES = 4;
 
-    public static Dificuldade escolherDificuldade(){
-         System.out.println();
-        final String escDificuldade = """
-                Escolha a dificuldade
-                ==================================================
-                [1] Fácil
-                [2] Médio
-                [3] Difícil
-                ==================================================
-                Digite sua opção >
-                """;
-        var input = new InputManager(new Scanner(System.in));
-        switch (input.lerInteiro(escDificuldade, 1, 3)) {
-                case 1:
-                    return Dificuldade.FACIL;
-                case 2:
-                    return Dificuldade.MEDIO;
-                case 3:
-                    return Dificuldade.DIFICIL;
-                default:
-                    throw new AssertionError("Input inesperado.");
-            }
-
-    }
     public static void novoJogo() {
-
+        final String saveName = escolherSaveName();
         final Dificuldade dif = escolherDificuldade();
         
         final ConstrutorDeCenárioFixo construtor = new ConstrutorDeCenárioFixo(dif);
-        final ArrayList<FaseDeCombate> fases = construtor.gerar(N_DE_FASES, dif); // 4 fases
+        final ArrayList<FaseDeCombate> fases = construtor.gerar(N_DE_FASES, dif);
 
-        // Historia inicial.
-        System.out.println(
-                "Você nasceu e cresceu no samba, mas agora estão querendo acabar com a cultura do seu povo. \nSó resta uma coisa a fazer: resistir e derrotar a força imperialista que quer privatizar o \ncarnaval.\n");
-
-        // Escolha do heroi.
         var random = new Random();
         var heroValues = HeroEnum.values();
         var heroiEscolhido = heroValues[random.nextInt(heroValues.length)];
         var heroi = heroiEscolhido.getDefaultInstance();
 
-        // Explicar habilidade do heroi escolhido.
-        System.out.println("Informações do herói: ");
-        heroiEscolhido.getHabilityInfo();
-        System.out.println();
+        // Formatação e prints de informações para o jogador.
+        Util.printBoxed("Você nasceu e cresceu no samba, mas agora estão querendo acabar com a cultura do seu povo. Só resta uma coisa a fazer: resistir e derrotar a força imperialista que quer privatizar o carnaval.");
+        InputManager.esperarEnter();
+        Util.printBoxed("Informações do herói:\n\n" + heroiEscolhido.getHabilityInfo());
+        InputManager.esperarEnter();
+        Util.printBoxed("Você encontra a caverna do acúmulo, onde o terrível imperialista reside, você hesita, mas a alegria de seu povo depende de você, derrote os lacaios pra alcançar o imperialista e por um fim à sua ganância.");
+        InputManager.esperarEnter();
 
-        // Introdução do objetivo do jogo.
-        System.out.println(
-                "Você encontra a caverna do acúmulo, onde o terrível imperialista reside, você hesita, mas a alegria \nde seu povo depende de você, derrote os lacaios pra alcançar o imperialista e por um fim à sua \nganância.\n");
-
-        // Loop de fases
-        for (int i = 1; i <= N_DE_FASES; i++) {
-            FaseDeCombate fase = fases.removeFirst();
-            System.out.println("\n############################# Fase " + i + "/" + N_DE_FASES // Divisor de fases
-                    + " #############################\n");
-            System.out.println(fase.getTipoCenario().getDescription());
-            boolean resultado;
-
-            try {
-                resultado = fase.iniciar(heroi); // Aqui acontece a chamada da fase criada
-            } catch (paradaJogador e) {
-                System.out.println(e.getMessage());
-                if(e.toSave()){
-                    GerenciadorDePersistencia persistir = new GerenciadorDePersistencia();
-                    persistir.salvarJogo("save", i, dif, heroi, fase.derrotouOsDois());
-                }
-                return;
-            }
-
-            //Resultado
-            System.out.println("-------------------------------------------------\n"); 
-            if (!resultado) {
-                System.out.println("O imperialismo conseguiu privatizar o carnaval.");
-                System.out.println("O   S A M B A   M O R R E U");
-                return;
-            }
-        }
-        System.out.println("\nVocê eternizou o samba nos corações dos brasileiros.\n O SAMBA VENCEU!!!!");
+        jogoCarregado(saveName, fases, 0, N_DE_FASES, heroi, dif);
     }
 
+    public static void jogoCarregado(String saveName, List<FaseDeCombate> fases, int faseAtual, int nDeFases, Heroi heroi, Dificuldade dif){
+        for (int i = faseAtual; i < nDeFases; i++) {
+            FaseDeCombate fase = fases.get(i);
 
+            // Formatação e print da apresentação da fase.
+            Util.printBoxed("Fase " + (i+1) + "/" + nDeFases+ "\n \n", fase.getTipoCenario().getDescription());
+            InputManager.esperarEnter();
 
-
-
-
-
-    
-    public static void jogoCarregado(ArrayList<FaseDeCombate> fases, int faseAtual, Heroi heroi, Dificuldade dif){
-        System.err.println();
-        heroi.exibirStatus();
-        System.err.println();
-
-        // Explicar habilidade do heroi escolhido.
-        System.out.println("Informações do herói: ");
-        heroi.exibirStatus();
-        System.out.println();
-
-        // Loop de fases
-        for (int i = faseAtual; i <= N_DE_FASES; i++) {
-            FaseDeCombate fase = fases.removeFirst();
-            System.out.println("\n############################# Fase " + i + "/" + N_DE_FASES // Divisor de fases
-                    + " #############################\n");
-            System.out.println(fase.getTipoCenario().getDescription());
+            // Execução da fase e salvamento.
             boolean resultado;
-
             try {
-                resultado = fase.iniciar(heroi); // Aqui acontece a chamada da fase criada
+                resultado = fase.iniciar(heroi);
             } catch (paradaJogador e) {
                 System.out.println(e.getMessage());
                 if(e.toSave()){
                     GerenciadorDePersistencia persistir = new GerenciadorDePersistencia();
-                    persistir.salvarJogo("save", i, dif, heroi, fase.derrotouOsDois());
-                    
+                    persistir.salvarJogo(N_DE_FASES, saveName, i, dif, heroi, fase.getState());  
                 }
                 return;
             }
 
             //Resultado
-            System.out.println("-------------------------------------------------\n"); 
             if (!resultado) {
-                System.out.println("O imperialismo conseguiu privatizar o carnaval.");
-                System.out.println("O   S A M B A   M O R R E U");
+                Util.printBoxedCentered("O imperialismo conseguiu privatizar o carnaval.\n \nO   S A M B A   M O R R E U   ! ! !");
                 return;
             }
         }
-        System.out.println("\nVocê eternizou o samba nos corações dos brasileiros.\n O SAMBA VENCEU!!!!");
+        Util.printBoxedCentered("Você eternizou o samba nos corações dos brasileiros.\n \nO SAMBA VENCEU !!!");
+    }
+
+    private static Dificuldade escolherDificuldade(){
+        Util.printBoxed("""
+            Escolha a dificuldade:
+
+            [1] Fácil
+            [2] Médio
+            [3] Difícil
+            """);
+        switch (InputManager.lerInteiro(1, 3)) {
+            case 1:
+                return Dificuldade.FACIL;
+            case 2:
+                return Dificuldade.MEDIO;
+            case 3:
+                return Dificuldade.DIFICIL;
+            default:
+                throw new AssertionError("Input inesperado");
+        }
+    }
+
+    private static String escolherSaveName() {
+        while (true) {
+            var saveName = InputManager.lerString("Escolha um nome para salvar o jogo > ");
+            var file = new File("savedGames/"+saveName+".xml");
+            if (!file.exists()) {
+                return saveName;
+            }
+            System.out.println("Erro: Já existe um jogo salvo com esse nome.");
+        }
     }
 }

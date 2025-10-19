@@ -19,4 +19,9 @@ public class FalsoPatriota extends Monstro {
         System.out.println("Falso Patriota atacou com música gringa");
         super.darDano(alvo, dano);
     }
+
+    @Override
+    public void usarHabilidadeEspecial(Combatente alvo) {
+    }
+
 }

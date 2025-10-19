@@ -15,11 +15,10 @@ public class Passista extends Heroi {
     }
 
     @Override
-    public int usarHabilidadeEspecial(Combatente alvo) {
+    public void usarHabilidadeEspecial(Combatente alvo) {
         if (alvo instanceof Monstro monstro) {
             if (super.getPontosEspecial() < 4) {
                 System.out.println("Requebrdo insuficiente. Precisa ser maior que 4.");
-                return 0;
             }
             setPontosEspecial(getPontosEspecial()-4);
 
@@ -28,12 +27,12 @@ public class Passista extends Heroi {
                     System.out.println("Explodiu o coração do falso patriota");
                     int dano = alvo.getPontosDeVida();
                     alvo.receberDano(dano);
-                    return dano;
+                    return;
                 case IMPERIALISTA:
                     alvo.receberDano(10);
-                    return 10;
+                    return;
                 default:
-                    return 0;
+                    return;
             }
             
         }

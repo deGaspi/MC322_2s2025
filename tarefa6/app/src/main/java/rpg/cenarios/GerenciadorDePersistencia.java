@@ -1,7 +1,8 @@
 
 package rpg.cenarios;
 
-import java.util.ArrayList;
+import java.util.List;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -24,19 +25,20 @@ import rpg.armas.*;
  */
 public class GerenciadorDePersistencia {
     private Heroi h;
+    private int nOfFases;
     private int faseInicial;
-    private ArrayList<FaseDeCombate> listaDeFases;
+    private String faseState;
+    private List<FaseDeCombate> listaDeFases;
     private Dificuldade dif;
 
     public GerenciadorDePersistencia(){
-        listaDeFases = new ArrayList<FaseDeCombate>();
     }
 
 
-    public void salvarJogo(String nomeArquivo, int faseAtual, Dificuldade dif, Heroi heroi, boolean derrotouOsDois) {
+    public void salvarJogo(int nDeFases, String nomeArquivo, int faseAtual, Dificuldade dif, Heroi heroi, String faseState) {
         try {
             // Criar estrutura de salvamento
-            PhaseProperties phaseProps = new PhaseProperties(faseAtual, dif, derrotouOsDois);
+            GameProperties phaseProps = new GameProperties(nDeFases, faseAtual, dif, faseState);
             HeroSave heroSave = new HeroSave(heroi);
             SaveGame saveGame = new SaveGame(phaseProps, heroSave);
 
@@ -46,34 +48,31 @@ public class GerenciadorDePersistencia {
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 
             // Salvar em arquivo
-            File file = new File("src/main/java/rpg/util/"+nomeArquivo + ".xml");
+            File file = new File("savedGames/"+ nomeArquivo + ".xml");
             marshaller.marshal(saveGame, file);
             System.out.println("Jogo salvo com sucesso em: " + file.getAbsolutePath());
 
         } catch (JAXBException e) {
-            System.err.println("Erro ao salvar o jogo: " + e.getMessage());
+            System.err.println("Erro ao salvar o jogo: " + e);
         }
     }
 
-    public void carregarJogo(String nomeArquivo) throws Exception {
+    public void carregarJogo(File file) throws Exception {
         try {
-            File file = new File("src/main/java/rpg/util/"+nomeArquivo + ".xml");
-            if (!file.exists()) {
-                throw new Exception("Arquivo de salvamento não encontrado: " + file.getAbsolutePath());
-            }
-
             // Configurar JAXB
             JAXBContext context = JAXBContext.newInstance(SaveGame.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
 
             // Carregar dados
             SaveGame saveGame = (SaveGame) unmarshaller.unmarshal(file);
-            PhaseProperties phaseProps = saveGame.getPhaseProperties();
+            GameProperties gameProps = saveGame.getGameProperties();
             HeroSave heroSave = saveGame.getHero();
 
             // Restaurar estado do jogo
-            this.faseInicial = phaseProps.getPhase();
-            this.dif = Dificuldade.valueOf(phaseProps.getDificulty());
+            this.nOfFases = gameProps.getNOfPhases();
+            this.faseInicial = gameProps.getPhase();
+            this.dif = Dificuldade.valueOf(gameProps.getDificulty());
+            this.faseState = gameProps.getPhaseState();
             
             // Recriar herói baseado na classe salva
             this.h = heroSave.getHClass().getDefaultInstance();
@@ -101,29 +100,12 @@ public class GerenciadorDePersistencia {
                     throw new Exception("Deu ruim no carregamento da arma");
             }
 
-            if(phaseProps.isDefeatedBoth()){
-                this.faseInicial++;
-            }
-
             //Recria a lista de Fases
             ConstrutorDeCenárioFixo construtor = new ConstrutorDeCenárioFixo(dif);
-            int nivel = this.faseInicial;
-
-            
-            if(nivel == 1){
-                this.listaDeFases.add(construtor.gerarFase(TipoCenario.ENTRADA, 1));
-                nivel++;
-            }
-            if(nivel == 2){
-                this.listaDeFases.add(construtor.gerarFase(TipoCenario.CAVERNA, 2));
-                nivel++;
-            }
-            if(nivel == 3){
-                this.listaDeFases.add(construtor.gerarFase(TipoCenario.CAVERNA,3));
-                nivel++;
-            }
-            if(nivel == 4){
-                this.listaDeFases.add(construtor.gerarFase(TipoCenario.CHEFE, 4));
+            listaDeFases = construtor.gerar(nOfFases, dif);
+            listaDeFases.get(faseInicial).setState(faseState);
+            if (listaDeFases.get(faseInicial).isConcluida()) {
+                faseInicial++;
             }
 
         } catch (JAXBException e) {
@@ -132,7 +114,8 @@ public class GerenciadorDePersistencia {
     }
     
     public int getFaseInicial() { return faseInicial; }
-    public ArrayList<FaseDeCombate> getListaDeFases() { return listaDeFases; }
+    public int getNDeFases() { return nOfFases; }
+    public List<FaseDeCombate> getListaDeFases() { return listaDeFases; }
     public Heroi getHeroi() { return h; }
     public Dificuldade getDificuldade() { return dif; }
 }

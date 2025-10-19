@@ -19,4 +19,8 @@ public class Imperialista extends Monstro{
         System.out.println("Imperialista avança o lobby para privatizar o carnaval");
         super.darDano(alvo, dano);
     }
+
+    @Override
+    public void usarHabilidadeEspecial(Combatente alvo) {
+    }
 }

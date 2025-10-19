@@ -61,7 +61,7 @@ public class EventoEntregar implements Evento{
             else
                 alvo = infoBatalha.monstro();
             System.out.println("\nEntreguista vai privatizar a vida de " + alvo.getNome() + "!!!");
-            imperialista.receberCura(alvo.receberDano(10)); // TODO: colocar aleatoriedade no dano e balanceá-lo.
+            imperialista.receberCura(alvo.receberDano(10));
             return;
         }
     }
