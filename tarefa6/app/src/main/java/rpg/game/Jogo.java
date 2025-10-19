@@ -1,6 +1,5 @@
 package rpg.game;
 import java.util.Random;
-import java.util.Scanner;
 
 import rpg.cenarios.ConstrutorDeCenárioFixo;
 import rpg.cenarios.Dificuldade;
@@ -22,7 +21,6 @@ import java.util.List;
  * ou salvamento
  */
 public class Jogo {
-    static InputManager input = new InputManager(new Scanner(System.in));
     private final static int N_DE_FASES = 4;
 
     public static Dificuldade escolherDificuldade(){
@@ -36,7 +34,7 @@ public class Jogo {
                 ==================================================
                 Digite sua opção >
                 """;
-        switch (input.lerInteiro(escDificuldade, 1, 3)) {
+        switch (InputManager.lerInteiro(escDificuldade, 1, 3)) {
                 case 1:
                     return Dificuldade.FACIL;
                 case 2:
@@ -79,9 +77,8 @@ public class Jogo {
     }
 
     private static String escolherSaveName() {
-        var input = new InputManager(new Scanner(System.in));
         while (true) {
-            var saveName = input.lerString("Escolha um nome para o save > ");
+            var saveName = InputManager.lerString("Escolha um nome para o save > ");
             var file = new File("savedGames/"+saveName+".xml");
             if (!file.exists()) {
                 return saveName;

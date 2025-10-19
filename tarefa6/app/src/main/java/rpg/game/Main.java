@@ -8,7 +8,6 @@ import rpg.util.InputManager;
 import rpg.cenarios.GerenciadorDePersistencia;
 
 import java.io.File;
-import java.util.Scanner;
 
 
 /**
@@ -37,16 +36,15 @@ public class Main {
 
         //Loop principal
         boolean loop = true;
-        var input = new InputManager(new Scanner(System.in));
         while(loop){
-            switch (input.lerInteiro(menu, 1, 5)) {
+            switch (InputManager.lerInteiro(menu, 1, 5)) {
                 case 1:
                     Jogo.novoJogo();                
                     loop = false;
                     break;
                 case 2:
                     try {
-                        loop = loadSaves(input);
+                        loop = loadSaves();
                     } catch (Exception e) {
                         System.out.println("Erro ao carregar save: " + e);
                     }
@@ -65,8 +63,7 @@ public class Main {
                     break;
             };
         }
-        input.fecharScanner();
-        
+        InputManager.fecharScanner();
     }
 
     private static void heroInfo() {
@@ -83,7 +80,7 @@ public class Main {
         }
     }
 
-    public static boolean loadSaves(InputManager input) throws Exception {
+    public static boolean loadSaves() throws Exception {
         File directory = new File("savedGames");
 
         if (!directory.exists()) {
@@ -103,7 +100,7 @@ public class Main {
         }
         menu += "Digite sua opção > ";
 
-        int i = input.lerInteiro(menu.toString(), 1, files.length);
+        int i = InputManager.lerInteiro(menu.toString(), 1, files.length);
         String filename = files[i-1].getName();
         filename = filename.substring(0, filename.length()-4);
 

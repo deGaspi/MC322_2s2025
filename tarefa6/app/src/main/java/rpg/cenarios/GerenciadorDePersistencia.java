@@ -104,6 +104,9 @@ public class GerenciadorDePersistencia {
             ConstrutorDeCenárioFixo construtor = new ConstrutorDeCenárioFixo(dif);
             listaDeFases = construtor.gerar(nOfFases, dif);
             listaDeFases.get(faseInicial).setState(faseState);
+            if (listaDeFases.get(faseInicial).isConcluida()) {
+                faseInicial++;
+            }
 
         } catch (JAXBException e) {
             throw new Exception("Erro ao carregar o jogo: " + e.getMessage());
